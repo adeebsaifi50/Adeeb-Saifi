@@ -1,0 +1,50 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+.hero {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: #1a1a1a;
+}
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ff0077;
+  margin-bottom: 1rem;
+}
+.tagline {
+  color: #ff77aa;
+  margin: 0.5rem 0 1rem;
+}
+.links a {
+  display: block;
+  margin: 0.2rem 0;
+  color: #ff77aa;
+  text-decoration: none;
+}
+.links a:hover {
+  text-decoration: underline;
+}
+.buttons button {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #ff0077;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+section {
+  padding: 2rem 1rem;
+}
+section h2 {
+  color: #ff77aa;
+}
