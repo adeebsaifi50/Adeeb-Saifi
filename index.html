@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adeeb Saifi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Adeeb Saifi</h1>
+        <img src="profile.jpg" alt="Profile Image" class="profile-pic">
+        <div class="socials">
+            <a href="https://www.instagram.com/adeeb_saifi_50" target="_blank">@adeeb_saifi_50</a><br>
+            <a href="https://www.instagram.com/_adeeb_saifi_50_" target="_blank">@_adeeb_saifi_50_</a><br>
+            <a href="https://www.instagram.com/_adeeb_saifi_50" target="_blank">@_adeeb_saifi_50</a><br>
+            <a href="https://snapchat.com/t/gz5prtdZ" target="_blank">Snapchat</a><br>
+            <a href="https://youtube.com/@adeebsaifi2?si=FmnzZzQV9yfoa9LF" target="_blank">YouTube</a>
+        </div>
+        <nav>
+            <button onclick="toggleSection('home')">Home</button>
+            <button onclick="toggleSection('reels')">Reels</button>
+            <button onclick="toggleSection('posts')">Posts</button>
+        </nav>
+    </header>
+    <section id="home" class="content-section">
+        <h2>About Me</h2>
+        <p>Hello! I’m Adeeb Saifi, passionate about creating reels and sharing my moments online.
+           You can find my work on Instagram, Snapchat, and YouTube. This website shows all my recent content!</p>
+    </section>
+    <section id="reels" class="content-section" style="display:none;">
+        <h2>Instagram Reels</h2>
+        <iframe src="https://www.instagram.com/reel/DDIcfVcTdbC/embed" frameborder="0"></iframe>
+        <!-- Add all other reels here in the same way -->
+    </section>
+    <section id="posts" class="content-section" style="display:none;">
+        <h2>My Posts</h2>
+        <div class="post-gallery">
+            <a href="https://www.instagram.com/p/DLIbkK7yWrl/" target="_blank"><img src="https://www.instagram.com/p/DLIbkK7yWrl/media/?size=l" alt="Post"></a>
+            <!-- Add remaining posts here -->
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
