@@ -1,101 +1,143 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #111;
-  color: #f5f5f5;
-  scroll-behavior: smooth;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #111;
+  color: #fff;
 }
-nav {
-  background: #222;
-  padding: 15px 30px;
+
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  background-color: #000;
+  padding: 15px 30px;
 }
-nav .logo {
+
+.nav-logo {
   font-size: 24px;
   font-weight: bold;
-  color: #00bcd4;
+  color: #00d5ff;
 }
-nav ul {
+
+.nav-links {
   list-style: none;
   display: flex;
-  gap: 25px;
+  gap: 20px;
 }
-nav ul li a {
-  color: white;
+
+.nav-links li a {
   text-decoration: none;
-  font-weight: 500;
+  color: #fff;
+  font-size: 16px;
+  transition: color 0.3s ease;
 }
-nav ul li a:hover {
-  color: #00bcd4;
+
+.nav-links li a:hover {
+  color: #00d5ff;
 }
+
 .hero {
-  background: linear-gradient(to right, #1a1a1a, #000000);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   padding: 60px 20px;
+  background: linear-gradient(to bottom right, #000000, #1a1a1a);
 }
-.hero .profile-pic {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid #00bcd4;
-}
+
 .hero h1 {
   font-size: 38px;
-  margin-top: 15px;
-  color: #00bcd4;
+  margin: 10px 0;
+  color: #00d5ff;
 }
-.social-links p {
-  margin: 8px 0;
-}
-.social-links a {
-  color: #fff;
-  text-decoration: none;
-}
-.social-links a:hover {
-  text-decoration: underline;
-  color: #00bcd4;
-}
-.travel {
-  padding: 50px 20px;
-  max-width: 1000px;
-  margin: auto;
-}
-.travel h2 {
-  font-size: 30px;
-  color: #00bcd4;
+
+.tagline {
+  font-size: 18px;
+  color: #bbb;
   margin-bottom: 20px;
 }
-.travel-block {
+
+.social-icons {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
 }
-.travel-block img {
-  width: 100%;
-  max-width: 400px;
-  border-radius: 10px;
+
+.social-icons a {
+  color: white;
+  font-size: 20px;
+  transition: transform 0.2s ease;
 }
-.travel-block div {
-  flex: 1;
+
+.social-icons a:hover {
+  color: #00d5ff;
+  transform: scale(1.2);
 }
-#gallery {
-  padding: 60px 20px;
-  background-color: #181818;
+
+.travel {
+  padding: 40px 20px;
+}
+
+.travel h2 {
+  font-size: 28px;
   text-align: center;
+  color: #00d5ff;
+  margin-bottom: 30px;
 }
-#gallery h2 {
-  font-size: 30px;
-  color: #00bcd4;
-  margin-bottom: 20px;
+
+.travel-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1a1a1a;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 213, 255, 0.2);
+  max-width: 700px;
+}
+
+.travel-card img {
+  width: 100%;
+  border-radius: 10px;
+  max-height: 250px;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.travel-text {
+  text-align: left;
+  color: #eee;
+}
+
+.travel-text h3 {
+  color: #00d5ff;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.travel-text p {
+  margin: 5px 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .travel-card {
+    margin: 20px 10px;
+    padding: 15px;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .travel h2 {
+    font-size: 24px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
