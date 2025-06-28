@@ -1,286 +1,101 @@
-/* style.css */
-
-/* General Body Styles (Poore page ki basic styling) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
-    font-family: 'Arial', sans-serif; /* Font style */
-    margin: 0; /* Page ke charon taraf extra space na ho */
-    padding: 0; /* Andar bhi padding na ho */
-    background-color: #1a1a1a; /* Dark theme ka background color */
-    color: #e0e0e0; /* Dark theme ke liye light text color */
-    line-height: 1.6; /* Line ke beech ki space */
-    scroll-behavior: smooth; /* Jab click karke neeche jao toh smoothly scroll ho */
-    overflow-x: hidden; /* Page mein left-right scroll na ho (kisi galti se) */
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #111;
+  color: #f5f5f5;
+  scroll-behavior: smooth;
 }
-
-.container {
-    max-width: 1200px; /* Content ki zyada se zyada चौड़ाई */
-    margin: 0 auto; /* Content beech mein rahe */
-    padding: 0 20px; /* Kinaron se thodi space */
+nav {
+  background: #222;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
-
-/* Header Styles (Upar ka hissa jahan profile, naam aur menu hai) */
-.main-header {
-    background-color: #2a2a2a; /* Header ka darker background */
-    padding: 15px 0; /* Upar aur neeche se padding */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Halka sa shadow */
-    position: sticky; /* Header scroll karne par chipka rahe */
-    top: 0; /* Upar se chipka rahe */
-    z-index: 1000; /* Baaki content ke upar dikhe */
+nav .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00bcd4;
 }
-
-.header-content {
-    display: flex; /* Elements ko line mein rakhe */
-    justify-content: space-between; /* Elements ke beech space de */
-    align-items: center; /* Elements ko beech mein align kare */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
 }
-
-.profile-area {
-    display: flex;
-    align-items: center;
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
 }
-
-.profile-pic {
-    width: 60px; /* Profile picture ki चौड़ाई */
-    height: 60px; /* Profile picture ki ऊँचाई */
-    border-radius: 50%; /* Gol shape dene ke liye */
-    object-fit: cover; /* Picture ko adjust kare */
-    margin-right: 15px; /* Picture ke baad thodi space */
-    border: 2px solid #007bff; /* Profile pic ke around accent color ka border */
+nav ul li a:hover {
+  color: #00bcd4;
 }
-
-.creator-name {
-    margin: 0;
-    font-size: 1.8em; /* Naam ka size */
-    color: #007bff; /* Naam ke liye accent color */
+.hero {
+  background: linear-gradient(to right, #1a1a1a, #000000);
+  text-align: center;
+  padding: 60px 20px;
 }
-
-/* Navigation Styles (Menu ke links) */
-.main-nav .nav-menu {
-    list-style: none; /* Dots ya numbers hatane ke liye */
-    margin: 0;
-    padding: 0;
-    display: flex; /* Links ko line mein rakhe */
+.hero .profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #00bcd4;
 }
-
-.main-nav .nav-menu li {
-    margin-left: 30px; /* Links ke beech ki space */
+.hero h1 {
+  font-size: 38px;
+  margin-top: 15px;
+  color: #00bcd4;
 }
-
-.main-nav .nav-menu a {
-    color: #e0e0e0; /* Link ka color */
-    text-decoration: none; /* Link ke neeche line na ho */
-    font-weight: bold; /* Bold text */
-    font-size: 1.1em;
-    transition: color 0.3s ease; /* Hover karne par color slowly badle */
+.social-links p {
+  margin: 8px 0;
 }
-
-.main-nav .nav-menu a:hover {
-    color: #007bff; /* Hover karne par accent color */
-}
-
-.menu-toggle {
-    display: none; /* Desktop par hide rahe */
-    background: none; /* Background na ho */
-    border: none; /* Border na ho */
-    font-size: 1.8em; /* Icon ka size */
-    color: #e0e0e0; /* Icon ka color */
-    cursor: pointer; /* Cursor pointer mein badle */
-}
-
-/* Hero Section (Home Page ka bada section) */
-.hero-section {
-    min-height: 400px; /* Kam se kam itni ऊँचाई */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('hero-bg.jpg') no-repeat center center/cover; /* Background image (hero-bg.jpg ko apne folder mein rakhna) */
-    padding: 80px 0;
-}
-
-.hero-section h2 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    color: #007bff;
-}
-
-.hero-section p {
-    font-size: 1.3em;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-/* Section Common Styles (Har section ke liye general style) */
-section {
-    padding: 60px 0; /* Sections ke upar aur neeche padding */
-    border-bottom: 1px solid #333; /* Sections ke beech divider */
-}
-
-section:last-of-type {
-    border-bottom: none; /* Last section mein divider na ho */
-}
-
-h2 {
-    text-align: center;
-    font-size: 2.5em;
-    margin-bottom: 40px;
-    color: #007bff;
-}
-
-/* Posts Section (Instagram Gallery) */
-.gallery-grid {
-    display: grid; /* Grid layout ke liye */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Images ko adjust kare */
-    gap: 20px; /* Images ke beech space */
-}
-
-.gallery-item {
-    background-color: #2a2a2a;
-    border-radius: 8px; /* Kinare gol */
-    overflow: hidden; /* Image bahar na nikle */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Halka shadow */
-    transition: transform 0.3s ease; /* Hover par smoothly scale ho */
-}
-
-.gallery-item:hover {
-    transform: translateY(-5px); /* Hover par thoda upar uthe */
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 250px; /* Gallery images ki fixed height */
-    object-fit: cover; /* Image ko box mein fit kare */
-    display: block;
-}
-
-/* Reels Section */
-.reel-container {
-    display: flex;
-    justify-content: center; /* Video beech mein rahe */
-    padding: 20px 0;
-}
-
-.main-reel {
-    width: 100%;
-    max-width: 600px; /* Reel video ki zyada se zyada चौड़ाई */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-}
-
-/* Travel Section */
-.travel-text {
-    text-align: center;
-    font-size: 1.2em;
-    margin-bottom: 40px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.travel-gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-}
-
-.travel-gallery-grid img {
-    width: 100%;
-    height: 180px; /* Travel gallery images ki fixed height */
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
-}
-
-.travel-gallery-grid img:hover {
-    transform: scale(1.03); /* Hover par thoda bada ho */
-}
-
-/* Social Media Section */
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 30px; /* Links ke beech space */
-    flex-wrap: wrap; /* Choti screen par links neeche aa jayein */
-}
-
 .social-links a {
-    color: #e0e0e0;
-    text-decoration: none;
-    font-size: 1.2em;
-    display: flex;
-    align-items: center;
-    transition: color 0.3s ease;
+  color: #fff;
+  text-decoration: none;
 }
-
-.social-links a i {
-    font-size: 1.8em;
-    margin-right: 10px;
-    transition: color 0.3s ease;
-}
-
 .social-links a:hover {
-    color: #007bff;
+  text-decoration: underline;
+  color: #00bcd4;
 }
-
-.social-links a:hover i {
-    color: #007bff;
+.travel {
+  padding: 50px 20px;
+  max-width: 1000px;
+  margin: auto;
 }
-
-/* Footer Styles */
-footer {
-    background-color: #2a2a2a;
-    color: #e0e0e0;
-    text-align: center;
-    padding: 20px 0;
-    margin-top: 50px;
+.travel h2 {
+  font-size: 30px;
+  color: #00bcd4;
+  margin-bottom: 20px;
 }
-
-/* Mobile Responsiveness (Jab website mobile par khule) */
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column; /* Elements ek ke neeche ek aayenge */
-        text-align: center;
-    }
-
-    .main-nav .nav-menu {
-        display: none; /* Mobile par menu default mein chupa rahe */
-        flex-direction: column;
-        width: 100%;
-        background-color: #2a2a2a;
-        position: absolute; /* Header ke andar apni position le */
-        top: 90px; /* Header ki height ke hisaab se adjust kare */
-        left: 0;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        padding: 10px 0;
-    }
-
-    .main-nav .nav-menu.active {
-        display: flex; /* Jab 'active' class ho toh dikhe */
-    }
-
-    .menu-toggle {
-        display: block; /* Mobile par hamburger icon dikhe */
-        align-self: flex-end; /* Right side mein rahe */
-        position: absolute;
-        top: 20px;
-        right: 20px;
-    }
-
-    .profile-area {
-        margin-bottom: 15px;
-    }
-
-    .hero-section h2 {
-        font-size: 2em;
-    }
-
-    .hero-section p {
-        font-size: 1em;
-    }
-
-    .social-links {
-        flex-direction: column;
-        align-items: center;
-    }
+.travel-block {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.travel-block img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+}
+.travel-block div {
+  flex: 1;
+}
+#gallery {
+  padding: 60px 20px;
+  background-color: #181818;
+  text-align: center;
+}
+#gallery h2 {
+  font-size: 30px;
+  color: #00bcd4;
+  margin-bottom: 20px;
 }
