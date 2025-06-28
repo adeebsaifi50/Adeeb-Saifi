@@ -11,28 +11,40 @@
             background-color: #f4f4f4;
             color: #333;
         }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+            margin-bottom: 30px;
+        }
         .travel-section {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
+            padding: 20px;
         }
         .destination-card {
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            width: 300px; /* Fixed width for consistency */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Slightly enhanced shadow */
+            width: 300px;
             overflow: hidden;
             text-align: center;
             padding-bottom: 15px;
+            cursor: pointer; /* Indicate it's clickable */
+            transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+        }
+        .destination-card:hover {
+            transform: translateY(-5px); /* Lift card on hover */
         }
         .destination-card img {
             max-width: 100%;
-            height: 200px; /* Fixed height for consistency */
-            object-fit: cover; /* Ensures images cover the area without distortion */
+            height: 200px;
+            object-fit: cover;
             display: block;
             margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
         }
         .destination-card h2 {
             font-size: 1.5em;
@@ -42,6 +54,61 @@
         .destination-card p {
             font-size: 0.9em;
             padding: 0 15px;
+            color: #555;
+        }
+
+        /* Lightbox CSS */
+        .lightbox-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
+            z-index: 1000; /* Ensure it's on top */
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox-content {
+            position: relative;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh; /* Max height relative to viewport height */
+            object-fit: contain; /* Ensure the entire image is visible */
+            display: block;
+            margin-bottom: 15px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2.5em;
+            color: #fff; /* White close button on dark overlay */
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 1001; /* Above lightbox content */
+        }
+        .lightbox-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .lightbox-description {
+            font-size: 1.1em;
+            color: #666;
+            text-align: center;
+            max-width: 600px;
         }
     </style>
 </head>
@@ -52,30 +119,43 @@
     <div class="travel-section">
 
         <div class="destination-card">
-            <img src="rishikesh.png" alt="Rishikesh">
+            <img src="rishikesh.png" data-src="rishikesh.png" alt="Rishikesh">
             <h2>Rishikesh</h2>
             <p>The Yoga Capital of the World, known for its spiritual vibes, adventure sports, and the iconic Lakshman Jhula.</p>
         </div>
 
         <div class="destination-card">
-            <img src="haridwar.png" alt="Haridwar">
+            <img src="haridwar.png" data-src="haridwar.png" alt="Haridwar">
             <h2>Haridwar</h2>
             <p>A sacred city where the Ganges River leaves the mountains, famous for Har Ki Pauri and the evening Ganga Aarti.</p>
         </div>
 
         <div class="destination-card">
-            <img src="mussoorie.png" alt="Mussoorie">
+            <img src="mussoorie.png" data-src="mussoorie.png" alt="Mussoorie">
             <h2>Mussoorie</h2>
             <p>The Queen of the Hills, a popular hill station offering panoramic views of the Himalayas and lush green valleys.</p>
         </div>
 
         <div class="destination-card">
-            <img src="mathura-vrindavan.png" alt="Vrindavan">
+            <img src="mathura-vrindavan.png" data-src="mathura-vrindavan.png" alt="Vrindavan">
             <h2>Vrindavan (Prem Mandir)</h2>
             <p>A holy town associated with Lord Krishna's childhood, home to numerous temples including the magnificent Prem Mandir.</p>
         </div>
 
     </div>
+
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <span class="lightbox-close">&times;</span>
+        <div class="lightbox-content">
+            <h3 class="lightbox-title" id="lightboxTitle"></h3>
+            <img src="" alt="" id="lightboxImage">
+            <p class="lightbox-description" id="lightboxDescription"></p>
+        </div>
+    </div>
+
+    <script>
+        // Your JavaScript code will go here
+    </script>
 
 </body>
 </html>
