@@ -1,22 +1,28 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #111;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #000;
   color: #fff;
+}
+
+header {
+  background-color: #111;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #000;
-  padding: 15px 30px;
 }
 
-.nav-logo {
+.logo {
   font-size: 24px;
+  color: #00e0ff;
   font-weight: bold;
-  color: #00d5ff;
 }
 
 .nav-links {
@@ -25,53 +31,44 @@ body {
   gap: 20px;
 }
 
-.nav-links li a {
+.nav-links a {
+  color: white;
   text-decoration: none;
-  color: #fff;
-  font-size: 16px;
-  transition: color 0.3s ease;
+  font-weight: 500;
 }
 
-.nav-links li a:hover {
-  color: #00d5ff;
+.nav-links a:hover {
+  color: #00e0ff;
 }
 
 .hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   text-align: center;
   padding: 60px 20px;
-  background: linear-gradient(to bottom right, #000000, #1a1a1a);
+  background: linear-gradient(135deg, #000, #111);
 }
 
 .hero h1 {
-  font-size: 38px;
-  margin: 10px 0;
-  color: #00d5ff;
+  font-size: 36px;
+  color: #00e0ff;
 }
 
-.tagline {
-  font-size: 18px;
-  color: #bbb;
-  margin-bottom: 20px;
+.hero .highlight {
+  font-weight: bold;
 }
 
-.social-icons {
-  display: flex;
-  gap: 15px;
-  margin-top: 10px;
+.social-links {
+  margin-top: 20px;
 }
 
-.social-icons a {
-  color: white;
-  font-size: 20px;
-  transition: transform 0.2s ease;
+.social-links a {
+  display: block;
+  color: #ccc;
+  text-decoration: none;
+  margin: 5px;
 }
 
-.social-icons a:hover {
-  color: #00d5ff;
-  transform: scale(1.2);
+.social-links a:hover {
+  color: #00e0ff;
 }
 
 .travel {
@@ -80,64 +77,26 @@ body {
 
 .travel h2 {
   font-size: 28px;
-  text-align: center;
-  color: #00d5ff;
+  color: #00e0ff;
   margin-bottom: 30px;
+  text-align: center;
 }
 
-.travel-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #1a1a1a;
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 213, 255, 0.2);
-  max-width: 700px;
+.place {
+  margin-bottom: 40px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 20px;
 }
 
-.travel-card img {
+.place img {
   width: 100%;
-  border-radius: 10px;
-  max-height: 250px;
+  max-height: 200px;
   object-fit: cover;
-  margin-bottom: 15px;
-}
-
-.travel-text {
-  text-align: left;
-  color: #eee;
-}
-
-.travel-text h3 {
-  color: #00d5ff;
-  font-size: 22px;
+  border-radius: 12px;
   margin-bottom: 10px;
 }
 
-.travel-text p {
-  margin: 5px 0;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-@media (max-width: 768px) {
-  .travel-card {
-    margin: 20px 10px;
-    padding: 15px;
-  }
-
-  .hero h1 {
-    font-size: 30px;
-  }
-
-  .travel h2 {
-    font-size: 24px;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    gap: 10px;
-  }
+.place h3 {
+  color: #00e0ff;
+  margin-top: 10px;
 }
