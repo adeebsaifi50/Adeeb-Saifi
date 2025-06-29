@@ -1,58 +1,50 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #0d0d0d;
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  background-color: #0f0f0f;
   color: #fff;
   scroll-behavior: smooth;
 }
 
 header {
-  background: #1a1a1a;
-  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  background: #111;
+  padding: 1rem 2rem;
+  box-shadow: 0 0 10px #000;
 }
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #00c3ff;
+header h1 {
+  color: #00d4ff;
+  font-size: 1.8rem;
 }
 
 nav a {
-  color: #ddd;
+  color: #b56eff;
   margin-left: 1.5rem;
   text-decoration: none;
-  font-size: 1rem;
+  font-weight: bold;
 }
 
 nav a:hover {
-  color: #00c3ff;
+  text-decoration: underline;
 }
 
 .hero {
   text-align: center;
-  padding: 4rem 2rem 2rem;
+  padding: 4rem 1rem;
+  background: #121212;
 }
 
-.hero h1 {
+.hero h2 {
   font-size: 2.5rem;
-  color: #00c3ff;
-  margin-bottom: 0.5rem;
+  color: #00d4ff;
 }
 
 .hero p {
   font-size: 1.2rem;
-  color: #ccc;
+  margin-top: 0.5rem;
 }
 
 .social-links {
@@ -64,38 +56,43 @@ nav a:hover {
 }
 
 .social-links a {
-  color: #00c3ff;
-  background: #222;
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
   text-decoration: none;
-  font-size: 0.9rem;
-  transition: background 0.3s;
+  color: white;
+  transition: 0.3s;
 }
+
+.insta { background: #e1306c; }
+.snapchat { background: #fffc00; color: #000; }
+.youtube { background: #ff0000; }
+.facebook { background: #1877f2; }
 
 .social-links a:hover {
-  background: #00c3ff;
-  color: #000;
+  transform: scale(1.1);
+  opacity: 0.9;
 }
 
-.travel-section {
-  padding: 2rem;
+#travel {
+  padding: 3rem 1rem;
+  max-width: 900px;
+  margin: auto;
 }
 
-.travel-section h2 {
+#travel h2 {
   text-align: center;
+  color: #00d4ff;
   font-size: 2rem;
-  color: #00c3ff;
   margin-bottom: 2rem;
 }
 
 .travel-card {
-  background: #1a1a1a;
-  margin: 1rem auto;
-  padding: 1.2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  max-width: 600px;
+  background: #1e1e1e;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
 .travel-card h3 {
@@ -105,13 +102,5 @@ nav a:hover {
 
 .travel-card p {
   color: #ccc;
-  margin-bottom: 0.3rem;
-}
-
-footer {
-  text-align: center;
-  padding: 1rem;
-  background: #111;
-  color: #777;
-  margin-top: 3rem;
+  line-height: 1.4;
 }
