@@ -1,66 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Adeeb Saifi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adeeb | Official Website</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="script.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>Adeeb</h1>
+  <header id="navbar">
+    <h1 class="logo">Adeeb</h1>
     <nav>
       <a href="#home">Home</a>
       <a href="#travel">Travel</a>
+      <a href="#reels">Reels</a>
+      <a href="#testimonials">Testimonials</a>
     </nav>
-  </header>
-
-  <section id="home" class="hero">
-    <h2>Hi, I'm Adeeb Saifi</h2>
-    <p>Traveler | Explorer | Storyteller</p>
-    <div class="social-links">
-      <a href="https://instagram.com/adeeb_saifi_50" class="insta" target="_blank">Instagram 1</a>
-      <a href="https://instagram.com/_adeeb_saifi_50_" class="insta" target="_blank">Instagram 2</a>
-      <a href="https://instagram.com/_adeeb_saifi_50" class="insta" target="_blank">Instagram 3</a>
-      <a href="https://snapchat.com/t/gz5prtdZ" class="snapchat" target="_blank">Snapchat</a>
-      <a href="https://youtube.com/@adeebsaifi2" class="youtube" target="_blank">YouTube</a>
-      <a href="https://facebook.com/adeeb.kingkhan.31" class="facebook" target="_blank">Facebook</a>
+  </header>  <section id="home" class="hero">
+    <div class="slideshow">
+      <div class="slide fade" style="background-image: url('img/hero1.jpg')"></div>
+      <div class="slide fade" style="background-image: url('img/hero2.jpg')"></div>
+      <div class="slide fade" style="background-image: url('img/hero3.jpg')"></div>
     </div>
-  </section>
-
-  <section id="travel">
-    <h2>🌍 Travel Journey</h2>
-    
-    <div class="travel-card">
-      <h3>Rishikesh</h3>
-      <p><strong>About:</strong> Peaceful town along the Ganges, known for yoga and adventure.</p>
-      <p><strong>My Experience:</strong> Relaxed at the Ganga ghats, loved the Aarti. Har Har Gange! ✨</p>
+    <div class="hero-content">
+      <h2>Hi, I'm <span class="highlight">Adeeb Saifi</span></h2>
+      <p>Traveler • Explorer • Storyteller</p>
+      <div class="social-links">
+        <a href="https://instagram.com/adeeb_saifi_50" class="insta" target="_blank">Instagram 1</a>
+        <a href="https://instagram.com/_adeeb_saifi_50_" class="insta" target="_blank">Instagram 2</a>
+        <a href="https://instagram.com/_adeeb_saifi_50" class="insta" target="_blank">Instagram 3</a>
+        <a href="https://snapchat.com/t/gz5prtdZ" class="snapchat" target="_blank">Snapchat</a>
+        <a href="https://youtube.com/@adeebsaifi2" class="youtube" target="_blank">YouTube</a>
+        <a href="https://facebook.com/adeeb.kingkhan.31" class="facebook" target="_blank">Facebook</a>
+      </div>
     </div>
-
-    <div class="travel-card">
-      <h3>Haridwar</h3>
-      <p><strong>About:</strong> One of the oldest pilgrimage cities in India.</p>
-      <p><strong>My Experience:</strong> Aarti at Har Ki Pauri was spiritual and powerful.</p>
+  </section>  <section id="travel" class="section">
+    <h2 class="section-title">🌍 Travel Journey</h2>
+    <div class="travel-grid">
+      <div class="travel-card" data-aos="fade-up">
+        <h3>Rishikesh</h3>
+        <p><strong>About:</strong> Peaceful town along the Ganges, known for yoga and adventure.</p>
+        <p><strong>My Experience:</strong> Ganga ghats, Aarti and peace ✨</p>
+      </div>
+      <div class="travel-card" data-aos="fade-up">
+        <h3>Haridwar</h3>
+        <p><strong>About:</strong> One of the oldest pilgrimage cities in India.</p>
+        <p><strong>My Experience:</strong> Spiritual Aarti at Har Ki Pauri 🌛</p>
+      </div>
+      <div class="travel-card" data-aos="fade-up">
+        <h3>Mussoorie</h3>
+        <p><strong>About:</strong> A beautiful hill station in Uttarakhand.</p>
+        <p><strong>My Experience:</strong> Clouds, cold, and mall road fun!</p>
+      </div>
+      <div class="travel-card" data-aos="fade-up">
+        <h3>Mathura</h3>
+        <p><strong>About:</strong> Lord Krishna’s birthplace, full of devotion.</p>
+        <p><strong>My Experience:</strong> Divine vibes and Krishna temples.</p>
+      </div>
+      <div class="travel-card" data-aos="fade-up">
+        <h3>Vrindavan</h3>
+        <p><strong>About:</strong> Famous for temples and spiritual energy.</p>
+        <p><strong>My Experience:</strong> Magical feel and bhajans 🎶</p>
+      </div>
     </div>
-
-    <div class="travel-card">
-      <h3>Mussoorie</h3>
-      <p><strong>About:</strong> A beautiful hill station in Uttarakhand.</p>
-      <p><strong>My Experience:</strong> Loved the cloudy mountains and mall road vibe!</p>
+  </section>  <section id="reels" class="section">
+    <h2 class="section-title">🎥 Reels Showcase</h2>
+    <div class="filter-buttons">
+      <button onclick="filterReels('all')">All</button>
+      <button onclick="filterReels('travel')">Travel</button>
+      <button onclick="filterReels('fun')">Fun</button>
+      <button onclick="filterReels('devotional')">Devotional</button>
     </div>
-
-    <div class="travel-card">
-      <h3>Mathura</h3>
-      <p><strong>About:</strong> Birthplace of Lord Krishna, full of devotion.</p>
-      <p><strong>My Experience:</strong> Spiritual atmosphere, enjoyed visiting Krishna temples.</p>
+    <div class="reel-gallery">
+      <div class="reel-card" data-category="travel">
+        <video src="videos/rishikesh.mp4" controls></video>
+        <p>Rishikesh Moments</p>
+      </div>
+      <div class="reel-card" data-category="fun">
+        <video src="videos/fun1.mp4" controls></video>
+        <p>Funny Vlog Snippet</p>
+      </div>
+      <div class="reel-card" data-category="devotional">
+        <video src="videos/vrindavan.mp4" controls></video>
+        <p>Vrindavan Devotion</p>
+      </div>
     </div>
-
-    <div class="travel-card">
-      <h3>Vrindavan</h3>
-      <p><strong>About:</strong> Famous for its temples and Lord Krishna’s childhood stories.</p>
-      <p><strong>My Experience:</strong> Loved the spiritual energy and local food.</p>
+  </section>  <section id="testimonials" class="section">
+    <h2 class="section-title">💬 What People Say</h2>
+    <div class="testimonial-boxes">
+      <div class="testimonial">
+        <p>“Adeeb bhai ke reels dekh ke mujhe bhi travel karne ka mann hua!”</p>
+        <span>— Rohan</span>
+      </div>
+      <div class="testimonial">
+        <p>“Website itni clean aur cool hai, laga ek influencer ki site ho!”</p>
+        <span>— Priya</span>
+      </div>
     </div>
   </section>
 </body>
