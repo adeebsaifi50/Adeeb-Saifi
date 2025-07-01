@@ -10,10 +10,15 @@
   <header class="navbar">
   <div class="logo">Adeeb Saifi</div>
 
-  <!-- Menu Button -->
-  <button class="menu-toggle" id="menuToggle">
-    <i class="fas fa-bars"></i>
-  </button>
+  <div class="header-right">
+    <!-- Hamburger Menu -->
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Small Theme Toggle Button -->
+    <button id="themeToggle" class="small-toggle">🌙</button>
+  </div>
 
   <!-- Side Menu -->
   <nav class="side-menu" id="sideMenu">
@@ -22,7 +27,8 @@
     <a href="#testimonials">Testimonials</a>
     <a href="#contact">Contact</a>
   </nav>
-</header> <section id="home" class="hero">
+</header>
+  <section id="home" class="hero">
     <div class="hero-content">
       <div class="hero-left">
         <img src="profile.jpg" alt="Adeeb Profile" class="profile-img" />
@@ -145,17 +151,19 @@
 
   <script src="script.js"></script>
 <script>
-  // Theme Toggle
+  // Toggle theme mode
   const toggleBtn = document.getElementById('themeToggle');
   toggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('light-mode');
     document.body.classList.toggle('dark-mode');
   });
+
+  // Default dark mode
   window.onload = () => {
     document.body.classList.add('dark-mode');
   };
 
-  // Menu Toggle
+  // Side menu toggle
   const menuToggle = document.getElementById('menuToggle');
   const sideMenu = document.getElementById('sideMenu');
   menuToggle.addEventListener('click', () => {
