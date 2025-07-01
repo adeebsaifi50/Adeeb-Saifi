@@ -157,6 +157,24 @@
     document.body.classList.add('dark-mode');
   };
 </script>
+  <script>
+  // Theme Toggle
+  const toggleBtn = document.getElementById('themeToggle');
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    document.body.classList.toggle('dark-mode');
+  });
+  window.onload = () => {
+    document.body.classList.add('dark-mode');
+  };
+
+  // Menu Toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const sideMenu = document.getElementById('sideMenu');
+  menuToggle.addEventListener('click', () => {
+    sideMenu.classList.toggle('open');
+  });
+    </script>
 </body>
 
 </html>
