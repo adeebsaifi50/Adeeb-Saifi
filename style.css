@@ -297,3 +297,9 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: #00bfa5;
 }
+/* === Social Media Icons Styling === */
+.social-links i {
+  margin-right: 6px;
+  color: #00d9ff; /* Change color if needed */
+  font-size: 1rem;
+}
