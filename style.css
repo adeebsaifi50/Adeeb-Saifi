@@ -254,3 +254,46 @@ nav a:hover {
     font-size: 2rem;
   }
 }
+/* ========== Contact Form Styling ========== */
+form {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+  max-width: 500px;
+  width: 100%;
+}
+
+form label {
+  display: block;
+  margin-bottom: 6px;
+  color: #f5f5f5;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #2a2a2a;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  background-color: #03dac6;
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+input[type="submit"]:hover {
+  background-color: #00bfa5;
+}
