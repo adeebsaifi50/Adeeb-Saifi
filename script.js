@@ -43,7 +43,13 @@ window.addEventListener("scroll", () => {
     }
   });
 });
-// Theme Toggle
-document.getElementById("themeToggle").addEventListener("click", function () {
-  document.body.classList.toggle("dark-mode");
+const toggleBtn = document.getElementById('themeToggle');
+
+toggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
 });
+
+// Default dark mode
+window.onload = () => {
+  document.body.classList.add('dark-mode');
+};
