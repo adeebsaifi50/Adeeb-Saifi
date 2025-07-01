@@ -396,32 +396,63 @@ nav a:hover {
   z-index: 1000;
 }
 
+/* === Menu Toggle Button === */
+.menu-toggle {
+  background: none;
+  border: none;
+  color: #00d4ff;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* === Side Menu Styling === */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -220px;
+  height: 100%;
+  width: 200px;
+  background: #1a1a1a;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  transition: right 0.3s ease;
+  z-index: 1000;
+}
+
 .side-menu a {
   color: #fff;
-  text-decoration: none;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .side-menu a:hover {
   color: #00d4ff;
 }
 
-/* Side Menu Open Class */
+/* Open Menu Class */
 .side-menu.open {
   right: 0;
 }
 
-/* Theme Toggle Button Styling */
+/* === Theme Toggle Button === */
 #themeToggle {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  padding: 8px 10px;
-  font-size: 18px;
-  border: none;
-  border-radius: 50%;
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 50px;
   background: #03dac6;
+  border: none;
   color: #000;
   cursor: pointer;
-  z-index: 999;
-  }
+  z-index: 1002;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+#themeToggle:hover {
+  background: #00bfa5;
+}
