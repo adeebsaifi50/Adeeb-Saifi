@@ -43,3 +43,7 @@ window.addEventListener("scroll", () => {
     }
   });
 });
+// Theme Toggle
+document.getElementById("themeToggle").addEventListener("click", function () {
+  document.body.classList.toggle("dark-mode");
+});
