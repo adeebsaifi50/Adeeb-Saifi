@@ -332,3 +332,19 @@ body.dark-mode {
 #themeToggle:hover {
   background: #00bfa5;
 }
+/* --- Social Links Styling --- */
+.social-links p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+}
+
+.social-links a {
+  color: #00acee;
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  text-decoration: underline;
+  }
