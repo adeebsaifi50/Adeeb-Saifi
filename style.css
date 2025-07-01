@@ -1,9 +1,11 @@
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Base Styles */
 body {
   font-family: 'Outfit', sans-serif;
   background: #0d0d0d;
@@ -11,6 +13,7 @@ body {
   scroll-behavior: smooth;
 }
 
+/* Header */
 header {
   position: sticky;
   top: 0;
@@ -40,6 +43,7 @@ nav a:hover {
   color: #00d4ff;
 }
 
+/* Hero Section */
 .hero {
   position: relative;
   height: 100vh;
@@ -109,21 +113,35 @@ nav a:hover {
   margin-top: 0.5rem;
 }
 
+/* Social Links */
 .social-links {
   margin-top: 1.5rem;
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.social-links p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
 }
 
 .social-links a {
+  color: #00acee;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  font-weight: bold;
-  border-radius: 25px;
-  color: #fff;
-  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  text-decoration: underline;
+}
+
+.social-links i {
+  margin-right: 6px;
+  color: #00d9ff;
+  font-size: 1rem;
 }
 
 .insta { background: #e1306c; }
@@ -131,11 +149,7 @@ nav a:hover {
 .youtube { background: #ff0000; }
 .facebook { background: #1877f2; }
 
-.social-links a:hover {
-  transform: scale(1.05);
-  opacity: 0.85;
-}
-
+/* Sections */
 .section {
   padding: 4rem 1rem;
   max-width: 1100px;
@@ -149,6 +163,7 @@ nav a:hover {
   margin-bottom: 2rem;
 }
 
+/* Travel Cards */
 .travel-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -177,6 +192,7 @@ nav a:hover {
   color: #ccc;
 }
 
+/* Filter Buttons */
 .filter-buttons {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -199,6 +215,7 @@ nav a:hover {
   color: #00d4ff;
 }
 
+/* Reel Gallery */
 .reel-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -222,6 +239,7 @@ nav a:hover {
   text-align: center;
 }
 
+/* Testimonials */
 .testimonial-boxes {
   display: flex;
   flex-wrap: wrap;
@@ -249,12 +267,14 @@ nav a:hover {
   color: #00d4ff;
 }
 
+/* Responsive Hero Heading */
 @media (max-width: 768px) {
   .hero-content h2 {
     font-size: 2rem;
   }
 }
-/* ========== Contact Form Styling ========== */
+
+/* Contact Form */
 form {
   background-color: #1e1e1e;
   padding: 20px;
@@ -297,13 +317,31 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: #00bfa5;
 }
-/* === Social Media Icons Styling === */
-.social-links i {
-  margin-right: 6px;
-  color: #00d9ff; /* Change color if needed */
-  font-size: 1rem;
+
+/* Theme Toggle Button */
+#themeToggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 8px;
+  background: #03dac6;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease, transform 0.2s ease;
 }
-/* === Theme Modes === */
+
+#themeToggle:hover {
+  background: #00bfa5;
+  transform: scale(1.05);
+}
+
+/* Theme Modes */
 body.light-mode {
   background-color: #f5f5f5;
   color: #000;
@@ -313,38 +351,3 @@ body.dark-mode {
   background-color: #121212;
   color: #fff;
 }
-#themeToggle {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  padding: 6px 12px;
-  font-size: 14px;
-  border-radius: 8px;
-  background: #03dac6;
-  border: none;
-  color: #000;
-  cursor: pointer;
-  z-index: 999;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-  transition: background 0.3s ease;
-}
-
-#themeToggle:hover {
-  background: #00bfa5;
-}
-/* --- Social Links Styling --- */
-.social-links p {
-  margin: 5px 0;
-  font-size: 16px;
-  color: #fff;
-  text-align: center;
-}
-
-.social-links a {
-  color: #00acee;
-  text-decoration: none;
-}
-
-.social-links a:hover {
-  text-decoration: underline;
-  }
