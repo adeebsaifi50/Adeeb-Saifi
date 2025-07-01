@@ -303,3 +303,27 @@ input[type="submit"]:hover {
   color: #00d9ff; /* Change color if needed */
   font-size: 1rem;
 }
+/* === Theme Modes === */
+body.light-mode {
+  background-color: #f5f5f5;
+  color: #000;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #fff;
+}
+
+/* Theme Toggle Button Styling */
+#themeToggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  background: #03dac6;
+  border: none;
+  cursor: pointer;
+  z-index: 999;
+}
