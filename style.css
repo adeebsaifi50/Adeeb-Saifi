@@ -513,3 +513,61 @@ nav a:hover {
 .side-menu a:hover {
   color: #00d4ff;
 }
+/* Header Flex Setup */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Small Theme Toggle Button */
+#themeToggle.small-toggle {
+  background: #03dac6;
+  border: none;
+  border-radius: 50%;
+  padding: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+  transition: background 0.3s ease;
+  height: 34px;
+  width: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#themeToggle.small-toggle:hover {
+  background: #00bfa5;
+}
+
+/* Side Menu Styling */
+.side-menu {
+  position: fixed;
+  top: 60px;
+  right: -250px;
+  background: #1e1e1e;
+  width: 200px;
+  padding: 20px;
+  transition: right 0.3s ease;
+  box-shadow: -4px 0 10px rgba(0,0,0,0.5);
+  z-index: 999;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.side-menu.open {
+  right: 0;
+}
+
+.side-menu a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 0;
+  font-weight: bold;
+}
+
+.side-menu a:hover {
+  color: #00d4ff;
+  }
