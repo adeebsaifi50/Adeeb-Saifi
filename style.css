@@ -13,6 +13,54 @@ body {
   scroll-behavior: smooth;
 }
 
+/* Dark Mode */
+body.dark-mode {
+  background-color: #121212;
+  color: #fff;
+}
+
+/* Light Mode */
+body.light-mode {
+  background-color: #fefefe;
+  color: #1a1a1a;
+}
+
+body.light-mode .travel-card,
+body.light-mode .travel-box,
+body.light-mode .info-card {
+  background-color: #fff;
+  color: #1a1a1a;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+body.light-mode .section-title h2,
+body.light-mode .place-name {
+  color: #0077cc;
+}
+
+body.light-mode input,
+body.light-mode textarea {
+  background-color: #f2f2f2;
+  color: #1a1a1a;
+}
+
+body.light-mode button {
+  background-color: #0077cc;
+  color: white;
+}
+
+body.light-mode footer {
+  background-color: #f0f0f0;
+  color: #222;
+}
+
+body.light-mode .travel-box p strong,
+body.light-mode .travel-card p strong,
+body.light-mode .info-card p strong {
+  color: #00895a;
+  text-shadow: none;
+}
+
 /* Header */
 header {
   position: sticky;
@@ -32,6 +80,7 @@ header {
   color: #00d4ff;
 }
 
+/* Navbar Links */
 nav a {
   margin-left: 1.2rem;
   color: #ccc;
@@ -39,101 +88,41 @@ nav a {
   font-weight: 600;
 }
 
-nav a:hover {
+nav a:hover,
+nav a.active {
   color: #00d4ff;
 }
 
-/* Hero Section */
+/* Hero */
 .hero {
-  position: relative;
   height: 100vh;
-  text-align: center;
   display: flex;
-  justify-content: center;
   align-items: center;
-  overflow: hidden;
-}
-
-.slideshow {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-
-.slide {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  animation: fadeSlide 15s infinite;
-}
-
-.slide:nth-child(1) {
-  animation-delay: 0s;
-}
-.slide:nth-child(2) {
-  animation-delay: 5s;
-}
-.slide:nth-child(3) {
-  animation-delay: 10s;
-}
-
-@keyframes fadeSlide {
-  0%, 100% { opacity: 0; }
-  10%, 30% { opacity: 1; }
-  40%, 90% { opacity: 0; }
-}
-
-.hero-content {
-  z-index: 10;
-  max-width: 800px;
-  text-align: center;
+  justify-content: center;
   padding: 2rem;
 }
 
-.hero-content h2 {
-  font-size: 3rem;
+.profile-img {
+  border-radius: 50%;
+  max-width: 180px;
+  border: 3px solid #00d4ff;
+}
+
+.hero-name {
+  font-size: 2rem;
   color: #00d4ff;
+  margin-bottom: 10px;
 }
 
-.hero-content .highlight {
-  color: #ffffff;
-  background: #00d4ff;
-  padding: 0.2rem 0.5rem;
-  border-radius: 6px;
-}
-
-.hero-content p {
-  font-size: 1.2rem;
-  margin-top: 0.5rem;
-}
-
-/* Social Links */
 .social-links {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.social-links p {
-  margin: 5px 0;
+  text-align: left;
   font-size: 16px;
-  color: #fff;
-  text-align: center;
 }
 
 .social-links a {
   color: #00acee;
   text-decoration: none;
 }
-
 .social-links a:hover {
   text-decoration: underline;
 }
@@ -141,328 +130,9 @@ nav a:hover {
 .social-links i {
   margin-right: 6px;
   color: #00d9ff;
-  font-size: 1rem;
-}
-
-.insta { background: #e1306c; }
-.snapchat { background: #fffc00; color: #000; }
-.youtube { background: #ff0000; }
-.facebook { background: #1877f2; }
-
-/* Sections */
-.section {
-  padding: 4rem 1rem;
-  max-width: 1100px;
-  margin: auto;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 2rem;
-  color: #00d4ff;
-  margin-bottom: 2rem;
-}
-
-/* Travel Cards */
-.travel-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
-.travel-card {
-  background: #1e1e1e;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-  transition: transform 0.3s ease;
-}
-
-.travel-card:hover {
-  transform: translateY(-5px);
-}
-
-.travel-card h3 {
-  margin-bottom: 0.5rem;
-  color: #00d4ff;
-}
-
-.travel-card p {
-  margin-top: 0.2rem;
-  color: #ccc;
-}
-
-/* Filter Buttons */
-.filter-buttons {
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.filter-buttons button {
-  margin: 0 0.5rem;
-  padding: 0.4rem 1rem;
-  border: none;
-  background: #00d4ff;
-  color: #000;
-  font-weight: bold;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.filter-buttons button:hover {
-  background: #fff;
-  color: #00d4ff;
-}
-
-/* Reel Gallery */
-.reel-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.reel-card {
-  background: #1a1a1a;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
-
-.reel-card video {
-  width: 100%;
-  border-radius: 8px;
-}
-
-.reel-card p {
-  margin-top: 0.5rem;
-  text-align: center;
-}
-
-/* Testimonials */
-.testimonial-boxes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-}
-
-.testimonial {
-  background: #222;
-  padding: 1.5rem;
-  border-radius: 12px;
-  max-width: 350px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.4);
-}
-
-.testimonial p {
-  font-style: italic;
-  color: #eee;
-  margin-bottom: 1rem;
-}
-
-.testimonial span {
-  display: block;
-  text-align: right;
-  color: #00d4ff;
-}
-
-/* Responsive Hero Heading */
-@media (max-width: 768px) {
-  .hero-content h2 {
-    font-size: 2rem;
-  }
-}
-
-/* Contact Form */
-form {
-  background-color: #1e1e1e;
-  padding: 20px;
-  border-radius: 10px;
-  margin-top: 30px;
-  max-width: 500px;
-  width: 100%;
-}
-
-form label {
-  display: block;
-  margin-bottom: 6px;
-  color: #f5f5f5;
-  font-weight: bold;
-}
-
-input[type="text"],
-input[type="email"],
-textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  background-color: #2a2a2a;
-  color: white;
-  border: 1px solid #444;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-input[type="submit"] {
-  background-color: #03dac6;
-  color: #000;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-input[type="submit"]:hover {
-  background-color: #00bfa5;
 }
 
 /* Theme Toggle Button */
-#themeToggle {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 8px;
-  background: #03dac6;
-  border: none;
-  color: #000;
-  cursor: pointer;
-  z-index: 9999;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-#themeToggle:hover {
-  background: #00bfa5;
-  transform: scale(1.05);
-}
-
-/* Theme Modes */
-body.light-mode {
-  background-color: #f5f5f5;
-  color: #000;
-}
-
-body.dark-mode {
-  background-color: #121212;
-  color: #fff;
-}
-nav ul {
-  display: flex;
-  list-style: none;
-}
-
-nav li {
-  margin-left: 1.2rem;
-}
-
-nav a {
-  color: #ccc;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-nav a:hover {
-  color: #00d4ff;
-}
-/* Menu Toggle Button */
-.menu-toggle {
-  background: none;
-  border: none;
-  color: #00d4ff;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 1001;
-}
-
-/* Side Menu */
-.side-menu {
-  position: fixed;
-  top: 0;
-  right: -200px;
-  height: 100vh;
-  width: 200px;
-  background: #1a1a1a;
-  padding-top: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  transition: right 0.3s ease;
-  z-index: 1000;
-}
-
-/* === Menu Toggle Button === */
-.menu-toggle {
-  background: none;
-  border: none;
-  color: #00d4ff;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 1001;
-}
-
-/* === Side Menu Styling === */
-.side-menu {
-  position: fixed;
-  top: 0;
-  right: -220px;
-  height: 100%;
-  width: 200px;
-  background: #1a1a1a;
-  padding-top: 80px;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  align-items: center;
-  transition: right 0.3s ease;
-  z-index: 1000;
-}
-
-.side-menu a {
-  color: #fff;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.side-menu a:hover {
-  color: #00d4ff;
-}
-
-/* Open Menu Class */
-.side-menu.open {
-  right: 0;
-}
-
-/* === Theme Toggle Button === */
-#themeToggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 8px 12px;
-  font-size: 16px;
-  border-radius: 50px;
-  background: #03dac6;
-  border: none;
-  color: #000;
-  cursor: pointer;
-  z-index: 1002;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-}
-#themeToggle:hover {
-  background: #00bfa5;
-}
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Small Toggle Button */
 #themeToggle.small-toggle {
   background: #03dac6;
   border: none;
@@ -471,19 +141,25 @@ nav a:hover {
   font-size: 14px;
   cursor: pointer;
   box-shadow: 0 0 6px rgba(0,0,0,0.3);
-  transition: background 0.3s ease;
   height: 34px;
   width: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 #themeToggle.small-toggle:hover {
   background: #00bfa5;
 }
 
-/* Side Menu Styling */
+/* Menu */
+.menu-toggle {
+  background: none;
+  border: none;
+  color: #00d4ff;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1001;
+}
 .side-menu {
   position: fixed;
   top: 60px;
@@ -494,84 +170,22 @@ nav a:hover {
   transition: right 0.3s ease;
   box-shadow: -4px 0 10px rgba(0,0,0,0.5);
   z-index: 999;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-radius: 10px 0 0 10px;
 }
-
 .side-menu.open {
   right: 0;
 }
-
 .side-menu a {
-  display: block;
   color: #fff;
+  font-weight: bold;
   text-decoration: none;
   padding: 10px 0;
-  font-weight: bold;
 }
-
 .side-menu a:hover {
   color: #00d4ff;
 }
-/* Header Flex Setup */
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
 
-/* Small Theme Toggle Button */
-#themeToggle.small-toggle {
-  background: #03dac6;
-  border: none;
-  border-radius: 50%;
-  padding: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  box-shadow: 0 0 6px rgba(0,0,0,0.3);
-  transition: background 0.3s ease;
-  height: 34px;
-  width: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#themeToggle.small-toggle:hover {
-  background: #00bfa5;
-}
-
-/* Side Menu Styling */
-.side-menu {
-  position: fixed;
-  top: 60px;
-  right: -250px;
-  background: #1e1e1e;
-  width: 200px;
-  padding: 20px;
-  transition: right 0.3s ease;
-  box-shadow: -4px 0 10px rgba(0,0,0,0.5);
-  z-index: 999;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-.side-menu.open {
-  right: 0;
-}
-
-.side-menu a {
-  display: block;
-  color: #fff;
-  text-decoration: none;
-  padding: 10px 0;
-  font-weight: bold;
-}
-
-.side-menu a:hover {
-  color: #00d4ff;
-  }
-/* My About Section styles */
+/* Section Title */
 .section-title {
   padding: 30px 20px 10px;
   font-family: 'Segoe UI', sans-serif;
@@ -580,13 +194,15 @@ nav a:hover {
   max-width: 800px;
   margin: 0 auto;
 }
-
 .section-title h2 {
   font-size: 24px;
   color: #ffffff;
   font-weight: bold;
 }
 
+/* Cards - Travel/About/Contact same style */
+.travel-box,
+.travel-card,
 .info-card {
   background-color: #2a2a2a;
   border-radius: 12px;
@@ -598,66 +214,65 @@ nav a:hover {
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
+.travel-box h3,
+.travel-card h3,
 .info-card h3 {
   color: #00bfff;
   font-size: 20px;
   margin-bottom: 12px;
 }
 
+.travel-box p,
+.travel-card p,
 .info-card p {
   margin-bottom: 10px;
   line-height: 1.6;
   font-size: 16px;
-  }
+}
 
 .info-card p strong,
-.travel-box p strong {
+.travel-box p strong,
+.travel-card p strong {
   color: #00ffab;
   font-weight: 600;
   text-shadow: 0 0 2px #00ffab;
 }
-/* 🌗 Light Mode Styling */
-body.light-mode {
-  background-color: #fefefe;
-  color: #1a1a1a;
-}
 
-/* Cards & Boxes in Light Mode */
-body.light-mode .travel-box,
-body.light-mode .travel-card {
-  background-color: #ffffff;
-  color: #1a1a1a;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+/* Contact Form */
+form {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
 }
-
-/* Section Headings */
-body.light-mode .section-title h2,
-body.light-mode .place-name {
-  color: #0077cc;
-}
-
-/* Strong Text Highlight (Neon Green to Darker Green) */
-body.light-mode .travel-box p strong,
-body.light-mode .travel-card p strong {
-  color: #00895a;
-  text-shadow: none;
-}
-
-/* Input & Textarea Fields */
-body.light-mode input,
-body.light-mode textarea {
-  background-color: #f2f2f2;
-  color: #1a1a1a;
-}
-
-/* Buttons in Light Mode */
-body.light-mode button {
-  background-color: #0077cc;
+form input,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #2a2a2a;
   color: white;
+  border: 1px solid #444;
+  border-radius: 5px;
+}
+form button {
+  background-color: #03dac6;
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+form button:hover {
+  background-color: #00bfa5;
 }
 
-/* Optional: Navbar or Footer background fix (if needed) */
-body.light-mode footer {
-  background-color: #f0f0f0;
-  color: #222;
-  }
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+  color: #ccc;
+}
