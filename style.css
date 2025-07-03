@@ -609,8 +609,9 @@ nav a:hover {
   line-height: 1.6;
   font-size: 16px;
   }
-.info-card p strong {
+.info-card p strong,
+.travel-box p strong {
   color: #00ffab;
   font-weight: 600;
   text-shadow: 0 0 2px #00ffab;
-    }
+}
