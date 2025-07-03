@@ -571,3 +571,41 @@ nav a:hover {
 .side-menu a:hover {
   color: #00d4ff;
   }
+/* My About Section styles */
+.section-title {
+  padding: 30px 20px 10px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section-title h2 {
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.info-card {
+  background-color: #2a2a2a;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 15px auto;
+  max-width: 800px;
+  color: #eaeaea;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.info-card h3 {
+  color: #00bfff;
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.info-card p {
+  margin-bottom: 10px;
+  line-height: 1.6;
+  font-size: 16px;
+  }
