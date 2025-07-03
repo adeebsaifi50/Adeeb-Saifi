@@ -616,3 +616,48 @@ nav a:hover {
   font-weight: 600;
   text-shadow: 0 0 2px #00ffab;
 }
+/* 🌗 Light Mode Styling */
+body.light-mode {
+  background-color: #fefefe;
+  color: #1a1a1a;
+}
+
+/* Cards & Boxes in Light Mode */
+body.light-mode .travel-box,
+body.light-mode .travel-card {
+  background-color: #ffffff;
+  color: #1a1a1a;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Section Headings */
+body.light-mode .section-title h2,
+body.light-mode .place-name {
+  color: #0077cc;
+}
+
+/* Strong Text Highlight (Neon Green to Darker Green) */
+body.light-mode .travel-box p strong,
+body.light-mode .travel-card p strong {
+  color: #00895a;
+  text-shadow: none;
+}
+
+/* Input & Textarea Fields */
+body.light-mode input,
+body.light-mode textarea {
+  background-color: #f2f2f2;
+  color: #1a1a1a;
+}
+
+/* Buttons in Light Mode */
+body.light-mode button {
+  background-color: #0077cc;
+  color: white;
+}
+
+/* Optional: Navbar or Footer background fix (if needed) */
+body.light-mode footer {
+  background-color: #f0f0f0;
+  color: #222;
+  }
