@@ -1,70 +1,37 @@
-// 1️⃣ Reel Filtering Function
-function filterReels(category) {
-  const reels = document.querySelectorAll('.reel-card');
-  reels.forEach(reel => {
-    const cat = reel.getAttribute('data-category');
-    if (category === 'all' || cat === category) {
-      reel.style.display = 'block';
-    } else {
-      reel.style.display = 'none';
-    }
-  });
-}
+// Mobile menu toggle
+const menuToggle = document.getElementById("menuToggle");
+const sideMenu = document.getElementById("sideMenu");
 
-// 2️⃣ Slideshow background animation (hero section)
-let slideIndex = 0;
-const slides = document.querySelectorAll('.slide');
-
-function showSlides() {
-  slides.forEach(slide => slide.style.opacity = 0);
-  slideIndex = (slideIndex + 1) % slides.length;
-  if (slides[slideIndex]) {
-    slides[slideIndex].style.opacity = 1;
-  }
-  setTimeout(showSlides, 5000); // Change every 5s
-}
-if (slides.length > 0) showSlides();
-
-// 3️⃣ Scroll Highlighting Navbar
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll("nav a");
-
-window.addEventListener("scroll", () => {
-  let current = "";
-  sections.forEach(section => {
-    const top = window.scrollY;
-    const offset = section.offsetTop - 100;
-    if (top >= offset) {
-      current = section.getAttribute("id");
-    }
-  });
-  navLinks.forEach(link => {
-    link.classList.remove("active");
-    if (link.getAttribute("href") === `#${current}`) {
-      link.classList.add("active");
-    }
-  });
+menuToggle.addEventListener("click", () => {
+  sideMenu.classList.toggle("show-menu");
 });
 
-// 4️⃣ Theme Toggle Button 🌙/☀️
-const toggleBtn = document.getElementById("themeToggle");
-
-toggleBtn.addEventListener("click", () => {
-  document.body.classList.toggle("light-mode");
-
-  // Toggle icon
-  if (document.body.classList.contains("light-mode")) {
-    toggleBtn.textContent = "☀️";
-  } else {
-    toggleBtn.textContent = "🌙";
-  }
+// Theme toggle (dark/light)
+const themeToggle = document.getElementById("themeToggle");
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark-theme");
 });
 
-// 5️⃣ Default dark mode on load
-window.onload = () => {
-  document.body.classList.add("dark-mode");
-  toggleBtn.textContent = "🌙";
-};
-function toggleMenu() {
-  document.getElementById('menu').classList.toggle('show');
+// Dark theme styles
+const css = document.createElement("style");
+css.innerHTML = `
+.dark-theme {
+  background-color: #121212;
+  color: #f4f4f4;
 }
+.dark-theme .travel-card {
+  background-color: #1c1c1c;
+  color: #f4f4f4;
+}
+.dark-theme .hero {
+  background: linear-gradient(90deg, #555 0%, #333 100%);
+}
+.dark-theme footer {
+  background-color: #111;
+}
+.dark-theme .blog-btn {
+  color: #fff;
+  background-color: #1e90ff;
+}
+`;
+document.head.appendChild(css);
