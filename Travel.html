@@ -3,85 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adeeb's Travel Journey</title>
-  <meta name="description" content="Travel journeys of Adeeb Saifi: experiences, tips & upcoming adventures.">
-  <meta name="keywords" content="travel, Rishikesh, Haridwar, Mussoorie, Mathura, Vrindavan, Manali, Kashmir, Ladakh, Adeeb Saifi">
-
+  <title>Adeeb Saifi | Travel Journey</title>
+  <meta name="description" content="Explore Adeeb Saifi's travel experiences from Rishikesh to Ladakh, with tips, photos, and stories from each trip.">
+  <meta name="keywords" content="Adeeb Saifi travel, Rishikesh, Haridwar, Mussoorie, Mathura, Vrindavan, Manali, Kashmir, Ladakh, travel blog">
+  
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin:0;
-      padding:0;
-      background:#f9f9f9;
-      color:#333;
-      line-height:1.7;
-    }
-
+    /* Reset & Basics */
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f9f9f9; color:#333; line-height:1.8;}
+    
     header {
       background:#222;
       color:#fff;
       padding:30px 20px;
       text-align:center;
     }
-
-    header h1 {
-      margin:0;
-      font-size:2.8rem;
-    }
+    header h1 {font-size:2.8rem; margin-bottom:8px;}
+    header p {font-size:1.1rem; color:#ccc;}
 
     nav {
       background:#333;
       text-align:center;
       padding:12px 0;
     }
-
     nav a {
-      color:white;
+      color:#fff;
       margin:0 15px;
       text-decoration:none;
       font-weight:bold;
+      font-size:1rem;
+      transition:0.3s;
     }
+    nav a:hover {text-decoration:underline; color:#00bfff;}
 
-    nav a:hover {
-      text-decoration:underline;
-    }
+    .container {max-width:1100px; margin:auto; padding:30px 20px;}
 
-    .container {
-      max-width:900px;
-      margin:auto;
-      padding:30px 20px;
+    .travel-section {margin-top:20px;}
+    .travel-section .section-title {text-align:center; font-size:2rem; margin-bottom:30px; color:#00bfff;}
+
+    .travel-container {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap:25px;
     }
 
     .travel-card {
       background:#fff;
-      padding:25px 30px;
-      margin-bottom:40px;
+      padding:25px;
       border-radius:12px;
       box-shadow:0 6px 20px rgba(0,0,0,0.1);
       transition:0.3s;
     }
-
     .travel-card:hover {
-      transform: translateY(-5px);
-      box-shadow:0 12px 25px rgba(0,0,0,0.15);
+      transform: translateY(-8px);
+      box-shadow:0 10px 25px rgba(0,0,0,0.15);
     }
+    .travel-card h3 {color:#00bfff; margin-bottom:12px; font-size:1.5rem;}
+    .travel-card p {margin-bottom:12px; line-height:1.6; color:#555;}
+    .travel-card.upcoming {border-left:4px solid #00bfff; padding-left:20px;}
 
-    .travel-card h2 {
-      margin-top:0;
-      color:#1e90ff;
-      font-size:2rem;
-      margin-bottom:15px;
+    .back-home {
+      display:inline-block;
+      margin-top:40px;
+      background:#333;
+      color:#fff;
+      padding:12px 25px;
+      border-radius:6px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:0.3s;
     }
-
-    .travel-card p {
-      margin-bottom:15px;
-      text-align:justify;
-    }
-
-    .upcoming {
-      border-left:4px solid #ff7f50;
-      padding-left:20px;
-    }
+    .back-home:hover {background:#00bfff; color:#fff;}
 
     footer {
       background:#222;
@@ -90,122 +82,77 @@
       padding:20px;
       margin-top:50px;
     }
-
-    .back-home {
-      display:inline-block;
-      margin-top:20px;
-      background:#333;
-      color:#fff;
-      padding:12px 25px;
-      border-radius:6px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .back-home:hover {
-      background:#555;
-    }
-
-    .section-title {
-      text-align:center;
-      font-size:2.5rem;
-      margin-bottom:50px;
-      color:#1e90ff;
-    }
-
-    .travel-card h3 {
-      color:#0077cc;
-      margin-bottom:12px;
-      font-size:1.6rem;
-    }
-
-    .travel-card .travel-content p {
-      color:#333;
-      font-size:1rem;
-    }
   </style>
 </head>
 <body>
 
   <header>
     <h1>🌍 Adeeb's Travel Journey</h1>
-    <p>Discover experiences, tips & upcoming adventures 🚀</p>
+    <p>Experiences, stories & plans from my favorite destinations</p>
   </header>
 
   <nav>
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="blog.html">Blog</a>
-    <a href="travel.html">Travel</a>
     <a href="contact.html">Contact</a>
   </nav>
 
   <div class="container">
-    <h2 class="section-title">My Travel Journeys</h2>
+    <section id="travel" class="travel-section">
+      <h2 class="section-title">🌍 My Travel Journey</h2>
+      <div class="travel-container">
 
-    <div class="travel-card">
-      <h3>Rishikesh</h3>
-      <div class="travel-content">
-        <p><strong>Description:</strong> Peaceful city on the banks of Ganges, famous for yoga & Laxman Jhula.</p>
-        <p><strong>Experience:</strong> Did Ganga aarti, river rafting & enjoyed serene hills.</p>
-      </div>
-    </div>
+        <div class="travel-card">
+          <h3>Rishikesh</h3>
+          <p><strong>Description:</strong> Rishikesh is a peaceful city on the banks of the Ganges, famous for yoga, meditation, and the iconic Laxman Jhula bridge. It attracts spiritual seekers and adventure enthusiasts alike, offering a unique blend of serenity and thrill.</p>
+          <p><strong>Experience:</strong> During my visit, I attended the evening Ganga aarti which was mesmerizing, went river rafting with friends, explored local cafes, and enjoyed the serene views of the surrounding hills. The energy of the place truly rejuvenates the soul and inspires creativity.</p>
+        </div>
 
-    <div class="travel-card">
-      <h3>Haridwar</h3>
-      <div class="travel-content">
-        <p><strong>Description:</strong> Holy city, Ganga Aarti & Har Ki Pauri ghat.</p>
-        <p><strong>Experience:</strong> Attended evening aarti, spiritual vibes.</p>
-      </div>
-    </div>
+        <div class="travel-card">
+          <h3>Haridwar</h3>
+          <p><strong>Description:</strong> Haridwar is one of India’s holiest cities, known for the Ganga Aarti at Har Ki Pauri and countless temples lining the ghats. It’s a hub for spiritual activities, attracting pilgrims from all over the world.</p>
+          <p><strong>Experience:</strong> I visited during the evening aarti, witnessed thousands of diyas floating on the river, and felt an overwhelming spiritual vibe. Explored local markets, tried traditional sweets, and meditated by the river, soaking in the divine atmosphere.</p>
+        </div>
 
-    <div class="travel-card">
-      <h3>Mussoorie</h3>
-      <div class="travel-content">
-        <p><strong>Description:</strong> Scenic hill station called Queen of Hills.</p>
-        <p><strong>Experience:</strong> Explored Mall Road, cable car rides, misty weather.</p>
-      </div>
-    </div>
+        <div class="travel-card">
+          <h3>Mussoorie</h3>
+          <p><strong>Description:</strong> Mussoorie, the Queen of Hills, is a popular hill station with scenic beauty, misty weather, and colonial architecture. It offers breathtaking views of the Himalayas and a perfect escape from city life.</p>
+          <p><strong>Experience:</strong> I walked along Mall Road, tried local snacks, took a cable car ride to Gun Hill, and enjoyed the cool air. Sunsets were magical, painting the sky with orange and pink hues. Peaceful yet adventurous experience.</p>
+        </div>
 
-    <div class="travel-card">
-      <h3>Mathura</h3>
-      <div class="travel-content">
-        <p><strong>Description:</strong> Birthplace of Lord Krishna with colorful ghats & temples.</p>
-        <p><strong>Experience:</strong> Cultural richness & temple visits.</p>
-      </div>
-    </div>
+        <div class="travel-card">
+          <h3>Mathura</h3>
+          <p><strong>Description:</strong> Mathura, the birthplace of Lord Krishna, is rich in temples, ghats, and vibrant culture. Festivals are celebrated with grandeur, offering an authentic glimpse into Indian traditions.</p>
+          <p><strong>Experience:</strong> Visited famous temples, participated in rituals, enjoyed traditional sweets, and walked along the Yamuna ghats. The devotion and energy of the city left a lasting impression on me.</p>
+        </div>
 
-    <div class="travel-card">
-      <h3>Vrindavan</h3>
-      <div class="travel-content">
-        <p><strong>Description:</strong> Known for temples & devotion to Krishna.</p>
-        <p><strong>Experience:</strong> Banke Bihari & Prem Mandir visits.</p>
-      </div>
-    </div>
+        <div class="travel-card">
+          <h3>Vrindavan</h3>
+          <p><strong>Description:</strong> Vrindavan is known for its Krishna devotion, enchanting temples, and mythological stories. The town has an ethereal charm, especially during morning chants.</p>
+          <p><strong>Experience:</strong> Visited Banke Bihari Temple and Prem Mandir, witnessed bhajans, explored narrow lanes filled with devotees. Magical and spiritually uplifting atmosphere throughout the visit.</p>
+        </div>
 
-    <div class="travel-card upcoming">
-      <h3>Manali (Upcoming)</h3>
-      <div class="travel-content">
-        <p><strong>Description:</strong> Popular hill station for snow & adventure.</p>
-        <p><strong>Plan:</strong> Snow & paragliding with friends.</p>
-      </div>
-    </div>
+        <div class="travel-card upcoming">
+          <h3>Manali (Upcoming)</h3>
+          <p><strong>Description:</strong> Manali is a picturesque hill station famous for snow-capped mountains, adventure sports, and scenic landscapes. It’s ideal for both relaxation and thrill-seekers.</p>
+          <p><strong>Plan:</strong> Planning snow activities, paragliding, visit Rohtang Pass, explore local cafes, and enjoy nature walks. The serene valleys and mountain air promise a rejuvenating experience.</p>
+        </div>
 
-    <div class="travel-card upcoming">
-      <h3>Kashmir (Upcoming)</h3>
-      <div class="travel-content">
-        <p><strong>Description:</strong> Paradise on earth with valleys & snow.</p>
-        <p><strong>Plan:</strong> Snowfall & shikara ride in Dal Lake.</p>
-      </div>
-    </div>
+        <div class="travel-card upcoming">
+          <h3>Kashmir (Upcoming)</h3>
+          <p><strong>Description:</strong> Kashmir, Paradise on Earth, is famous for stunning valleys, pristine lakes, and snow-covered mountains. Perfect for nature lovers and adventurers.</p>
+          <p><strong>Plan:</strong> Planning snowfall, shikara ride in Dal Lake, explore Mughal gardens, and try local cuisine. The views and peaceful ambiance make it a dream destination.</p>
+        </div>
 
-    <div class="travel-card upcoming">
-      <h3>Ladakh (Upcoming)</h3>
-      <div class="travel-content">
-        <p><strong>Description:</strong> Cold desert with monasteries & Pangong Lake.</p>
-        <p><strong>Plan:</strong> Bike trip & enjoy landscape.</p>
+        <div class="travel-card upcoming">
+          <h3>Ladakh (Upcoming)</h3>
+          <p><strong>Description:</strong> Ladakh is a high-altitude cold desert known for monasteries, Pangong Lake, and stark natural beauty. Ideal for adventurous road trips and spiritual journeys.</p>
+          <p><strong>Plan:</strong> Dreaming of a bike trip across Leh-Ladakh, visit Pangong & Tso Moriri lakes, explore monasteries, and experience the unique landscapes. Adventure and memories for a lifetime.</p>
+        </div>
+
       </div>
-    </div>
+    </section>
 
     <a class="back-home" href="index.html">⬅ Back to Home</a>
   </div>
@@ -214,5 +161,9 @@
     <p>© 2025 Adeeb Saifi | All Rights Reserved</p>
   </footer>
 
+  <script>
+    // Optional JS for future enhancements (toggle theme, animations etc.)
+    console.log("Travel page loaded successfully");
+  </script>
 </body>
-</html>
+            </html>
