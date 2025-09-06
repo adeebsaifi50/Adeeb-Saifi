@@ -69,13 +69,19 @@ function toggleMenu() {
   document.getElementById('menu').classList.toggle('show');
 }
 // Simple hover effect or animation placeholder
-const travelCards = document.querySelectorAll('.travel-card');
+const cards = document.querySelectorAll('.travel-card');
 
-travelCards.forEach(card => {
-  card.addEventListener('mouseenter', () => {
-    card.style.transform = 'translateY(-10px)';
+function checkCards() {
+  const triggerBottom = window.innerHeight / 5 * 4;
+  
+  cards.forEach(card => {
+    const cardTop = card.getBoundingClientRect().top;
+    if(cardTop < triggerBottom) {
+      card.classList.add('show');
+    } else {
+      card.classList.remove('show');
+    }
   });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'translateY(0)';
-  });
-});
+}
+
+window.addEventListener('scroll', checkCards);
