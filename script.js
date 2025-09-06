@@ -65,3 +65,6 @@ window.onload = () => {
   document.body.classList.add("dark-mode");
   toggleBtn.textContent = "🌙";
 };
+function toggleMenu() {
+  document.getElementById('menu').classList.toggle('show');
+}
