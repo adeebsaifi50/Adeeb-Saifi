@@ -68,3 +68,14 @@ window.onload = () => {
 function toggleMenu() {
   document.getElementById('menu').classList.toggle('show');
 }
+// Simple hover effect or animation placeholder
+const travelCards = document.querySelectorAll('.travel-card');
+
+travelCards.forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    card.style.transform = 'translateY(-8px)';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'translateY(0)';
+  });
+});
