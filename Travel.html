@@ -1,167 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adeeb Saifi | Travel Journey</title>
-  
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <style>
-    /* ===== General Styles ===== */
-    * {margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', sans-serif;}
-    body {background:#f0f2f5; color:#333; transition: background 0.3s, color 0.3s;}
-    a {text-decoration:none; color:#00bfff;}
-    h2.section-title {text-align:center; margin:20px 0; font-size:2rem; color:#222;}
-
-    /* ===== Navbar ===== */
-    .navbar {display:flex; justify-content:space-between; align-items:center; padding:10px 20px; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,0.1);}
-    .logo {font-weight:bold; font-size:1.5rem; color:#00bfff;}
-    .header-right button {margin-left:10px; cursor:pointer; background:none; border:none; font-size:1.2rem;}
-    .side-menu {display:flex; gap:15px;}
-    .side-menu a {padding:5px 10px; border-radius:4px; transition:0.3s;}
-    .side-menu a:hover {background:#00bfff; color:#fff;}
-
-    /* ===== Hero Section ===== */
-    .hero {display:flex; flex-wrap:wrap; align-items:center; justify-content:center; padding:40px 20px; background:#e0f7ff;}
-    .hero-left img {width:250px; height:250px; border-radius:50%; object-fit:cover; margin-bottom:20px;}
-    .hero-right {max-width:500px; margin-left:20px;}
-    .hero-name {font-size:2.2rem; margin-bottom:15px; color:#00bfff;}
-    .social-links p {margin:5px 0;}
-    .blog-btn {display:inline-block; margin-top:15px; background:#00bfff; color:#fff; padding:10px 20px; border-radius:6px; transition:0.3s;}
-    .blog-btn:hover {background:#0095d1;}
-
-    /* ===== Travel Section ===== */
-    .travel-container {display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px; padding:20px;}
-    .travel-card {background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1); transition:0.3s;}
-    .travel-card:hover {transform: translateY(-5px); box-shadow:0 6px 16px rgba(0,0,0,0.15);}
-    .travel-card h3 {color:#00bfff; margin-bottom:10px;}
-    .travel-card p {margin-bottom:8px; line-height:1.5;}
-
-    /* ===== Contact Section ===== */
-    form {display:flex; flex-direction:column; gap:10px;}
-    input, textarea {padding:10px; border-radius:6px; border:1px solid #ccc; width:100%;}
-    button[type="submit"] {background:#00bfff; color:#fff; padding:10px 15px; border:none; border-radius:6px; cursor:pointer; transition:0.3s;}
-    button[type="submit"]:hover {background:#0095d1;}
-
-    /* ===== Footer ===== */
-    footer {text-align:center; padding:15px; background:#222; color:#fff; margin-top:20px;}
-
-    /* ===== Dark Theme ===== */
-    body.dark {background:#111; color:#eee;}
-    body.dark .navbar {background:#1a1a1a;}
-    body.dark .side-menu a {color:#eee;}
-    body.dark .side-menu a:hover {background:#00bfff; color:#fff;}
-    body.dark .hero {background:#0a0a0a;}
-    body.dark .travel-card {background:#1a1a1a;}
-    body.dark input, body.dark textarea {background:#222; color:#eee; border:1px solid #444;}
-    body.dark footer {background:#000;}
-  </style>
-</head>
-<body>
-
-  <!-- Navbar -->
-  <header class="navbar">
-    <div class="logo">Adeeb Saifi</div>
-    <div class="header-right">
-      <button id="themeToggle" title="Toggle Dark/Light">🌙</button>
+<section id="travel" class="travel-section">
+  <h2 class="section-title">🌍 My Travel Journey</h2>
+  <div class="travel-container">
+    <div class="travel-card">
+      <h3>Rishikesh</h3>
+      <p><strong>Description:</strong> Peaceful city on the banks of Ganges, famous for yoga & Laxman Jhula.</p>
+      <p><strong>Experience:</strong> Did Ganga aarti, river rafting & enjoyed serene hills.</p>
     </div>
-    <nav class="side-menu">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#travel">Travel</a>
-      <a href="#testimonials">Testimonials</a>
-      <a href="#contact">Contact</a>
-      <a href="blog.html">Blog</a>
-    </nav>
-  </header>
-
-  <!-- Hero -->
-  <section id="home" class="hero">
-    <div class="hero-left">
-      <img src="images/profile.jpg" alt="Adeeb Profile">
+    <div class="travel-card">
+      <h3>Haridwar</h3>
+      <p><strong>Description:</strong> Holy city, Ganga Aarti & Har Ki Pauri ghat.</p>
+      <p><strong>Experience:</strong> Attended evening aarti, spiritual vibes.</p>
     </div>
-    <div class="hero-right">
-      <h1 class="hero-name">Adeeb Saifi</h1>
-      <div class="social-links">
-        <p><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/adeeb_saifi_50" target="_blank">@adeeb_saifi_50</a></p>
-        <p><i class="fab fa-youtube"></i> <a href="https://youtube.com/@adeebsaifi2" target="_blank">@adeebsaifi2</a></p>
-        <p><i class="fab fa-facebook"></i> <a href="https://www.facebook.com/adeeb.kingkhan.31" target="_blank">adeeb.kingkhan.31</a></p>
-      </div>
-      <a href="blog.html" class="blog-btn">📖 Read My Blog</a>
+    <div class="travel-card">
+      <h3>Mussoorie</h3>
+      <p><strong>Description:</strong> Scenic hill station called Queen of Hills.</p>
+      <p><strong>Experience:</strong> Explored Mall Road, cable car rides, misty weather.</p>
     </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="travel-section">
-    <h2 class="section-title">👤 About Me</h2>
-    <div class="travel-container">
-      <div class="travel-card">
-        <h3>Who I Am</h3>
-        <p><strong>Intro:</strong> I'm Adeeb Saifi, a passionate front-end web developer with a love for creativity and clean design.</p>
-        <p><strong>Skills:</strong> HTML, CSS, JavaScript, Responsive Design, Dark UI, Smooth Animations.</p>
-        <p><strong>Vision:</strong> Build websites that work smoothly and look beautiful.</p>
-        <p><strong>Fun Fact:</strong> I also love traveling and exploring spiritual and scenic places!</p>
-      </div>
+    <div class="travel-card">
+      <h3>Mathura</h3>
+      <p><strong>Description:</strong> Birthplace of Lord Krishna with colorful ghats & temples.</p>
+      <p><strong>Experience:</strong> Cultural richness & temple visits.</p>
     </div>
-  </section>
-
-  <!-- Travel -->
-  <section id="travel" class="travel-section">
-    <h2 class="section-title">🌍 My Travel Journey</h2>
-    <div class="travel-container">
-      <div class="travel-card">
-        <h3>Rishikesh</h3>
-        <p><strong>Description:</strong> Peaceful city on the banks of Ganges, famous for yoga & Laxman Jhula.</p>
-        <p><strong>Experience:</strong> Did Ganga aarti, river rafting & enjoyed serene hills.</p>
-      </div>
-      <div class="travel-card">
-        <h3>Haridwar</h3>
-        <p><strong>Description:</strong> Holy city, Ganga Aarti & Har Ki Pauri ghat.</p>
-        <p><strong>Experience:</strong> Attended evening aarti, spiritual vibes.</p>
-      </div>
-      <div class="travel-card">
-        <h3>Mussoorie</h3>
-        <p><strong>Description:</strong> Scenic hill station called Queen of Hills.</p>
-        <p><strong>Experience:</strong> Explored Mall Road, cable car rides, misty weather.</p>
-      </div>
-      <div class="travel-card">
-        <h3>Mathura</h3>
-        <p><strong>Description:</strong> Birthplace of Lord Krishna with colorful ghats & temples.</p>
-        <p><strong>Experience:</strong> Cultural richness & temple visits.</p>
-      </div>
-      <div class="travel-card">
-        <h3>Vrindavan</h3>
-        <p><strong>Description:</strong> Known for temples & devotion to Krishna.</p>
-        <p><strong>Experience:</strong> Banke Bihari & Prem Mandir visits.</p>
-      </div>
-      <div class="travel-card">
-        <h3>Manali (Upcoming)</h3>
-        <p><strong>Description:</strong> Popular hill station for snow & adventure.</p>
-        <p><strong>Plan:</strong> Snow & paragliding with friends.</p>
-      </div>
-      <div class="travel-card">
-        <h3>Kashmir (Upcoming)</h3>
-        <p><strong>Description:</strong> Paradise on earth with valleys & snow.</p>
-        <p><strong>Plan:</strong> Snowfall & shikara ride in Dal Lake.</p>
-      </div>
-      <div class="travel-card">
-        <h3>Ladakh (Upcoming)</h3>
-        <p><strong>Description:</strong> Cold desert with monasteries & Pangong Lake.</p>
-        <p><strong>Plan:</strong> Bike trip & enjoy landscape.</p>
-      </div>
+    <div class="travel-card">
+      <h3>Vrindavan</h3>
+      <p><strong>Description:</strong> Known for temples & devotion to Krishna.</p>
+      <p><strong>Experience:</strong> Banke Bihari & Prem Mandir visits.</p>
     </div>
-  </section>
+    <div class="travel-card upcoming">
+      <h3>Manali (Upcoming)</h3>
+      <p><strong>Description:</strong> Popular hill station for snow & adventure.</p>
+      <p><strong>Plan:</strong> Snow & paragliding with friends.</p>
+    </div>
+    <div class="travel-card upcoming">
+      <h3>Kashmir (Upcoming)</h3>
+      <p><strong>Description:</strong> Paradise on earth with valleys & snow.</p>
+      <p><strong>Plan:</strong> Snowfall & shikara ride in Dal Lake.</p>
+    </div>
+    <div class="travel-card upcoming">
+      <h3>Ladakh (Upcoming)</h3>
+      <p><strong>Description:</strong> Cold desert with monasteries & Pangong Lake.</p>
+      <p><strong>Plan:</strong> Bike trip & enjoy landscape.</p>
+    </div>
+  </div>
+</section>
 
-  <!-- JS -->
-  <script>
-    const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      themeToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-    });
-  </script>
+<style>
+.travel-section {padding:40px 20px; background:#f9f9f9;}
+.travel-section .section-title {text-align:center; font-size:2rem; margin-bottom:30px; color:#00bfff;}
 
-</body>
-</html>
+.travel-container {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap:25px;
+}
+
+.travel-card {
+  background:#fff;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.travel-card:hover {
+  transform: translateY(-8px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.travel-card h3 {color:#00bfff; margin-bottom:10px; font-size:1.4rem;}
+.travel-card p {margin-bottom:8px; line-height:1.6; color:#555;}
+
+.travel-card.upcoming {border-left:4px solid #00bfff; padding-left:20px;}
+</style>
