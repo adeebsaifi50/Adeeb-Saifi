@@ -1,7 +1,7 @@
 project-folder/
 ├── index.html
-├── gallery.html
-├── images/
-     ├── adeeb1.jpg
+├── Photos.html
+├── Images/
+     ├── Adeeb1.jpg
      ├── adeeb2.jpg
      ├── adeeb3.jpg
