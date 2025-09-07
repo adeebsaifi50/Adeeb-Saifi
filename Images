@@ -1,8 +1,7 @@
-- images/Adeeb1.jpg
-- images/haridwar.jpg
-- images/mussoorie.jpg
-- images/mathura.jpg
-- images/vrindavan.jpg
-- images/manali.jpg
-- images/kashmir.jpg
-- images/ladakh.jpg
+project-folder/
+├── index.html
+├── gallery.html
+├── images/
+     ├── adeeb1.jpg
+     ├── adeeb2.jpg
+     ├── adeeb3.jpg
