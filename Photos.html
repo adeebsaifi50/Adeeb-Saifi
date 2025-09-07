@@ -3,138 +3,131 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Photo Gallery</title>
+  <title>📸 Photo Gallery | Adeeb Saifi</title>
+  <meta name="description" content="Photo gallery of Adeeb Saifi - travel, nature, food and lifestyle moments.">
 
   <!-- LightGallery CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css">
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      margin: 0;
-      padding: 20px;
-      line-height: 1.6;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    header h1 {
-      color: #333;
-    }
-    .search-box {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .search-box input {
-      padding: 10px;
-      width: 80%;
-      max-width: 400px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    .filter-buttons {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f9f9f9; color:#333; line-height:1.8;}
+
+    header {background:#222; color:#fff; padding:30px 20px; text-align:center;}
+    header h1 {font-size:2.5rem; margin-bottom:10px;}
+    header p {color:#ccc; font-size:1.1rem;}
+
+    nav {background:#333; text-align:center; padding:12px 0;}
+    nav a {color:#fff; margin:0 15px; text-decoration:none; font-weight:bold; transition:0.3s;}
+    nav a:hover {color:#00bfff; text-decoration:underline;}
+
+    .container {max-width:1200px; margin:auto; padding:30px 20px;}
+
+    .search-box {text-align:center; margin-bottom:25px;}
+    .search-box input {padding:10px; width:80%; max-width:400px; border-radius:6px; border:1px solid #ccc;}
+
+    .filter-buttons {text-align:center; margin-bottom:25px;}
     .filter-buttons button {
-      padding: 10px 20px;
-      margin: 5px;
-      border: none;
-      background: #333;
-      color: #fff;
-      cursor: pointer;
-      border-radius: 5px;
+      padding:10px 20px; margin:5px; border:none; background:#333; color:#fff;
+      cursor:pointer; border-radius:6px; transition:0.3s;
     }
     .filter-buttons button.active,
-    .filter-buttons button:hover {
-      background: #00bfff;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 15px;
-    }
+    .filter-buttons button:hover {background:#00bfff;}
+
+    .gallery {display:grid; grid-template-columns:repeat(auto-fill, minmax(250px,1fr)); gap:20px;}
     .gallery-item {
-      background: #fff;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
+      background:#fff; padding:15px; border-radius:10px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      transition:0.3s; text-align:center;
     }
-    .gallery-item img {
-      width: 100%;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .gallery-item h4 {
-      margin: 10px 0 5px;
-      font-size: 1.1rem;
-      color: #333;
-    }
-    .gallery-item p {
-      font-size: 0.9rem;
-      color: #555;
-    }
+    .gallery-item:hover {transform:translateY(-6px); box-shadow:0 8px 20px rgba(0,0,0,0.15);}
+    .gallery-item img {width:100%; border-radius:8px; cursor:pointer;}
+    .gallery-item h4 {margin:10px 0 5px; color:#00bfff;}
+    .gallery-item p {font-size:0.9rem; color:#555;}
+
+    footer {background:#222; color:#fff; text-align:center; padding:20px; margin-top:50px;}
   </style>
 </head>
 <body>
 
   <header>
-    <h1>📸 My Photo Gallery</h1>
+    <h1>📸 My Photos Gallery</h1>
     <p>Explore my collection of photos from different categories</p>
   </header>
 
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search photos by name or description...">
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="Travel.html">Travel</a>
+    <a href="Blog.html">Blog</a>
+    
+  </nav>
+
+  <div class="container">
+
+    <!-- Search -->
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search photos by name or description...">
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-buttons">
+      <button class="active" onclick="filterSelection('all')">All</button>
+      <button onclick="filterSelection('travel')">Travel</button>
+      <button onclick="filterSelection('nature')">Nature</button>
+      <button onclick="filterSelection('food')">Food</button>
+      <button onclick="filterSelection('friends')">Friends</button>
+      <button onclick="filterSelection('lifestyle')">Lifestyle</button>
+    </div>
+
+    <!-- Gallery -->
+    <div class="gallery" id="lightgallery">
+
+      <!-- Example Photos (copy-paste these blocks to add more) -->
+      <div class="gallery-item travel" data-title="Rishikesh" data-description="River Ganga and the serene beauty of Rishikesh">
+        <a href="images/rishikesh.jpg" data-lg-size="1406-1390">
+          <img src="images/rishikesh.jpg" alt="Rishikesh" loading="lazy">
+        </a>
+        <h4>Rishikesh</h4>
+        <p>Serene vibes near Ganga</p>
+      </div>
+
+      <div class="gallery-item travel" data-title="Haridwar" data-description="Spiritual experience at Har Ki Pauri">
+        <a href="images/haridwar.jpg" data-lg-size="1406-1390">
+          <img src="images/haridwar.jpg" alt="Haridwar" loading="lazy">
+        </a>
+        <h4>Haridwar</h4>
+        <p>Evening Ganga Aarti</p>
+      </div>
+
+      <div class="gallery-item nature" data-title="Mountains" data-description="Beautiful mountain landscape">
+        <a href="images/mountains.jpg" data-lg-size="1406-1390">
+          <img src="images/mountains.jpg" alt="Mountains" loading="lazy">
+        </a>
+        <h4>Mountains</h4>
+        <p>Snow peaks in the Himalayas</p>
+      </div>
+
+      <div class="gallery-item food" data-title="Street Food" data-description="Delicious Indian street food">
+        <a href="images/food.jpg" data-lg-size="1406-1390">
+          <img src="images/food.jpg" alt="Street Food" loading="lazy">
+        </a>
+        <h4>Street Food</h4>
+        <p>Indian chaat and golgappe</p>
+      </div>
+
+      <!-- Example extra category -->
+      <div class="gallery-item friends" data-title="Picnic" data-description="Friends enjoying picnic in park">
+        <a href="images/friends.jpg" data-lg-size="1406-1390">
+          <img src="images/friends.jpg" alt="Friends Picnic" loading="lazy">
+        </a>
+        <h4>Friends</h4>
+        <p>Chilling with my squad</p>
+      </div>
+
+    </div>
   </div>
 
-  <div class="filter-buttons">
-    <button class="active" onclick="filterSelection('all')">All</button>
-    <button onclick="filterSelection('travel')">Travel</button>
-    <button onclick="filterSelection('nature')">Nature</button>
-    <button onclick="filterSelection('food')">Food</button>
-  </div>
-
-  <div class="gallery" id="lightgallery">
-
-    <!-- Example Photo Items -->
-    <div class="gallery-item travel" data-title="Rishikesh" data-description="River Ganga and the serene beauty of Rishikesh">
-      <a href="images/rishikesh.jpg" data-lg-size="1406-1390">
-        <img src="images/rishikesh.jpg" alt="Rishikesh" loading="lazy">
-      </a>
-      <h4>Rishikesh</h4>
-      <p>Serene vibes near Ganga</p>
-    </div>
-
-    <div class="gallery-item travel" data-title="Haridwar" data-description="Spiritual experience at Har Ki Pauri">
-      <a href="images/haridwar.jpg" data-lg-size="1406-1390">
-        <img src="images/haridwar.jpg" alt="Haridwar" loading="lazy">
-      </a>
-      <h4>Haridwar</h4>
-      <p>Evening Ganga Aarti</p>
-    </div>
-
-    <div class="gallery-item nature" data-title="Mountains" data-description="Beautiful mountain landscape">
-      <a href="images/mountains.jpg" data-lg-size="1406-1390">
-        <img src="images/mountains.jpg" alt="Mountains" loading="lazy">
-      </a>
-      <h4>Mountains</h4>
-      <p>Snow peaks in the Himalayas</p>
-    </div>
-
-    <div class="gallery-item food" data-title="Street Food" data-description="Delicious Indian street food">
-      <a href="images/food.jpg" data-lg-size="1406-1390">
-        <img src="images/food.jpg" alt="Street Food" loading="lazy">
-      </a>
-      <h4>Street Food</h4>
-      <p>Indian chaat and golgappe</p>
-    </div>
-
-  </div>
-
-  <footer style="text-align:center; margin-top:40px; color:#777;">
+  <footer>
     <p>© 2025 Adeeb Saifi | All Rights Reserved</p>
   </footer>
 
@@ -147,7 +140,7 @@
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/download/lg-download.umd.min.js"></script>
 
   <script>
-    // Initialize LightGallery
+    // LightGallery init
     lightGallery(document.getElementById('lightgallery'), {
       plugins: [lgZoom, lgThumbnail, lgFullscreen, lgShare, lgDownload],
       speed: 400,
@@ -176,4 +169,4 @@
     });
   </script>
 </body>
-</html>
+  </html>
