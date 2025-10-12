@@ -1,154 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Share | Adeeb Saifi</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #121212;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    header {
-      background-color: #333;
-      text-align: center;
-      padding: 20px;
-    }
-
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    input[type="file"] {
-      margin-bottom: 10px;
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
-    }
-
-    button {
-      padding: 10px 20px;
-      background-color: #333;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #555;
-    }
-
-    #progress {
-      margin-top: 20px;
-    }
-
-    #downloadLink {
-      margin-top: 20px;
-      word-break: break-all;
-    }
-
-    footer {
-      text-align: center;
-      padding: 10px;
-      background-color: #222;
-      color: #ccc;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>File Share | Adeeb Saifi</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;padding:0;background:#121212;color:#fff;display:flex;flex-direction:column;min-height:100vh;}
+header{background:#333;text-align:center;padding:20px;}
+main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px;}
+input[type=file]{margin-bottom:10px;padding:10px;border-radius:5px;border:none;}
+button{padding:10px 20px;background:#333;color:#fff;border:none;border-radius:5px;cursor:pointer;}
+button:hover{background:#555;}
+#progress{margin-top:20px;}
+#downloadLink{margin-top:20px;word-break:break-all;}
+footer{text-align:center;padding:10px;background:#222;color:#ccc;}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Upload Your File</h1>
-  </header>
+<header><h1>Upload Your File</h1></header>
+<main>
+<input type="file" id="fileInput">
+<button id="uploadBtn">Upload</button>
+<div id="progress"></div>
+<div id="downloadLink"></div>
+</main>
+<footer><p>&copy; 2025 Adeeb Saifi</p></footer>
 
-  <main>
-    <input type="file" id="fileInput">
-    <button id="uploadBtn">Upload</button>
-    <div id="progress"></div>
-    <div id="downloadLink"></div>
-  </main>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
-  <footer>
-    <p>&copy; 2025 Adeeb Saifi</p>
-  </footer>
+<script>
+// 🔹 Firebase configuration (replace with your own)
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-storage-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const storage = firebase.storage();
+const db = firebase.firestore();
 
-  <script>
-    // Firebase configuration
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_AUTH_DOMAIN",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
+// DOM Elements
+const fileInput = document.getElementById('fileInput');
+const uploadBtn = document.getElementById('uploadBtn');
+const progressDiv = document.getElementById('progress');
+const downloadLinkDiv = document.getElementById('downloadLink');
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const storage = firebase.storage();
-    const db = firebase.firestore();
+// 🔹 Upload Function
+uploadBtn.addEventListener('click', () => {
+  const file = fileInput.files[0];
+  if(!file){ alert('Please select a file'); return; }
 
-    // DOM Elements
-    const fileInput = document.getElementById('fileInput');
-    const uploadBtn = document.getElementById('uploadBtn');
-    const progressDiv = document.getElementById('progress');
-    const downloadLinkDiv = document.getElementById('downloadLink');
+  progressDiv.textContent = 'Uploading...';
 
-    // Upload Function
-    uploadBtn.addEventListener('click', () => {
-      const file = fileInput.files[0];
-      if (!file) {
-        alert('Please select a file to upload.');
-        return;
-      }
+  const storageRef = storage.ref('uploads/' + file.name);
+  const uploadTask = storageRef.put(file);
 
-      const storageRef = storage.ref('uploads/' + file.name);
-      const uploadTask = storageRef.put(file);
+  uploadTask.on('state_changed',
+    snapshot => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      progressDiv.textContent = 'Upload is ' + progress.toFixed(2) + '% done';
+    },
+    error => {
+      console.error('Upload failed:', error);
+      progressDiv.textContent = 'Upload failed. Try again.';
+    },
+    () => {
+      uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+        const now = firebase.firestore.Timestamp.now();
+        const expireTime = firebase.firestore.Timestamp.fromDate(new Date(Date.now() + 7*24*60*60*1000));
 
-      uploadTask.on('state_changed',
-        (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          progressDiv.textContent = 'Upload is ' + progress.toFixed(2) + '% done';
-        },
-        (error) => {
-          console.error('Upload failed:', error);
-          alert('Upload failed. Please try again.');
-        },
-        () => {
-          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            const now = firebase.firestore.Timestamp.now();
-            const expireTime = firebase.firestore.Timestamp.fromDate(new Date(Date.now() + 7*24*60*60*1000));
+        // Save metadata in Firestore
+        db.collection('files').add({
+          fileName: file.name,
+          downloadURL,
+          uploadTime: now,
+          expireTime
+        });
 
-            // Save file info in Firestore
-            db.collection('files').add({
-              fileName: file.name,
-              downloadURL: downloadURL,
-              uploadTime: now,
-              expireTime: expireTime
-            });
-
-            downloadLinkDiv.innerHTML = `<a href="${downloadURL}" target="_blank">Download your file</a>`;
-          });
-        }
-      );
-    });
-  </script>
+        progressDiv.textContent = 'Upload complete!';
+        downloadLinkDiv.innerHTML = `<a href="${downloadURL}" target="_blank">Download your file</a>`;
+      });
+    }
+  );
+});
+</script>
 </body>
 </html>
