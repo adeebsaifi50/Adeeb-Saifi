@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Excel Editor | Adeeb Saifi</title>
+<title>Excel Editor Pro | Adeeb Saifi</title>
 
 <!-- Handsontable CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable@11.1.0/dist/handsontable.min.css">
@@ -33,6 +33,7 @@ h1{
   width:90%;
   max-width:1200px;
   margin-bottom:20px;
+  display:none;
 }
 .button-group{
   display:flex;
@@ -72,13 +73,18 @@ footer{
 </head>
 <body>
 
-<h1>📊 Excel Editor</h1>
+<h1>📊 Excel Editor Pro</h1>
 
 <div class="button-group">
-  <button id="newSheet">New Sheet</button>
-  <input type="file" id="uploadFile" accept=".xlsx,.xls,.csv">
-  <button id="downloadFile">Download Excel</button>
-  <button onclick="window.location.href='feature.html'">Back to Feature Hub</button>
+  <button id="newSheet">🆕 New Sheet</button>
+  <button id="clearSheet">🧹 Clear Sheet</button>
+  <button id="addRow">➕ Add Row</button>
+  <button id="addCol">➕ Add Column</button>
+  <button id="deleteRow">➖ Delete Row</button>
+  <button id="deleteCol">➖ Delete Column</button>
+  <input type="file" id="uploadFile" accept=".xlsx,.csv">
+  <button id="downloadFile">💾 Download Excel</button>
+  <button onclick="window.location.href='feature.html'">⬅️ Back to Feature Hub</button>
 </div>
 
 <div id="excelContainer"></div>
@@ -88,43 +94,98 @@ footer{
 </footer>
 
 <script>
-// Initialize Handsontable
 let container = document.getElementById('excelContainer');
-let hot = new Handsontable(container, {
-  data: Handsontable.helper.createSpreadsheetData(10,10),
-  rowHeaders: true,
-  colHeaders: true,
-  licenseKey: 'non-commercial-and-evaluation'
-});
+let hot;
+let sheets = [];
+let currentSheetIndex = 0;
 
-// New Sheet
-document.getElementById('newSheet').addEventListener('click', ()=>{
-  hot.loadData(Handsontable.helper.createSpreadsheetData(10,10));
-});
+function showAlert(msg){ alert(msg); }
 
-// Upload Excel
-document.getElementById('uploadFile').addEventListener('change', function(e){
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = function(evt){
-    const data = new Uint8Array(evt.target.result);
-    const workbook = XLSX.read(data,{type:'array'});
-    const firstSheetName = workbook.SheetNames[0];
-    const worksheet = workbook.Sheets[firstSheetName];
-    const jsonData = XLSX.utils.sheet_to_json(worksheet,{header:1});
-    hot.loadData(jsonData);
+// Initialize new sheet
+function initNewSheet(){
+  container.style.display='block';
+  const data = Handsontable.helper.createSpreadsheetData(10,10);
+  sheets.push(data);
+  currentSheetIndex = sheets.length-1;
+  loadSheet(currentSheetIndex);
+}
+
+// Load sheet by index
+function loadSheet(index){
+  const data = sheets[index];
+  if(!hot){
+    hot = new Handsontable(container,{
+      data:data,
+      rowHeaders:true,
+      colHeaders:true,
+      licenseKey:'non-commercial-and-evaluation'
+    });
+  } else {
+    hot.loadData(data);
   }
-  reader.readAsArrayBuffer(file);
-});
+}
+
+// Clear sheet
+function clearSheet(){
+  if(!hot) return;
+  const rows = hot.countRows();
+  const cols = hot.countCols();
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      hot.setDataAtCell(r,c,'');
+    }
+  }
+  sheets[currentSheetIndex] = hot.getData();
+}
+
+// Add/Delete Rows & Columns
+function addRow(){ if(hot){ hot.alter('insert_row'); sheets[currentSheetIndex]=hot.getData(); } }
+function addCol(){ if(hot){ hot.alter('insert_col'); sheets[currentSheetIndex]=hot.getData(); } }
+function deleteRow(){ if(hot){ hot.alter('remove_row'); sheets[currentSheetIndex]=hot.getData(); } }
+function deleteCol(){ if(hot){ hot.alter('remove_col'); sheets[currentSheetIndex]=hot.getData(); } }
 
 // Download Excel
-document.getElementById('downloadFile').addEventListener('click', ()=>{
+function downloadExcel(){
+  if(!hot) { showAlert("No data to download!"); return; }
   const data = hot.getData();
   const ws = XLSX.utils.aoa_to_sheet(data);
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-  XLSX.writeFile(wb, 'edited.xlsx');
+  XLSX.writeFile(wb,'edited.xlsx');
+}
+
+// Upload Excel / CSV
+function uploadFile(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt){
+    try{
+      const data = new Uint8Array(evt.target.result);
+      const workbook = XLSX.read(data,{type:'array'});
+      const firstSheet = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[firstSheet];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet,{header:1});
+      container.style.display='block';
+      sheets.push(jsonData);
+      currentSheetIndex = sheets.length-1;
+      loadSheet(currentSheetIndex);
+    } catch(err){
+      showAlert("Error loading file! Make sure it is valid .xlsx/.csv");
+    }
+  }
+  reader.readAsArrayBuffer(file);
+}
+
+// Event Listeners
+document.getElementById('newSheet').addEventListener('click', initNewSheet);
+document.getElementById('clearSheet').addEventListener('click', clearSheet);
+document.getElementById('addRow').addEventListener('click', addRow);
+document.getElementById('addCol').addEventListener('click', addCol);
+document.getElementById('deleteRow').addEventListener('click', deleteRow);
+document.getElementById('deleteCol').addEventListener('click', deleteCol);
+document.getElementById('downloadFile').addEventListener('click', downloadExcel);
+document.getElementById('uploadFile').addEventListener('change', function(e){
+  uploadFile(e.target.files[0]);
 });
 </script>
 
