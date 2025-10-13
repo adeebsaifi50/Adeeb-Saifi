@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feature Hub | Adeeb Saifi</title>
+
+<!-- FontAwesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: white;
+    min-height: 100vh;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    text-shadow: 0 0 10px #00ff8a;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 25px;
+    max-width: 1000px;
+    margin: auto;
+  }
+
+  .tile {
+    background: #1e1e1e;
+    border-radius: 15px;
+    padding: 25px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid #333;
+    box-shadow: 0 0 15px rgba(0, 255, 138, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tile i {
+    font-size: 36px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+  }
+
+  .tile a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+
+  .tile:hover {
+    background: #00ff8a;
+    color: #021;
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 20px #00ff8a, 0 0 40px #00ff8a, 0 0 60px #00ff8a;
+  }
+
+  .tile:hover i {
+    transform: rotate(15deg) scale(1.2);
+  }
+
+  @media (max-width: 500px) {
+    h1 {font-size: 2em;}
+    .tile {padding: 20px 10px;}
+    .tile i {font-size: 28px; margin-bottom:10px;}
+  }
+</style>
+</head>
+<body>
+
+<h1>Feature Hub</h1>
+
+<div class="grid">
+  <div class="tile"><a href="qr.html"><i class="fas fa-qrcode"></i>QR Generator</a></div>
+  <div class="tile"><a href="short.html"><i class="fas fa-link"></i>Short URL</a></div>
+  <div class="tile"><a href="chatbot.html"><i class="fas fa-robot"></i>Chatbot</a></div>
+  <div class="tile"><a href="notes.html"><i class="fas fa-key"></i>Password Notes</a></div>
+  <div class="tile"><a href="upload.html"><i class="fas fa-upload"></i>File Upload</a></div>
+  <div class="tile"><a href="blog.html"><i class="fas fa-blog"></i>Blog</a></div>
+  <div class="tile"><a href="contact.html"><i class="fas fa-envelope"></i>Contact</a></div>
+  <div class="tile"><a href="newsletter.html"><i class="fas fa-newspaper"></i>Newsletter</a></div>
+  <!-- Add more tiles as needed -->
+</div>
+
+</body>
+</html>
