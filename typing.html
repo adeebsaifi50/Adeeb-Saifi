@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Typing Speed Test | Adeeb Saifi</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2em;
+  text-shadow: 0 0 10px #00ff8a;
+}
+#textToType {
+  padding: 15px;
+  background: #1e1e1e;
+  border-radius: 10px;
+  width: 300px;
+  max-width: 90%;
+  margin-bottom: 20px;
+  font-size: 1em;
+}
+textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  width: 300px;
+  max-width: 90%;
+  height: 80px;
+  font-size: 1em;
+  margin-bottom: 20px;
+  resize: none;
+}
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+button, select {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  background: #00ff8a;
+  color: #021;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button:hover, select:hover {
+  background: #00d278;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #00ff8a;
+}
+#results {
+  margin-top: 15px;
+  font-size: 1.1em;
+  text-align: center;
+}
+footer {
+  text-align: center;
+  padding: 15px;
+  background:#222;
+  color:#ccc;
+  margin-top:auto;
+  width:100%;
+}
+@media (max-width:500px){
+  h1{font-size:1.8em;}
+  textarea,input,button,select{width:90%;}
+}
+</style>
+</head>
+<body>
+
+<h1>Typing Speed Test</h1>
+
+<!-- Time Selection -->
+<div class="button-group">
+  <label for="timeSelect">Select Time:</label>
+  <select id="timeSelect">
+    <option value="30">30 Seconds</option>
+    <option value="60" selected>1 Minute</option>
+    <option value="120">2 Minutes</option>
+  </select>
+</div>
+
+<!-- Text to type -->
+<div id="textToType">The quick brown fox jumps over the lazy dog.</div>
+
+<!-- Typing Input -->
+<textarea id="userInput" placeholder="Start typing here..." disabled></textarea>
+
+<!-- Buttons -->
+<div class="button-group">
+  <button id="startBtn"><i class="fas fa-play"></i> Start Test</button>
+  <button id="restartBtn"><i class="fas fa-redo"></i> Restart</button>
+  <button onclick="window.location.href='feature.html'"><i class="fas fa-arrow-left"></i> Back to Feature Hub</button>
+</div>
+
+<!-- Results -->
+<div id="results"></div>
+
+<script>
+let timer;
+let timeLeft = 60;
+let interval;
+const textToType = document.getElementById('textToType').innerText;
+const userInput = document.getElementById('userInput');
+const resultsDiv = document.getElementById('results');
+
+function calculateWPMAccuracy() {
+  const typed = userInput.value.trim();
+  const wordsTyped = typed.split(/\s+/).length;
+  const correctChars = typed.split('').filter((c,i)=>c===textToType[i]).length;
+  const accuracy = Math.round((correctChars/typed.length)*100 || 0);
+  const wpm = Math.round((wordsTyped/(timeLeft/60)) || 0);
+  return {wpm, accuracy};
+}
+
+function startTest() {
+  clearInterval(interval);
+  timeLeft = parseInt(document.getElementById('timeSelect').value);
+  userInput.value = '';
+  userInput.disabled = false;
+  userInput.focus();
+  resultsDiv.innerHTML = `Time: ${timeLeft} sec`;
+  
+  interval = setInterval(()=>{
+    timeLeft--;
+    resultsDiv.innerHTML = `Time Left: ${timeLeft} sec`;
+    if(timeLeft <=0){
+      clearInterval(interval);
+      userInput.disabled = true;
+      const {wpm, accuracy} = calculateWPMAccuracy();
+      resultsDiv.innerHTML = `Time's up! WPM: ${wpm} | Accuracy: ${accuracy}%`;
+    }
+  },1000);
+}
+
+function restartTest() {
+  clearInterval(interval);
+  userInput.value = '';
+  userInput.disabled = true;
+  resultsDiv.innerHTML = '';
+}
+
+document.getElementById('startBtn').addEventListener('click', startTest);
+document.getElementById('restartBtn').addEventListener('click', restartTest);
+</script>
+
+<footer>
+  &copy; 2025 Adeeb Saifi | <a href="feature.html" style="color:#00ff8a; text-decoration:none;">Back to Feature Hub</a>
+</footer>
+
+</body>
+  </html>
