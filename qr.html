@@ -75,6 +75,7 @@
 <input type="text" id="text" placeholder="Enter text or URL">
 <div>
   <button id="generate">Generate QR</button>
+  <button id="download">Download QR</button>
   <button onclick="goBack()">Back to Features</button>
 </div>
 
@@ -101,8 +102,15 @@
     qr.value = text;
   });
 
+  document.getElementById('download').addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.href = qr.element.toDataURL("image/png");
+    link.download = "qr-code.png";
+    link.click();
+  });
+
   function goBack() {
-    window.location.href = "feature-hub.html"; // Change to your Feature Hub page filename
+    window.location.href = "feature-hub.html"; // Change to your Feature Hub filename
   }
 </script>
 
