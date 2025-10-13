@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secret Notes | Adeeb Saifi</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:30px 20px;
+  min-height:100vh;
+}
+h1{
+  text-align:center;
+  margin-bottom:20px;
+  font-size:2em;
+  text-shadow:0 0 10px #00ff8a;
+}
+textarea{
+  width:350px;
+  max-width:90%;
+  height:250px;
+  padding:15px;
+  border-radius:10px;
+  border:none;
+  font-size:1em;
+  margin-bottom:20px;
+  resize:none;
+  background:#1e1e1e;
+  color:#00ff8a;
+}
+.button-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  justify-content:center;
+  margin-bottom:20px;
+}
+button,input[type=file]{
+  padding:10px 20px;
+  border-radius:10px;
+  border:none;
+  background:#00ff8a;
+  color:#021;
+  font-weight:bold;
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+button:hover,input[type=file]:hover{
+  background:#00d278;
+  transform:scale(1.05);
+  box-shadow:0 0 10px #00ff8a;
+}
+footer{
+  text-align:center;
+  padding:15px;
+  background:#222;
+  color:#ccc;
+  margin-top:auto;
+  width:100%;
+}
+@media(max-width:500px){
+  h1{font-size:1.8em;}
+  textarea,button,input[type=file]{width:90%;}
+}
+</style>
+</head>
+<body>
+
+<h1>📝 Secret Notes</h1>
+
+<textarea id="notesArea" placeholder="Type your secret notes here..."></textarea>
+
+<div class="button-group">
+  <button id="downloadBtn"><i class="fas fa-download"></i> Download</button>
+  <input type="file" id="uploadNote" accept=".txt">
+  <button id="clearBtn"><i class="fas fa-trash"></i> Clear</button>
+  <button onclick="window.location.href='feature.html'"><i class="fas fa-arrow-left"></i> Back to Feature Hub</button>
+</div>
+
+<footer>
+  &copy; 2025 Adeeb Saifi | <a href="feature.html" style="color:#00ff8a; text-decoration:none;">Back to Feature Hub</a>
+</footer>
+
+<script>
+// Download note
+document.getElementById('downloadBtn').addEventListener('click', function(){
+  const text = document.getElementById('notesArea').value;
+  const blob = new Blob([text], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'note.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+// Upload note
+document.getElementById('uploadNote').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt){
+    document.getElementById('notesArea').value = evt.target.result;
+  }
+  reader.readAsText(file);
+});
+
+// Clear textarea
+document.getElementById('clearBtn').addEventListener('click', function(){
+  document.getElementById('notesArea').value='';
+});
+</script>
+
+</body>
+  </html>
