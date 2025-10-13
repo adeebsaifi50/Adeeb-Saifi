@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excel Editor | Adeeb Saifi</title>
+
+<!-- Handsontable CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable@11.1.0/dist/handsontable.min.css">
+<script src="https://cdn.jsdelivr.net/npm/handsontable@11.1.0/dist/handsontable.min.js"></script>
+
+<!-- SheetJS -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:20px;
+  min-height:100vh;
+}
+h1{
+  text-align:center;
+  margin-bottom:20px;
+  font-size:2em;
+  text-shadow:0 0 10px #00ff8a;
+}
+#excelContainer{
+  width:90%;
+  max-width:1200px;
+  margin-bottom:20px;
+}
+.button-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  margin-bottom:20px;
+}
+button,input[type=file]{
+  padding:10px 20px;
+  border-radius:10px;
+  border:none;
+  background:#00ff8a;
+  color:#021;
+  font-weight:bold;
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+button:hover,input[type=file]:hover{
+  background:#00d278;
+  transform:scale(1.05);
+  box-shadow:0 0 10px #00ff8a;
+}
+footer{
+  text-align:center;
+  padding:15px;
+  background:#222;
+  color:#ccc;
+  margin-top:auto;
+  width:100%;
+}
+@media(max-width:600px){
+  h1{font-size:1.8em;}
+  button,input[type=file]{width:90%;}
+}
+</style>
+</head>
+<body>
+
+<h1>📊 Excel Editor</h1>
+
+<div class="button-group">
+  <button id="newSheet">New Sheet</button>
+  <input type="file" id="uploadFile" accept=".xlsx,.xls,.csv">
+  <button id="downloadFile">Download Excel</button>
+  <button onclick="window.location.href='feature.html'">Back to Feature Hub</button>
+</div>
+
+<div id="excelContainer"></div>
+
+<footer>
+  &copy; 2025 Adeeb Saifi | <a href="feature.html" style="color:#00ff8a; text-decoration:none;">Feature Hub</a>
+</footer>
+
+<script>
+// Initialize Handsontable
+let container = document.getElementById('excelContainer');
+let hot = new Handsontable(container, {
+  data: Handsontable.helper.createSpreadsheetData(10,10),
+  rowHeaders: true,
+  colHeaders: true,
+  licenseKey: 'non-commercial-and-evaluation'
+});
+
+// New Sheet
+document.getElementById('newSheet').addEventListener('click', ()=>{
+  hot.loadData(Handsontable.helper.createSpreadsheetData(10,10));
+});
+
+// Upload Excel
+document.getElementById('uploadFile').addEventListener('change', function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt){
+    const data = new Uint8Array(evt.target.result);
+    const workbook = XLSX.read(data,{type:'array'});
+    const firstSheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[firstSheetName];
+    const jsonData = XLSX.utils.sheet_to_json(worksheet,{header:1});
+    hot.loadData(jsonData);
+  }
+  reader.readAsArrayBuffer(file);
+});
+
+// Download Excel
+document.getElementById('downloadFile').addEventListener('click', ()=>{
+  const data = hot.getData();
+  const ws = XLSX.utils.aoa_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  XLSX.writeFile(wb, 'edited.xlsx');
+});
+</script>
+
+</body>
+</html>
