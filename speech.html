@@ -57,7 +57,6 @@ button:hover {
   transform: scale(1.05);
   box-shadow: 0 0 15px #00ff8a;
 }
-#qrcode { display:none; } /* placeholder for uniformity if needed */
 @media (max-width:500px){
   h1{font-size:1.8em;}
   button,input[type="text"],textarea{width:90%;}
@@ -107,6 +106,8 @@ button:hover {
 
   // Speech-to-Text
   let recognition;
+  let recognizing = false;
+
   if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window){
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = new SpeechRecognition();
@@ -122,15 +123,23 @@ button:hover {
       document.getElementById('sttOutput').value = transcript;
     };
     recognition.onerror = (e) => { console.error(e); };
+    recognition.onend = () => { recognizing = false; };
   } else {
-    alert('Speech Recognition not supported in this browser.');
+    alert('Speech Recognition not supported in this browser. Use Chrome/Edge.');
   }
 
   document.getElementById('startSTT').addEventListener('click', () => {
-    recognition.start();
+    if(recognition && !recognizing){
+      recognition.start();
+      recognizing = true;
+    }
   });
+
   document.getElementById('stopSTT').addEventListener('click', () => {
-    recognition.stop();
+    if(recognition && recognizing){
+      recognition.stop();
+      recognizing = false;
+    }
   });
 
   // Soundboard
@@ -147,4 +156,5 @@ button:hover {
 </script>
 
 </body>
+</html>body>
   </html>
