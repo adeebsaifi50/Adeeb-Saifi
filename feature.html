@@ -1,99 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Feature Hub | Adeeb Saifi</title>
 
 <!-- FontAwesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-  body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 20px;
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    color: white;
-    min-height: 100vh;
+  :root{
+    --bg:#0f0c29;
+    --bg-2:#302b63;
+    --card:#1e1e1e;
+    --text:#ffffff;
+    --muted:#bdbdbd;
+    --accent:#00ff8a;
+    --accent-2:#0b7eff;
+    --tile-hover-text:#021;
+  }
+  body.light {
+    --bg:#f7f8fb;
+    --bg-2:#e6eefc;
+    --card:#ffffff;
+    --text:#081024;
+    --muted:#555;
+    --accent:#0b7eff;
+    --accent-2:#00a3ff;
+    --tile-hover-text:#fff;
   }
 
-  h1 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2.5em;
-    text-shadow: 0 0 10px #00ff8a;
-  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background: linear-gradient(135deg,var(--bg),var(--bg-2));color:var(--text);transition: background 400ms ease, color 300ms ease;}
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 25px;
-    max-width: 1000px;
-    margin: auto;
-  }
+  .wrap{max-width:1100px;margin:24px auto 110px;padding:20px;}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
+  .brand{display:flex;gap:14px;align-items:center}
+  .logo{width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(0,0,0,0.04));box-shadow: 0 8px 22px rgba(0,0,0,0.22);color: var(--accent);font-size:20px}
+  .title h1{margin:0;font-size:20px}
+  .title p{margin:0;font-size:12px;color:var(--muted)}
 
-  .tile {
-    background: #1e1e1e;
-    border-radius: 15px;
-    padding: 25px 15px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid #333;
-    box-shadow: 0 0 15px rgba(0, 255, 138, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
+  .header-actions{display:flex;gap:10px;align-items:center}
+  .datetime{padding:8px 12px;border-radius:10px;background:var(--card);color:var(--text);font-size:13px;box-shadow: 0 8px 22px rgba(0,0,0,0.18)}
+  .controls{display:flex;gap:8px;align-items:center}
 
-  .tile i {
-    font-size: 36px;
-    margin-bottom: 15px;
-    transition: transform 0.3s ease;
+  .toggle{
+    display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;cursor:pointer;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(0,0,0,0.03));border:1px solid rgba(255,255,255,0.04);color:var(--text);transition: transform 260ms cubic-bezier(.16,.8,.24,1);
   }
+  .toggle:active{transform:scale(.98)}
+  .toggle i{font-size:14px;color:var(--accent)}
 
-  .tile a {
-    color: inherit;
-    text-decoration: none;
-    font-size: 1.1em;
-    font-weight: bold;
+  /* Search + My Tools bar */
+  .topbar{display:flex;gap:12px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+  .search{
+    flex:1;min-width:180px;
+    display:flex;align-items:center;padding:10px 12px;border-radius:12px;background:var(--card);
+    gap:10px;border:1px solid rgba(255,255,255,0.03)
   }
+  .search input{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-size:14px}
+  .favorites-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 
-  .tile:hover {
-    background: #00ff8a;
-    color: #021;
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 0 20px #00ff8a, 0 0 40px #00ff8a, 0 0 60px #00ff8a;
+  .fav-chip{
+    display:inline-flex;gap:8px;align-items:center;padding:8px 10px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:13px;color:var(--muted)
   }
+  .fav-chip a{color:var(--accent);text-decoration:none;font-weight:600;margin-left:4px}
 
-  .tile:hover i {
-    transform: rotate(15deg) scale(1.2);
-  }
+  /* Grid */
+  .grid{display:grid;grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));gap:18px;margin-top:18px}
+  .tile{background:var(--card);padding:18px;border-radius:12px;text-align:center;cursor:pointer;transition: transform 220ms cubic-bezier(.16,.8,.24,1), box-shadow 220ms, background 220ms;border:1px solid rgba(255,255,255,0.03);box-shadow: 0 8px 24px rgba(0,0,0,0.22);position:relative;overflow:hidden}
+  .tile a{ color:inherit; text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:10px; justify-content:center; height:100% }
+  .tile i{font-size:28px;opacity:0.98}
+  .tile span{font-weight:700;font-size:14px}
+  .tile:hover{transform: translateY(-8px) scale(1.02);box-shadow:0 20px 44px rgba(0,0,0,0.36);background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02))}
+  .tile .star{position:absolute;right:10px;top:10px;font-size:16px;color:rgba(255,255,255,0.35);cursor:pointer;transition:color 160ms}
+  .tile .star.active{color:var(--accent)}
+  .tile .star:focus{outline:2px solid rgba(255,255,255,0.06);border-radius:50%}
 
-  @media (max-width: 500px) {
-    h1 {font-size: 2em;}
-    .tile {padding: 20px 10px;}
-    .tile i {font-size: 28px; margin-bottom:10px;}
+  /* footer */
+  footer{position:fixed;left:0;right:0;bottom:0;background: rgba(0,0,0,0.36);color:var(--muted);padding:10px 14px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;backdrop-filter: blur(6px)}
+  footer a{color:var(--accent);text-decoration:none;font-weight:600}
+
+  @media (max-width:480px){
+    .logo{width:44px;height:44px;font-size:16px}
+    .title h1{font-size:18px}
+    .datetime{display:none}
   }
 </style>
 </head>
 <body>
+  <div class="wrap" id="appWrap">
+    <header>
+      <div class="brand">
+        <div class="logo">AS</div>
+        <div class="title">
+          <h1>Feature Hub</h1>
+          <p>All-in-one tools — Adeeb Saifi</p>
+        </div>
+      </div>
 
-<h1>Feature Hub</h1>
+      <div class="header-actions">
+        <div class="datetime" id="datetime">Loading…</div>
 
-<div class="grid">
-  <div class="tile"><a href="qr.html"><i class="fas fa-qrcode"></i>QR Generator</a></div>
-  <div class="tile"><a href="speech.html">🎤 Speech Tools</a></div>
-  <div class="tile"><a href="typing.html">⌨️ Typing Speed Test</a></div>
-  <div class="tile"><a href="notes.html">📝 Secret Notes</a></div>
-  <div class="tile"><a href="excel.html">📊 Excel Editor</a></div>
-  <div class="tile"><a href="blog.html"><i class="fas fa-blog"></i>Blog</a></div>
-  <div class="tile"><a href="contact.html"><i class="fas fa-envelope"></i>Contact</a></div>
-  <div class="tile"><a href="newsletter.html"><i class="fas fa-newspaper"></i>Newsletter</a></div>
-  <!-- Add more tiles as needed -->
-</div>
+        <div class="controls">
+          <div class="toggle" id="themeToggle" role="button" tabindex="0" aria-pressed="false" title="Toggle Day / Night">
+            <i id="themeIcon" class="fas fa-moon"></i>
+            <span id="themeLabel">Night</span>
+          </div>
+        </div>
+      </div>
+    </header>
 
+    <div class="topbar">
+      <div class="search" role="search" aria-label="Search tools">
+        <i class="fas fa-search" style="color:var(--muted)"></i>
+        <input id="searchInput" placeholder="Search tools (e.g. QR, typing, notes)..." aria-label="Search tools"/>
+        <button id="clearSearch" title="Clear search" style="background:transparent;border:none;color:var(--muted);cursor:pointer;"><i class="fas fa-times"></i></button>
+      </div>
+
+      <div class="favorites-bar" id="favoritesBar" aria-live="polite">
+        <!-- favorite chips will be injected here -->
+      </div>
+
+      <div style="margin-left:auto;">
+        <button id="clearFavorites" title="Clear all favorites" style="padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);cursor:pointer">Clear Favorites</button>
+      </div>
+    </div>
+
+    <p style="color:var(--muted);text-align:center;margin:0 0 12px">Tap a tile or press <kbd>Enter</kbd> on it. Favorites saved locally.</p>
+
+    <main class="grid" id="grid" role="list">
+      <!-- Tiles: each has data attributes used by search & favorites -->
+      <div class="tile" data-id="qr" data-name="QR Generator" data-href="qr.html" tabindex="0" role="listitem" aria-label="QR Generator">
+        <div class="star" role="button" tabindex="0" aria-label="Favorite">&#9734;</div>
+        <a href="qr.html"><i class="fas fa-qrcode"></i><span>QR Generator</span></a>
+      </div>
+
+      <div class="tile" data-id="short" data-name="Short URL" data-href="short.html" tabindex="0" role="listitem" aria-label="Short URL">
+        <div class="star" role="button" tabindex="0" aria-label="Favorite">&#9734;</div>
+        <a href="short.html"><i class="fas fa-link"></i><span>Short URL</span></a>
+      </div>
+
+      <div class="tile" data-id="chatbot" data-name="Chatbot" data-href="chatbot.html" tabindex="0" role="listitem" aria-label="Chatbot">
+        <div class="star" role="button" tabindex="0" aria-label="Favorite">&#9734;</div>
+        <a href="chatbot.html"><i class="fas fa-robot"></i><span>Chatbot</span></a>
+      </div>
+
+      <div class="tile" data-id="typing" data-name="Typing Speed Test" data-href="typing.html" tabindex="0" role="listitem" aria-label="Typing Speed Test">
+        <div class="star" role="button" tabindex="0" aria-label="Favorite">&#9734;</div>
+        <a href="typing.html">⌨️<span>Typing Speed Test</span></a>
+      </div>
+
+      <div class="tile" data-id="speech" data-name="Speech Tools" data-href="speech.html" tabindex="0" role="listitem" aria-label="Speech Tools">
+        <div class="star" role="button" tabindex="0" aria-label="Favorite">&#9734;</div>
+        <a href="speech.html">🎙️<span>Speech Tools</span></a>
+      </div>
+
+      <div class="tile" data-id="notes" data-name="Secret Notes" data-href="notes.html" tabindex="0" role="listitem" aria-label="Secret Notes">
+        <div class="star" role="button" tabindex="0" aria-label="Favorite">&#9734;</div>
+        <a href="notes.html">📝<span>Secret Notes</span></a>
+      </div>
+
+      <div class="tile" data-id="excel" data-name="Excel Editor" data-href="excel.html" tabindex="0" role="listitem" aria-label="Excel Editor">
+        <div class="star" role="button" tabindex="0" aria-label="Favorite">&#9734;</div>
+        <a href="excel.html">📊<span>Excel Editor</span></a>
+      </div>
+
+      <div class="tile" data-id="dice" data-name="Dice / RNG" data-href="dice.html" tabindex="0" role="listitem" aria-label="Dice / RNG">
+        <div class="star" role="button" tabindex="0" aria-label="Favorite">&#9734;</div>
+        <a href="dice.html">🎲<span>Dice / RNG</span></a>
+      </div>
+
+      <!-- add extra tiles here if needed -->
+    </main>
+  </div>
+
+  <footer>
+    <span>All Rights © 2025 Adeeb Saifi</span>
+    <span style="opacity:0.45">|</span>
+    <span>Crafted with <span style="color:#ff6b81">❤</span> by Adeeb</span>
+    <span style="opacity:0.45">|</span>
+    <a href="feature.html">Refresh Hub</a>
+  </footer>
+
+<script>
+/* -----------------------
+   Utilities & initial
+   ----------------------- */
+const GRID = document.getElementById('grid');
+const SEARCH = document.getElementById('searchInput');
+const CLEAR_SEARCH = document.getElementById('clearSearch');
+const FAVORITES_BAR = document.getElementById('favoritesBar');
+const CLEAR_FAVORITES_BTN = document.getElementById('clearFavorites');
+const THEME_TOGGLE = document.getElementById('themeToggle');
+const THEME_ICON = document.getElementById('themeIcon');
+const THEME_LABEL = document.getElementById('themeLabel');
+const DATETIME = document.getElementById('datetime');
+
+function nowDateTime(){
+  const now = new Date();
+  const opts = { weekday:'short', month:'short', day:'numeric', year:'numeric' };
+  return `${now.toLocaleDateString(undefined, opts)} — ${now.toLocaleTimeString()}`;
+}
+DATETIME.textContent = nowDateTime();
+setInterval(()=> DATETIME.textContent = nowDateTime(), 1000);
+
+/* ======================
+   Theme handling (saved)
+   ====================== */
+function applyTheme(theme){
+  if(theme === 'light'){
+    document.body.classList.add('light');
+    THEME_ICON.className = 'fas fa-sun';
+    THEME_LABEL.textContent = 'Day';
+    THEME_TOGGLE.setAttribute('aria-pressed','true');
+  } else {
+    document.body.classList.remove('light');
+    THEME_ICON.className = 'fas fa-moon';
+    THEME_LABEL.textContent = 'Night';
+    THEME_TOGGLE.setAttribute('aria-pressed','false');
+  }
+  try { localStorage.setItem('adeeb_theme', theme);}catch(e){}
+}
+THEME_TOGGLE.addEventListener('click', ()=>{
+  const isLight = document.body.classList.contains('light');
+  applyTheme(isLight ? 'dark' : 'light');
+});
+THEME_TOGGLE.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); THEME_TOGGLE.click(); } });
+
+// load theme on start
+const savedTheme = (function(){ try{return localStorage.getItem('adeeb_theme')}catch(e){return null} })();
+applyTheme(savedTheme || 'dark');
+
+/* ======================
+   Click sound (Web Audio)
+   ====================== */
+const audioCtx = (window.AudioContext || window.webkitAudioContext) ? new (window.AudioContext || window.webkitAudioContext)() : null;
+function clickSound(){
+  if(!audioCtx) return;
+  const t = audioCtx.currentTime;
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type = 'sine';
+  o.frequency.setValueAtTime(880, t);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(0.05, t + 0.01);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(); o.stop(t + 0.15);
+}
+
+/* ======================
+   Favorites (My Tools)
+   ====================== */
+const STORAGE_KEY = 'adeeb_favorites_v1';
+function loadFavorites(){
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }catch(e){ return []; }
+}
+function saveFavorites(arr){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }catch(e){} }
+let favorites = loadFavorites();
+
+function renderFavoritesBar(){
+  FAVORITES_BAR.innerHTML = '';
+  if(favorites.length === 0){
+    const hint = document.createElement('div'); hint.className='fav-chip'; hint.textContent='No favorites yet — click ☆ on a tile';
+    FAVORITES_BAR.appendChild(hint); return;
+  }
+  favorites.forEach(id=>{
+    const tile = GRID.querySelector(`.tile[data-id="${id}"]`);
+    if(!tile) return;
+    const name = tile.dataset.name;
+    const href = tile.dataset.href;
+    const chip = document.createElement('div'); chip.className='fav-chip';
+    chip.innerHTML = `<strong>⭐</strong> <a href="${href}">${name}</a>`;
+    FAVORITES_BAR.appendChild(chip);
+  });
+}
+renderFavoritesBar();
+
+function setStarState(tile, active){
+  const star = tile.querySelector('.star');
+  if(!star) return;
+  if(active){ star.classList.add('active'); star.innerHTML='&#9733;'; }
+  else { star.classList.remove('active'); star.innerHTML='&#9734;'; }
+}
+
+function syncStars(){
+  document.querySelectorAll('.tile').forEach(t=>{
+    const id = t.dataset.id;
+    setStarState(t, favorites.includes(id));
+  });
+}
+syncStars();
+
+GRID.addEventListener('click', (e)=>{
+  const tile = e.target.closest('.tile');
+  if(tile){
+    // if clicked on star
+    const star = e.target.closest('.star');
+    if(star){
+      const id = tile.dataset.id;
+      const isFav = favorites.includes(id);
+      if(isFav) favorites = favorites.filter(x=>x!==id);
+      else favorites.push(id);
+      saveFavorites(favorites);
+      renderFavoritesBar();
+      syncStars();
+      clickSound();
+      return;
+    }
+    // tile click -> play sound + quick animation (navigation handled by anchor)
+    clickSound();
+    tile.animate([
+      { transform: 'scale(1.02) rotate(-0.6deg)', boxShadow:'0 22px 44px rgba(0,0,0,0.4)' },
+      { transform: 'scale(1) rotate(0deg)', boxShadow:'0 12px 28px rgba(0,0,0,0.28)' }
+    ], { duration: 260, easing: 'cubic-bezier(.16,.8,.24,1)' });
+    // anchors will navigate naturally
+  }
+});
+
+// keyboard: Enter opens tile link; Space toggles favorite if star is focused
+GRID.addEventListener('keydown', (e)=>{
+  const tile = e.target.closest('.tile');
+  if(!tile) return;
+  if(e.key === 'Enter') {
+    const link = tile.querySelector('a');
+    if(link) { clickSound(); window.location.href = link.getAttribute('href'); }
+  }
+});
+document.querySelectorAll('.star').forEach(s=>{
+  s.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); s.click(); }
+  });
+});
+
+CLEAR_FAVORITES_BTN.addEventListener('click', ()=>{
+  if(!confirm('Clear all favorites?')) return;
+  favorites = []; saveFavorites(favorites); renderFavoritesBar(); syncStars();
+});
+
+/* ======================
+   Search / filter
+   ====================== */
+function filterTiles(q){
+  q = (q || '').trim().toLowerCase();
+  document.querySelectorAll('.tile').forEach(t=>{
+    const name = (t.dataset.name || '').toLowerCase();
+    if(!q || name.includes(q)) t.style.display = '';
+    else t.style.display = 'none';
+  });
+}
+SEARCH.addEventListener('input', ()=> filterTiles(SEARCH.value));
+CLEAR_SEARCH.addEventListener('click', ()=> { SEARCH.value=''; filterTiles(''); SEARCH.focus(); });
+
+/* ======================
+   Initial star states (update)
+   ====================== */
+syncStars();
+renderFavoritesBar();
+
+/* ======================
+   Accessibility / hints
+   ====================== */
+// make tiles focusable (they already have tabindex). add outline on focus
+document.addEventListener('focusin', (e)=>{
+  const t = e.target.closest('.tile');
+  if(t) t.style.outline = '2px solid rgba(255,255,255,0.04)';
+});
+document.addEventListener('focusout', (e)=>{
+  const t = e.target.closest('.tile');
+  if(t) t.style.outline = 'none';
+});
+
+/* ======================
+   Final small polish: reveal favorites hint if empty after 2s
+   ====================== */
+setTimeout(()=> {
+  if(favorites.length === 0){
+    // little pulse on tiles area
+    GRID.animate([{opacity:1},{opacity:0.96},{opacity:1}],{duration:900,iterations:1});
+  }
+}, 1200);
+
+</script>
 </body>
-</html>
+              </html>
