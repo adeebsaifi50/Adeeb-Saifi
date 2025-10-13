@@ -76,7 +76,7 @@
 <div>
   <button id="generate">Generate QR</button>
   <button id="download">Download QR</button>
-  <button onclick="goBack()">Back to Features</button>
+  <button onclick="feature.html">Back to Feature Hub</button>
 </div>
 
 <div id="qrcode"></div>
@@ -85,6 +85,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 
 <script>
+  // Initialize QR canvas
   const qr = new QRious({
     element: document.createElement('canvas'),
     size: 250
@@ -93,6 +94,7 @@
   const qrcodeDiv = document.getElementById('qrcode');
   qrcodeDiv.appendChild(qr.element);
 
+  // Generate QR
   document.getElementById('generate').addEventListener('click', () => {
     const text = document.getElementById('text').value.trim();
     if(!text){
@@ -102,15 +104,23 @@
     qr.value = text;
   });
 
+  // Download QR
   document.getElementById('download').addEventListener('click', () => {
+    if(!qr.value){
+      alert('Generate QR code first!');
+      return;
+    }
     const link = document.createElement('a');
     link.href = qr.element.toDataURL("image/png");
     link.download = "qr-code.png";
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   });
 
+  // Back to Feature Hub
   function goBack() {
-    window.location.href = "feature-hub.html"; // Change to your Feature Hub filename
+    window.location.href = "feature.html"; // <-- Change if your Feature Hub filename is different
   }
 </script>
 
