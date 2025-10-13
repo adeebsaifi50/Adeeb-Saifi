@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Generator | Adeeb Saifi</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+    text-shadow: 0 0 10px #00ff8a;
+  }
+
+  input[type="text"] {
+    padding: 12px;
+    width: 250px;
+    max-width: 90%;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 15px;
+    font-size: 1em;
+  }
+
+  button {
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    background: #00ff8a;
+    color: #021;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 5px;
+  }
+
+  button:hover {
+    background: #00d278;
+    transform: scale(1.05);
+  }
+
+  #qrcode {
+    margin-top: 30px;
+    padding: 20px;
+    background: #1e1e1e;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #00ff8a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media (max-width: 500px) {
+    h1 {font-size: 1.8em;}
+    button, input[type="text"] {width: 90%;}
+  }
+</style>
+</head>
+<body>
+
+<h1>QR Code Generator</h1>
+
+<input type="text" id="text" placeholder="Enter text or URL">
+<div>
+  <button id="generate">Generate QR</button>
+  <button onclick="goBack()">Back to Features</button>
+</div>
+
+<div id="qrcode"></div>
+
+<!-- QR Code library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+<script>
+  const qr = new QRious({
+    element: document.createElement('canvas'),
+    size: 250
+  });
+
+  const qrcodeDiv = document.getElementById('qrcode');
+  qrcodeDiv.appendChild(qr.element);
+
+  document.getElementById('generate').addEventListener('click', () => {
+    const text = document.getElementById('text').value.trim();
+    if(!text){
+      alert('Please enter text or URL!');
+      return;
+    }
+    qr.value = text;
+  });
+
+  function goBack() {
+    window.location.href = "feature-hub.html"; // Change to your Feature Hub page filename
+  }
+</script>
+
+</body>
+</html>
