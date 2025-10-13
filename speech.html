@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speech Tools | Adeeb Saifi</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2em;
+  text-shadow: 0 0 10px #00ff8a;
+}
+input[type="text"], textarea {
+  padding: 12px;
+  width: 250px;
+  max-width: 90%;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 15px;
+  font-size: 1em;
+}
+textarea {
+  resize: none;
+  height: 80px;
+}
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+button {
+  padding: 12px 25px;
+  border-radius: 10px;
+  border: none;
+  background: #00ff8a;
+  color: #021;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button:hover {
+  background: #00d278;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #00ff8a;
+}
+#qrcode { display:none; } /* placeholder for uniformity if needed */
+@media (max-width:500px){
+  h1{font-size:1.8em;}
+  button,input[type="text"],textarea{width:90%;}
+}
+</style>
+</head>
+<body>
+
+<h1>Speech Tools</h1>
+
+<!-- Text-to-Speech -->
+<input type="text" id="ttsInput" placeholder="Enter text to speak">
+<div class="button-group">
+  <button id="speakBtn"><i class="fas fa-volume-up"></i> Speak Text</button>
+</div>
+
+<!-- Speech-to-Text -->
+<textarea id="sttOutput" placeholder="Speech will appear here..." readonly></textarea>
+<div class="button-group">
+  <button id="startSTT"><i class="fas fa-microphone"></i> Start Speech-to-Text</button>
+  <button id="stopSTT"><i class="fas fa-stop"></i> Stop</button>
+</div>
+
+<!-- Soundboard -->
+<div class="button-group">
+  <button onclick="playSound('sound1')">Sound 1</button>
+  <button onclick="playSound('sound2')">Sound 2</button>
+  <button onclick="playSound('sound3')">Sound 3</button>
+  <button onclick="goBack()"><i class="fas fa-arrow-left"></i> Back to Feature Hub</button>
+</div>
+
+<audio id="sound1" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+<audio id="sound2" src="https://www.soundjay.com/button/beep-09.wav"></audio>
+<audio id="sound3" src="https://www.soundjay.com/button/beep-10.wav"></audio>
+
+<script>
+  // Text-to-Speech
+  document.getElementById('speakBtn').addEventListener('click', () => {
+    const text = document.getElementById('ttsInput').value.trim();
+    if(!text){
+      alert('Please enter some text!');
+      return;
+    }
+    const utterance = new SpeechSynthesisUtterance(text);
+    speechSynthesis.speak(utterance);
+  });
+
+  // Speech-to-Text
+  let recognition;
+  if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window){
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+
+    recognition.onresult = (event) => {
+      let transcript = '';
+      for(let i = event.resultIndex; i < event.results.length; ++i){
+        transcript += event.results[i][0].transcript;
+      }
+      document.getElementById('sttOutput').value = transcript;
+    };
+    recognition.onerror = (e) => { console.error(e); };
+  } else {
+    alert('Speech Recognition not supported in this browser.');
+  }
+
+  document.getElementById('startSTT').addEventListener('click', () => {
+    recognition.start();
+  });
+  document.getElementById('stopSTT').addEventListener('click', () => {
+    recognition.stop();
+  });
+
+  // Soundboard
+  function playSound(id){
+    const audio = document.getElementById(id);
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  // Back to Feature Hub
+  function goBack(){
+    window.location.href = "feature.html"; // Change if your Feature Hub filename is different
+  }
+</script>
+
+</body>
+  </html>
