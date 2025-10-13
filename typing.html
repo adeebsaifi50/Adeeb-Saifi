@@ -8,76 +8,79 @@
 <style>
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
-  min-height: 100vh;
+  background: linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:30px 20px;
+  min-height:100vh;
 }
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2em;
-  text-shadow: 0 0 10px #00ff8a;
+h1{
+  text-align:center;
+  margin-bottom:20px;
+  font-size:2em;
+  text-shadow:0 0 10px #00ff8a;
 }
-#textToType {
-  padding: 15px;
-  background: #1e1e1e;
-  border-radius: 10px;
-  width: 300px;
-  max-width: 90%;
-  margin-bottom: 20px;
-  font-size: 1em;
+#textToType{
+  padding:15px;
+  background:#1e1e1e;
+  border-radius:10px;
+  width:350px;
+  max-width:90%;
+  margin-bottom:20px;
+  font-size:1em;
+  line-height:1.5em;
+  min-height:120px;
+  white-space: pre-wrap;
 }
-textarea {
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  width: 300px;
-  max-width: 90%;
-  height: 80px;
-  font-size: 1em;
-  margin-bottom: 20px;
-  resize: none;
+textarea{
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  width:350px;
+  max-width:90%;
+  height:120px;
+  font-size:1em;
+  margin-bottom:20px;
+  resize:none;
 }
-.button-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-  margin-bottom: 20px;
+.button-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  justify-content:center;
+  margin-bottom:20px;
 }
-button, select {
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
-  background: #00ff8a;
-  color: #021;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
+button,select{
+  padding:10px 20px;
+  border-radius:10px;
+  border:none;
+  background:#00ff8a;
+  color:#021;
+  font-weight:bold;
+  cursor:pointer;
+  transition:all 0.3s ease;
 }
-button:hover, select:hover {
-  background: #00d278;
-  transform: scale(1.05);
-  box-shadow: 0 0 10px #00ff8a;
+button:hover,select:hover{
+  background:#00d278;
+  transform:scale(1.05);
+  box-shadow:0 0 10px #00ff8a;
 }
-#results {
-  margin-top: 15px;
-  font-size: 1.1em;
-  text-align: center;
+#results{
+  margin-top:15px;
+  font-size:1.1em;
+  text-align:center;
 }
-footer {
-  text-align: center;
-  padding: 15px;
+footer{
+  text-align:center;
+  padding:15px;
   background:#222;
   color:#ccc;
   margin-top:auto;
   width:100%;
 }
-@media (max-width:500px){
+@media(max-width:500px){
   h1{font-size:1.8em;}
   textarea,input,button,select{width:90%;}
 }
@@ -89,16 +92,16 @@ footer {
 
 <!-- Time Selection -->
 <div class="button-group">
-  <label for="timeSelect">Select Time:</label>
-  <select id="timeSelect">
-    <option value="30">30 Seconds</option>
-    <option value="60" selected>1 Minute</option>
-    <option value="120">2 Minutes</option>
-  </select>
+<label for="timeSelect">Select Time:</label>
+<select id="timeSelect">
+  <option value="30">30 Seconds</option>
+  <option value="60" selected>1 Minute</option>
+  <option value="120">2 Minutes</option>
+</select>
 </div>
 
 <!-- Text to type -->
-<div id="textToType">The quick brown fox jumps over the lazy dog.</div>
+<div id="textToType"></div>
 
 <!-- Typing Input -->
 <textarea id="userInput" placeholder="Start typing here..." disabled></textarea>
@@ -114,51 +117,88 @@ footer {
 <div id="results"></div>
 
 <script>
-let timer;
-let timeLeft = 60;
-let interval;
-const textToType = document.getElementById('textToType').innerText;
+const shortTexts = [
+  `The quick brown fox jumps over the lazy dog. Practice typing every day to improve your speed and accuracy.`
+];
+
+const mediumTexts = [
+  `Typing fast requires focus and consistent practice. Accuracy is just as important as speed. Front-end developers often need to type quickly to meet deadlines, and this test helps improve both WPM and accuracy.`
+];
+
+const longTexts = [
+  `A professional typist can type hundreds of words per minute. Regular practice with longer paragraphs improves concentration, speed, and accuracy. Challenge yourself daily with difficult texts to become better. Remember that every mistake counts for learning and the more you practice, the more you will improve. Stay consistent and dedicated to see real progress.`
+];
+
+const textDiv = document.getElementById('textToType');
 const userInput = document.getElementById('userInput');
 const resultsDiv = document.getElementById('results');
+let timer, timeLeft, startTime;
 
-function calculateWPMAccuracy() {
-  const typed = userInput.value.trim();
-  const wordsTyped = typed.split(/\s+/).length;
-  const correctChars = typed.split('').filter((c,i)=>c===textToType[i]).length;
-  const accuracy = Math.round((correctChars/typed.length)*100 || 0);
-  const wpm = Math.round((wordsTyped/(timeLeft/60)) || 0);
-  return {wpm, accuracy};
+function getRandomText(){
+  const time = parseInt(document.getElementById('timeSelect').value);
+  if(time === 30) return shortTexts[Math.floor(Math.random()*shortTexts.length)];
+  else if(time === 60) return mediumTexts[Math.floor(Math.random()*mediumTexts.length)];
+  else return longTexts[Math.floor(Math.random()*longTexts.length)];
 }
 
-function startTest() {
-  clearInterval(interval);
-  timeLeft = parseInt(document.getElementById('timeSelect').value);
-  userInput.value = '';
-  userInput.disabled = false;
-  userInput.focus();
-  resultsDiv.innerHTML = `Time: ${timeLeft} sec`;
+function calculateResults(){
+  const typed = userInput.value.trim();
+  const target = textDiv.innerText.trim();
+  const wordsTyped = typed.split(/\s+/).length;
+  const correctChars = typed.split('').filter((c,i)=>c===target[i]).length;
+  const accuracy = Math.round((correctChars/typed.length)*100 || 0);
+  const wpm = Math.round(wordsTyped / ((startTime - Date.now() + timeLeft*1000)/60000) || 0);
   
-  interval = setInterval(()=>{
+  let grade;
+  if(accuracy<60) grade='Poor 😞';
+  else if(accuracy<80) grade='Good 🙂';
+  else grade='Very Good 😎';
+  
+  resultsDiv.innerHTML=`<strong>WPM:</strong> ${wpm} | <strong>Accuracy:</strong> ${accuracy}% | <strong>Grade:</strong> ${grade}`;
+}
+
+function updateTextProgress(){
+  const typed = userInput.value;
+  const target = textDiv.innerText;
+  let remaining = target.slice(typed.length);
+  textDiv.innerHTML=`<span style="color:#00ff8a;">${typed}</span>${remaining}`;
+}
+
+function startTest(){
+  clearInterval(timer);
+  userInput.disabled = false;
+  userInput.value='';
+  textDiv.innerText = getRandomText();
+  timeLeft = parseInt(document.getElementById('timeSelect').value);
+  resultsDiv.innerHTML=`Time Left: ${timeLeft} sec`;
+  startTime = Date.now();
+  userInput.focus();
+
+  timer = setInterval(()=>{
     timeLeft--;
-    resultsDiv.innerHTML = `Time Left: ${timeLeft} sec`;
-    if(timeLeft <=0){
-      clearInterval(interval);
+    resultsDiv.innerHTML=`Time Left: ${timeLeft} sec`;
+    
+    updateTextProgress();
+    
+    if(userInput.value.trim() === textDiv.innerText.trim() || timeLeft<=0){
+      clearInterval(timer);
       userInput.disabled = true;
-      const {wpm, accuracy} = calculateWPMAccuracy();
-      resultsDiv.innerHTML = `Time's up! WPM: ${wpm} | Accuracy: ${accuracy}%`;
+      calculateResults();
     }
   },1000);
 }
 
-function restartTest() {
-  clearInterval(interval);
-  userInput.value = '';
-  userInput.disabled = true;
-  resultsDiv.innerHTML = '';
+function restartTest(){
+  clearInterval(timer);
+  userInput.value='';
+  userInput.disabled=true;
+  resultsDiv.innerHTML='';
+  textDiv.innerText=getRandomText();
 }
 
 document.getElementById('startBtn').addEventListener('click', startTest);
 document.getElementById('restartBtn').addEventListener('click', restartTest);
+textDiv.innerText=getRandomText();
 </script>
 
 <footer>
