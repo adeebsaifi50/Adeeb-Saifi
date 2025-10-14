@@ -31,29 +31,48 @@ button:hover {background:#00d278; transform:scale(1.05); box-shadow:0 0 15px #00
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
-// ✅ Safe Firebase init (API key handled via Firebase console or functions)
-const app = initializeApp({});
+// Firebase config (API key restricted by your domain)
+const firebaseConfig = {
+  apiKey: "AIzaSyB8ypCmJ0m915BEELv6SL8XHnt6oEibnWk",
+  authDomain: "shortenerapp-c7271.firebaseapp.com",
+  projectId: "shortenerapp-c7271",
+  storageBucket: "shortenerapp-c7271.firebasestorage.app",
+  messagingSenderId: "585559486189",
+  appId: "1:585559486189:web:27399fb283432789ae66e4",
+  measurementId: "G-VJGN95MDNH"
+};
+
+const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Random short ID generator
+// Generate random short ID
 function generateShortId(length=6){
   const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let res=''; for(let i=0;i<length;i++){res+=chars.charAt(Math.floor(Math.random()*chars.length));} return res;
 }
 
+// Generate Short URL
 document.getElementById('generate').addEventListener('click', async ()=>{
   const longUrl = document.getElementById('longUrl').value.trim();
   if(!longUrl){alert('Please enter a URL!'); return;}
+  
   const shortId = generateShortId();
   const shortUrl = `${window.location.origin}/${shortId}`;
-
+  
   try{
     await addDoc(collection(db,'shortLinks'), {shortId,longUrl,createdAt:serverTimestamp()});
     document.getElementById('result').innerHTML = `Short URL: <a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
   } catch(e){alert('Error: '+e.message);}
 });
 
-window.goBack=()=>{window.location.href="feature.html";}
+// Back button fix
+function goBack(){
+  if(document.referrer){
+    window.history.back(); // previous page
+  } else {
+    window.location.href = "feature.html"; // fallback page
+  }
+}
 </script>
 
 </body>
