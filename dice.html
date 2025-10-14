@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultimate RNG Ring Game | Adeeb Saifi</title>
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+    color: white;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px;
+    margin:0;
+    min-height:100vh;
+}
+.header {
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:20px;
+}
+.header img {width:50px; height:50px; border-radius:10px; box-shadow:0 0 10px #00ff8a;}
+.header h1 {margin:0; text-shadow:0 0 10px #00ff8a;}
+#gameArea {
+    position:relative;
+    width:90%;
+    max-width:500px;
+    height:400px;
+    border:2px solid #00ff8a;
+    border-radius:20px;
+    background:#1e1e1e;
+    overflow:hidden;
+    margin-bottom:20px;
+}
+.ring {
+    position:absolute;
+    border-radius:50%;
+    cursor:pointer;
+    animation: pop 0.3s ease-out;
+}
+@keyframes pop {
+    0% {transform: scale(0);}
+    100% {transform: scale(1);}
+}
+button {
+    padding:12px 25px;
+    border:none;
+    border-radius:10px;
+    background:#00ff8a;
+    color:#021;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+button:hover {background:#00d278; transform:scale(1.05);}
+#scoreBoard, #timer, #level, #highscore {margin-top:10px; font-size:1.2em;}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <img src="logo.png" alt="Logo">
+    <h1>Ultimate RNG Ring Game</h1>
+</div>
+
+<div id="gameArea"></div>
+<button id="startBtn">Start Game</button>
+<div id="scoreBoard">Score: 0</div>
+<div id="level">Difficulty: Easy</div>
+<div id="timer">Time: 30s</div>
+<div id="highscore">Highscore: 0</div>
+
+<!-- Audio -->
+<audio id="clickSound" src="https://www.soundjay.com/button/sounds/button-16.mp3"></audio>
+<audio id="gameOverSound" src="https://www.soundjay.com/button/sounds/button-10.mp3"></audio>
+
+<script>
+const gameArea = document.getElementById('gameArea');
+const startBtn = document.getElementById('startBtn');
+const scoreBoard = document.getElementById('scoreBoard');
+const timerDisplay = document.getElementById('timer');
+const levelDisplay = document.getElementById('level');
+const highscoreDisplay = document.getElementById('highscore');
+
+const clickSound = document.getElementById('clickSound');
+const gameOverSound = document.getElementById('gameOverSound');
+
+let score = 0;
+let time = 30;
+let gameInterval;
+let ringInterval;
+let difficulty = 1;
+let round = 1;
+
+// Load highscore from localStorage
+let highscore = localStorage.getItem('rngRingHighscore') || 0;
+highscoreDisplay.textContent = 'Highscore: ' + highscore;
+
+function randomColor() {
+    const colors = ['#00ff8a','#ff00ff','#00ffff','#ffff00','#ff6600'];
+    return colors[Math.floor(Math.random()*colors.length)];
+}
+
+function spawnRing() {
+    const ring = document.createElement('div');
+    ring.classList.add('ring');
+
+    // Random size
+    const size = Math.floor(Math.random()*50)+30;
+    ring.style.width = size+'px';
+    ring.style.height = size+'px';
+    ring.style.border='5px solid '+randomColor();
+
+    // Random position
+    const x = Math.random()*(gameArea.clientWidth - size);
+    const y = Math.random()*(gameArea.clientHeight - size);
+    ring.style.left = x+'px';
+    ring.style.top = y+'px';
+
+    // Click event
+    ring.addEventListener('click', () => {
+        let multiplier = 1;
+        if(size<40) multiplier=3;
+        else if(size<60) multiplier=2;
+        score+=multiplier;
+        scoreBoard.textContent='Score: '+score;
+        clickSound.play();
+
+        // Power-up: extra time every 10 points
+        if(score%10===0) time+=5;
+        ring.remove();
+    });
+
+    gameArea.appendChild(ring);
+
+    // Move ring randomly every 0.5s
+    const moveInterval = setInterval(()=>{
+        const nx = Math.random()*(gameArea.clientWidth - size);
+        const ny = Math.random()*(gameArea.clientHeight - size);
+        ring.style.left=nx+'px';
+        ring.style.top=ny+'px';
+    }, 500);
+
+    setTimeout(()=>{
+        clearInterval(moveInterval);
+        ring.remove();
+    }, 1500/difficulty);
+}
+
+function startGame() {
+    score=0;
+    time=30;
+    round=1;
+    difficulty=1;
+    scoreBoard.textContent='Score: '+score;
+    timerDisplay.textContent='Time: '+time+'s';
+    levelDisplay.textContent='Difficulty: Easy';
+    gameArea.innerHTML='';
+
+    ringInterval = setInterval(spawnRing, 1000/difficulty);
+
+    gameInterval = setInterval(()=>{
+        time--;
+        timerDisplay.textContent='Time: '+time+'s';
+        if(time<=0){
+            clearInterval(gameInterval);
+            clearInterval(ringInterval);
+            gameArea.innerHTML='';
+            gameOverSound.play();
+            alert('Game Over! Your score: '+score);
+            if(score>highscore){
+                highscore=score;
+                localStorage.setItem('rngRingHighscore', highscore);
+                highscoreDisplay.textContent='Highscore: '+highscore;
+            }
+        }
+    }, 1000);
+}
+
+startBtn.addEventListener('click', startGame);
+</script>
+
+</body>
+  </html>
