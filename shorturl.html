@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Short URL Generator | Adeeb Saifi</title>
+<link rel="icon" type="image/png" href="logo.png">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2em;
+  text-shadow: 0 0 10px #00ff8a;
+}
+
+input[type="text"] {
+  padding: 12px;
+  width: 250px;
+  max-width: 90%;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 20px;
+  font-size: 1em;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+button {
+  padding: 12px 25px;
+  border-radius: 10px;
+  border: none;
+  background: #00ff8a;
+  color: #021;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #00d278;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #00ff8a;
+}
+
+#result {
+  margin-top: 30px;
+  padding: 20px;
+  background: #1e1e1e;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #00ff8a;
+  text-align: center;
+  word-break: break-all;
+}
+
+@media (max-width: 500px) {
+  h1 { font-size: 1.8em; }
+  button, input[type="text"] { width: 90%; }
+}
+</style>
+</head>
+<body>
+
+<h1>Short URL Generator</h1>
+
+<input type="text" id="longUrl" placeholder="Enter long URL">
+<div class="button-group">
+  <button id="generate">Generate Short URL</button>
+  <button onclick="goBack()">Back to Feature Hub</button>
+</div>
+
+<div id="result"></div>
+
+<!-- Firebase SDK -->
+<script type="module">
+  // ===== Firebase Import & Config =====
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB8ypCmJ0m915BEELv6SL8XHnt6oEibnWk",
+    authDomain: "shortenerapp-c7271.firebaseapp.com",
+    projectId: "shortenerapp-c7271",
+    storageBucket: "shortenerapp-c7271.firebasestorage.app",
+    messagingSenderId: "585559486189",
+    appId: "1:585559486189:web:27399fb283432789ae66e4",
+    measurementId: "G-VJGN95MDNH"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // ===== Generate Random Short ID =====
+  function generateShortId(length = 6) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  }
+
+  // ===== Generate Short URL =====
+  const generateBtn = document.getElementById('generate');
+  const resultDiv = document.getElementById('result');
+
+  generateBtn.addEventListener('click', async () => {
+    const longUrl = document.getElementById('longUrl').value.trim();
+    if(!longUrl){
+      alert('Please enter a URL!');
+      return;
+    }
+
+    const shortId = generateShortId();
+    // This will be the URL that triggers the Cloud Function
+    const shortUrl = `${window.location.origin}/${shortId}`;
+
+    try {
+      await addDoc(collection(db, 'shortLinks'), {
+        shortId: shortId,
+        longUrl: longUrl,
+        createdAt: serverTimestamp()
+      });
+
+      resultDiv.innerHTML = `Short URL: <a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
+    } catch (error) {
+      alert('Error saving URL: ' + error.message);
+    }
+  });
+
+  // Back to Feature Hub
+  window.goBack = () => {
+    window.location.href = "feature.html"; // <-- Your Feature Hub page
+  }
+</script>
+
+</body>
+  </html>
