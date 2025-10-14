@@ -5,42 +5,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gravity Flip Survival | Adeeb Saifi</title>
 <link rel="icon" type="image/png" href="logo.png">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-body {
-    margin:0; font-family: Arial, sans-serif;
-    display:flex; flex-direction:column; align-items:center;
-    background: linear-gradient(135deg,#0f0c29,#302b63,#24243e);
-    color:white; overflow:hidden;
+html, body {
+    margin:0; padding:0; width:100%; height:100%; overflow:hidden;
+    font-family: Arial, sans-serif;
+    background: #0f0c29;
 }
-.header {display:flex; align-items:center; gap:15px; margin:15px;}
-.header img{width:50px;height:50px;border-radius:10px;box-shadow:0 0 10px #00ff8a;}
-.header h1{margin:0;text-shadow:0 0 10px #00ff8a;}
 #gameArea{
-    position:relative; width:90%; max-width:500px; height:400px; background:#1e1e1e;
-    border:2px solid #00ff8a; border-radius:20px; overflow:hidden; margin-bottom:10px;
+    position:relative; width:100%; height:100%;
+    overflow:hidden;
 }
 .player{
-    position:absolute; width:30px; height:30px; background:#00ff8a; left:50px; border-radius:5px;
-    transition: top 0.1s linear;
+    position:absolute; width:40px; height:40px; border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, #00ff8a, #008f5c);
+    box-shadow: 0 0 15px #00ff8a,0 0 25px #00ff8a55;
+    left:50px; transition: top 0.1s linear;
+    animation: pulse 1s infinite alternate;
+}
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow:0 0 15px #00ff8a,0 0 25px #00ff8a55; }
+    100% { transform: scale(1.2); box-shadow:0 0 25px #00ff8a,0 0 40px #00ff8a77; }
 }
 .obstacle{
-    position:absolute; width:40px; height:40px; background:red; right:0; border-radius:5px;
+    position:absolute; border-radius:5px;
 }
-#scoreBoard, #highscore{margin:5px;font-size:1.2em;}
-button{padding:10px 25px;border:none;border-radius:10px;background:#00ff8a;color:#021;font-weight:bold;cursor:pointer;transition:0.3s;}
-button:hover{background:#00d278; transform:scale(1.05);}
+button{
+    position:absolute; padding:15px 25px; border:none; border-radius:10px;
+    background:#00ff8a; color:#021; font-weight:bold; cursor:pointer;
+    transition:0.3s; font-size:1em;
+}
+button:hover{ background:#00d278; transform:scale(1.05);}
+#backBtn{ top:10px; left:10px;}
+#startBtn{ top:50%; left:50%; transform:translate(-50%,-50%);}
+#scoreBoard, #highscore{
+    position:absolute; top:10px; left:50%; transform:translateX(-50%);
+    font-size:1.5em; color:white;
+}
+/* Particle style */
+.particle{
+    position:absolute; width:3px; height:3px;
+    background:white; border-radius:50%;
+    opacity:0.7;
+}
 </style>
 </head>
 <body>
-<div class="header">
-    <img src="logo.png" alt="Logo">
-    <h1>Gravity Flip Survival</h1>
-</div>
-
 <div id="gameArea">
     <div id="player" class="player"></div>
 </div>
+<button id="backBtn">Back to Feature Hub</button>
 <button id="startBtn">Start Game</button>
 <div id="scoreBoard">Score: 0</div>
 <div id="highscore">Highscore: 0</div>
@@ -49,66 +62,101 @@ button:hover{background:#00d278; transform:scale(1.05);}
 const gameArea = document.getElementById('gameArea');
 const player = document.getElementById('player');
 const startBtn = document.getElementById('startBtn');
+const backBtn = document.getElementById('backBtn');
 const scoreBoard = document.getElementById('scoreBoard');
 const highscoreDisplay = document.getElementById('highscore');
 
-let playerPos = 'bottom';
-let obstacles = [];
-let gameInterval, obstacleInterval, score = 0, speed = 2;
-let highscore = localStorage.getItem('gravityFlipHighscore') || 0;
+let playerPos='bottom', obstacles=[], gameInterval, obstacleInterval, score=0, speed=3;
+let highscore = localStorage.getItem('gravityFlipHighscore')||0;
+highscoreDisplay.textContent='Highscore: '+highscore;
 
-highscoreDisplay.textContent = 'Highscore: ' + highscore;
+// Particle background
+const particles=[];
+for(let i=0;i<60;i++){
+    const p=document.createElement('div');
+    p.classList.add('particle');
+    p.style.top=Math.random()*window.innerHeight+'px';
+    p.style.left=Math.random()*window.innerWidth+'px';
+    p.style.width=(2+Math.random()*3)+'px';
+    p.style.height=p.style.width;
+    p.style.opacity=Math.random();
+    gameArea.appendChild(p);
+    particles.push({el:p,x:Math.random()*2-1,y:Math.random()*2-1});
+}
+function animateParticles(){
+    particles.forEach(p=>{
+        let top=parseFloat(p.el.style.top)+p.y;
+        let left=parseFloat(p.el.style.left)+p.x;
+        if(top<0) top=window.innerHeight;
+        if(top>window.innerHeight) top=0;
+        if(left<0) left=window.innerWidth;
+        if(left>window.innerWidth) left=0;
+        p.el.style.top=top+'px';
+        p.el.style.left=left+'px';
+    });
+    requestAnimationFrame(animateParticles);
+}
+animateParticles();
 
+// Gravity flip
 function flipGravity(){
     if(playerPos==='bottom'){ player.style.top='10px'; playerPos='top'; }
-    else{ player.style.top=(gameArea.clientHeight-30)+'px'; playerPos='bottom'; }
+    else{ player.style.top=(gameArea.clientHeight-40)+'px'; playerPos='bottom'; }
 }
 
+// Create obstacle (multiple types/colors)
 function createObstacle(){
-    const obs = document.createElement('div');
+    const obs=document.createElement('div');
     obs.classList.add('obstacle');
-    obs.style.top = Math.random() < 0.5 ? '0px' : (gameArea.clientHeight-40)+'px';
-    obs.style.right = '0px';
+    obs.style.width=(30+Math.random()*40)+'px';
+    obs.style.height=(30+Math.random()*40)+'px';
+    obs.style.background=['red','orange','yellow','magenta','cyan'][Math.floor(Math.random()*5)];
+    obs.style.top = Math.random()<0.5?'0px':(gameArea.clientHeight-parseFloat(obs.style.height))+'px';
+    obs.style.right='0px';
     gameArea.appendChild(obs);
     obstacles.push(obs);
 }
 
+// Start Game
 function startGame(){
-    score = 0; speed = 2;
-    scoreBoard.textContent = 'Score: '+score;
+    startBtn.style.display='none';
+    backBtn.style.display='none';
+    score=0; speed=3;
+    scoreBoard.textContent='Score: '+score;
     gameArea.innerHTML=''; gameArea.appendChild(player);
-    playerPos='bottom'; player.style.top=(gameArea.clientHeight-30)+'px';
-    obstacles = [];
+    playerPos='bottom'; player.style.top=(gameArea.clientHeight-40)+'px';
+    obstacles=[];
     clearInterval(gameInterval); clearInterval(obstacleInterval);
-
-    obstacleInterval = setInterval(createObstacle, 1500);
-
-    gameInterval = setInterval(()=>{
+    obstacleInterval=setInterval(createObstacle,1200);
+    gameInterval=setInterval(()=>{
         for(let i=obstacles.length-1;i>=0;i--){
-            const obs = obstacles[i];
-            obs.style.right = parseFloat(obs.style.right)+speed+'px';
-            // collision detection
-            const obsTop = parseFloat(obs.style.top);
-            const obsBottom = obsTop+40;
-            const playerTop = parseFloat(player.style.top);
-            const playerBottom = playerTop+30;
-            const obsRight = gameArea.clientWidth-parseFloat(obs.style.right);
-            const obsLeft = obsRight-40;
-            if(!(playerBottom<obsTop || playerTop>obsBottom || 40<obsLeft || 50>obsRight)){
+            const obs=obstacles[i];
+            obs.style.right=parseFloat(obs.style.right)+speed+'px';
+            const obsTop=parseFloat(obs.style.top);
+            const obsBottom=obsTop+parseFloat(obs.style.height);
+            const playerTop=parseFloat(player.style.top);
+            const playerBottom=playerTop+40;
+            const obsRight=gameArea.clientWidth-parseFloat(obs.style.right);
+            const obsLeft=obsRight-parseFloat(obs.style.width);
+            if(!(playerBottom<obsTop||playerTop>obsBottom||40<obsLeft||50>obsRight)){
                 clearInterval(gameInterval); clearInterval(obstacleInterval);
                 if(score>highscore){ highscore=score; localStorage.setItem('gravityFlipHighscore',highscore); highscoreDisplay.textContent='Highscore: '+highscore;}
                 alert('Game Over! Score: '+score);
+                startBtn.style.display='block';
+                backBtn.style.display='block';
             }
             if(obsRight>gameArea.clientWidth){ obs.remove(); obstacles.splice(i,1);}
         }
         score++; scoreBoard.textContent='Score: '+score;
-        if(score%50===0) speed+=0.5; // gradually harder
+        if(score%50===0) speed+=0.5;
     },20);
 }
 
-startBtn.addEventListener('click', startGame);
-document.addEventListener('keydown', e => { if(e.code==='Space') flipGravity(); });
-document.addEventListener('touchstart', flipGravity);
+// Back to Feature Hub
+backBtn.addEventListener('click',()=>{window.location.href='feature.html';});
+startBtn.addEventListener('click',startGame);
+document.addEventListener('keydown',e=>{if(e.code==='Space') flipGravity();});
+document.addEventListener('touchstart',flipGravity);
 </script>
 </body>
-  </html>
+    </html>
