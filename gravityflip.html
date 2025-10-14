@@ -3,45 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gravity Flip Survival | Adeeb Saifi</title>
+<title>Gravity Flip Dodge | Adeeb Saifi</title>
 <link rel="icon" type="image/png" href="logo.png">
 <style>
 html, body {
     margin:0; padding:0; width:100%; height:100%; overflow:hidden;
     font-family: Arial, sans-serif;
-    background: #0f0c29;
+    background: linear-gradient(180deg,#0f0c29,#302b63,#24243e);
 }
 #gameArea{
-    position:relative; width:100%; height:100%;
-    overflow:hidden;
+    position:relative; width:100%; height:100%; overflow:hidden;
 }
 .player{
     position:absolute; width:40px; height:40px; border-radius:50%;
     background: radial-gradient(circle at 30% 30%, #00ff8a, #008f5c);
-    box-shadow: 0 0 15px #00ff8a,0 0 25px #00ff8a55;
-    top:50%; left:50%; transform:translate(-50%,-50%);
-    animation: pulse 1s infinite alternate;
-}
-@keyframes pulse {
-    0% { transform: scale(1); box-shadow:0 0 15px #00ff8a,0 0 25px #00ff8a55; }
-    100% { transform: scale(1.2); box-shadow:0 0 25px #00ff8a,0 0 40px #00ff8a77; }
+    box-shadow:0 0 15px #00ff8a,0 0 25px #00ff8a55;
+    bottom:10px; left:50%; transform:translateX(-50%);
+    z-index:2;
 }
 .obstacle{
-    position:absolute; border-radius:5px;
+    position:absolute; border-radius:5px; z-index:1;
 }
 button{
     position:absolute; padding:15px 25px; border:none; border-radius:10px;
     background:#00ff8a; color:#021; font-weight:bold; cursor:pointer;
-    transition:0.3s; font-size:1em;
+    transition:0.3s; font-size:1em; z-index:3;
 }
 button:hover{ background:#00d278; transform:scale(1.05);}
 #startBtn{ top:50%; left:50%; transform:translate(-50%,-50%);}
-#scoreBoard{ top:10px; left:10px; font-size:1.2em; color:white; position:absolute;}
-#highscore{ top:10px; right:10px; font-size:1.2em; color:white; position:absolute;}
-.particle{
-    position:absolute; width:3px; height:3px;
-    background:white; border-radius:50%;
-    opacity:0.7;
+#scoreBoard{ top:10px; left:10px; font-size:1.2em; color:white; position:absolute; z-index:3;}
+#highscore{ top:10px; right:10px; font-size:1.2em; color:white; position:absolute; z-index:3;}
+#gameOverView{
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.8); display:flex; flex-direction:column;
+    justify-content:center; align-items:center; color:white; font-size:2em;
+    display:none; z-index:5;
+}
+#gameOverView button{
+    margin-top:20px; font-size:1em;
 }
 </style>
 </head>
@@ -54,74 +53,54 @@ button:hover{ background:#00d278; transform:scale(1.05);}
 <div id="scoreBoard">Score: 0</div>
 <div id="highscore">Highscore: 0</div>
 
+<div id="gameOverView">
+    <div id="govText">Game Over!</div>
+    <div id="finalScore">Score: 0</div>
+    <button id="restartBtn">Restart</button>
+</div>
+
 <script>
 const gameArea = document.getElementById('gameArea');
 const player = document.getElementById('player');
 const startBtn = document.getElementById('startBtn');
 const scoreBoard = document.getElementById('scoreBoard');
 const highscoreDisplay = document.getElementById('highscore');
+const gameOverView = document.getElementById('gameOverView');
+const finalScore = document.getElementById('finalScore');
+const restartBtn = document.getElementById('restartBtn');
 
-let obstacles=[], gameInterval, obstacleInterval, score=0, speed=3, playerLeftPercent=50;
+let obstacles=[], gameInterval, obstacleInterval, score=0, speed=3, playerLeft=50;
 let highscore = localStorage.getItem('gravityFlipHighscore')||0;
 highscoreDisplay.textContent='Highscore: '+highscore;
 
-// Particle background
-const particles=[];
-for(let i=0;i<60;i++){
-    const p=document.createElement('div');
-    p.classList.add('particle');
-    p.style.top=Math.random()*window.innerHeight+'px';
-    p.style.left=Math.random()*window.innerWidth+'px';
-    p.style.width=(2+Math.random()*3)+'px';
-    p.style.height=p.style.width;
-    p.style.opacity=Math.random();
-    gameArea.appendChild(p);
-    particles.push({el:p,x:Math.random()*2-1,y:Math.random()*2-1});
-}
-function animateParticles(){
-    particles.forEach(p=>{
-        let top=parseFloat(p.el.style.top)+p.y;
-        let left=parseFloat(p.el.style.left)+p.x;
-        if(top<0) top=window.innerHeight;
-        if(top>window.innerHeight) top=0;
-        if(left<0) left=window.innerWidth;
-        if(left>window.innerWidth) left=0;
-        p.el.style.top=top+'px';
-        p.el.style.left=left+'px';
-    });
-    requestAnimationFrame(animateParticles);
-}
-animateParticles();
+// Move player
+function moveLeft(){ playerLeft-=5; if(playerLeft<0) playerLeft=0; player.style.left=playerLeft+'%'; }
+function moveRight(){ playerLeft+=5; if(playerLeft>100) playerLeft=100; player.style.left=playerLeft+'%'; }
 
-// Move player left/right
-function moveLeft(){
-    playerLeftPercent-=5;
-    if(playerLeftPercent<0) playerLeftPercent=0;
-    player.style.left=playerLeftPercent+'%';
-}
-function moveRight(){
-    playerLeftPercent+=5;
-    if(playerLeftPercent>100) playerLeftPercent=100;
-    player.style.left=playerLeftPercent+'%';
-}
-
-// Create obstacle (multiple types/colors)
+// Create falling obstacles
 function createObstacle(){
-    const obs=document.createElement('div');
+    const obs = document.createElement('div');
     obs.classList.add('obstacle');
     obs.style.width=(30+Math.random()*40)+'px';
     obs.style.height=(30+Math.random()*40)+'px';
     obs.style.background=['red','orange','yellow','magenta','cyan'][Math.floor(Math.random()*5)];
-    obs.style.top = Math.random()* (gameArea.clientHeight - parseFloat(obs.style.height))+'px';
-    obs.style.right='0px';
+    obs.style.top='-50px';
+    obs.style.left=Math.random()*(gameArea.clientWidth-parseFloat(obs.style.width))+'px';
     gameArea.appendChild(obs);
     obstacles.push(obs);
+}
+
+// Show Game Over View
+function showGameOver(){
+    gameOverView.style.display='flex';
+    finalScore.textContent='Score: '+score;
 }
 
 // Start Game
 function startGame(){
     startBtn.style.display='none';
-    score=0; speed=3; playerLeftPercent=50;
+    gameOverView.style.display='none';
+    score=0; speed=3; playerLeft=50;
     player.style.left='50%';
     scoreBoard.textContent='Score: '+score;
     gameArea.innerHTML=''; gameArea.appendChild(player);
@@ -130,23 +109,24 @@ function startGame(){
     obstacleInterval=setInterval(createObstacle,1200);
     gameInterval=setInterval(()=>{
         for(let i=obstacles.length-1;i>=0;i--){
-            const obs=obstacles[i];
-            obs.style.right=parseFloat(obs.style.right)+speed+'px';
-            const obsTop=parseFloat(obs.style.top);
-            const obsBottom=obsTop+parseFloat(obs.style.height);
-            const obsRight=gameArea.clientWidth-parseFloat(obs.style.right);
-            const obsLeft=obsRight-parseFloat(obs.style.width);
-            const playerTop=parseFloat(player.offsetTop);
-            const playerBottom=playerTop+40;
-            const playerLeft=parseFloat(player.offsetLeft);
-            const playerRight=playerLeft+40;
-            if(!(playerBottom<obsTop||playerTop>obsBottom||playerRight<obsLeft||playerLeft>obsRight)){
+            const obs = obstacles[i];
+            obs.style.top=(parseFloat(obs.style.top)+speed)+'px';
+            const obsTop = parseFloat(obs.style.top);
+            const obsBottom = obsTop + parseFloat(obs.style.height);
+            const obsLeft = parseFloat(obs.style.left);
+            const obsRight = obsLeft + parseFloat(obs.style.width);
+            const playerTop = player.offsetTop;
+            const playerBottom = playerTop + player.offsetHeight;
+            const playerLeftPos = player.offsetLeft;
+            const playerRight = playerLeftPos + player.offsetWidth;
+
+            // Collision
+            if(!(playerBottom<obsTop || playerTop>obsBottom || playerRight<obsLeft || playerLeftPos>obsRight)){
                 clearInterval(gameInterval); clearInterval(obstacleInterval);
                 if(score>highscore){ highscore=score; localStorage.setItem('gravityFlipHighscore',highscore); highscoreDisplay.textContent='Highscore: '+highscore;}
-                alert('Game Over! Score: '+score);
-                startBtn.style.display='block';
+                showGameOver();
             }
-            if(obsRight>gameArea.clientWidth){ obs.remove(); obstacles.splice(i,1);}
+            if(obsTop>gameArea.clientHeight){ obs.remove(); obstacles.splice(i,1); }
         }
         score++; scoreBoard.textContent='Score: '+score;
         if(score%50===0) speed+=0.5;
@@ -154,15 +134,16 @@ function startGame(){
 }
 
 startBtn.addEventListener('click',startGame);
+restartBtn.addEventListener('click',startGame);
+
 document.addEventListener('keydown',e=>{
     if(e.code==='ArrowLeft') moveLeft();
     if(e.code==='ArrowRight') moveRight();
 });
-document.addEventListener('touchstart', e=>{
+document.addEventListener('touchstart',e=>{
     const x = e.touches[0].clientX;
-    if(x<window.innerWidth/2) moveLeft();
-    else moveRight();
+    if(x<window.innerWidth/2) moveLeft(); else moveRight();
 });
 </script>
 </body>
-</html>
+    </html>
