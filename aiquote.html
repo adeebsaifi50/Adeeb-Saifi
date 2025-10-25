@@ -500,19 +500,23 @@ let usedQuotes = [];
 
 function getRandomQuote(category){
   let pool = category==='all'? [].concat(...Object.values(quotes)) : quotes[category];
-  let available = pool.filter(q=>!usedQuotes.includes(q));
-  if(available.length===0){ usedQuotes=[]; return getRandomQuote(category); }
-  let quote = available[Math.floor(Math.random()*available.length)];
+  let available = pool.filter(q => !usedQuotes.includes(q));
+  if(available.length === 0){
+    usedQuotes = [];
+    available = pool.slice(); // reset pool
+  }
+  let quote = available[Math.floor(Math.random() * available.length)];
   usedQuotes.push(quote);
   return quote;
 }
 
+// -------- DOM Elements --------
 const quoteBox = document.getElementById('quoteBox');
-const quoteText = document.getElementById('quoteText');
 const generateBtn = document.getElementById('generateBtn');
 const categorySelect = document.getElementById('categorySelect');
 const copyBtn = document.getElementById('copyBtn');
 
+// -------- Background per Category --------
 function updateBackground(category){
   switch(category){
     case 'love': document.body.style.background='linear-gradient(135deg,#ff9a9e,#fad0c4)'; break;
@@ -524,16 +528,23 @@ function updateBackground(category){
   }
 }
 
-generateBtn.addEventListener('click',()=>{
+// -------- Generate Quote --------
+generateBtn.addEventListener('click', ()=>{
   let category = categorySelect.value;
   let quote = getRandomQuote(category);
   updateBackground(category);
+  
+  // fade-in effect
   quoteBox.style.opacity = 0;
-  setTimeout(()=>{ quoteText.textContent = quote; quoteBox.style.opacity = 1; }, 200);
+  setTimeout(()=>{
+    quoteBox.textContent = quote;
+    quoteBox.style.opacity = 1;
+  }, 200);
 });
 
-copyBtn.addEventListener('click',()=>{
-  let text = quoteText.textContent;
+// -------- Copy Quote --------
+copyBtn.addEventListener('click', ()=>{
+  let text = quoteBox.textContent;
   if(text) navigator.clipboard.writeText(text).then(()=>alert('Quote copied!'));
 });
 </script>
