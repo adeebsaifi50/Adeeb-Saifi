@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Card Flip Game | Adeeb Saifi</title>
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+body{
+  margin:0; padding:0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg,#0f0c29,#302b63,#24243e);
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  min-height:100vh; transition: background 0.5s ease;
+}
+h1{color:white; margin:20px 0; text-align:center;}
+.logo-btn{position:fixed; top:20px; left:20px; width:50px; cursor:pointer; z-index:1000;}
+#modeSelect, #levelSelect{margin:10px;}
+button, select{
+  margin:10px; padding:10px 20px; border:none; border-radius:10px;
+  font-size:1em; cursor:pointer; font-weight:bold; background:#00ff8a; color:#021; transition:0.3s;
+}
+button:hover, select:hover{background:#00d278; transform:scale(1.05);}
+#gameBoard{
+  display:grid; gap:10px; margin-top:20px;
+  justify-content:center;
+}
+.card{
+  width:70px; height:70px; background:#fff; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:2em; cursor:pointer; transform-style: preserve-3d;
+  transition: transform 0.5s; position:relative;
+}
+.card.flip{transform: rotateY(180deg);}
+.card .front, .card .back{
+  position:absolute; width:100%; height:100%; backface-visibility:hidden;
+  display:flex; align-items:center; justify-content:center; border-radius:10px;
+}
+.card .back{background:#00ff8a; transform:rotateY(180deg);}
+#info{
+  color:white; margin-top:15px; display:flex; justify-content:space-around; width:90%; max-width:600px;
+}
+.trophy{
+  position:fixed; top:50%; left:50%; transform:translate(-50%,-50%) scale(0);
+  font-size:5em; z-index:10000; transition: transform 0.7s ease;
+}
+.trophy.show{transform:translate(-50%,-50%) scale(1);}
+</style>
+</head>
+<body>
+
+<a href="feature.html"><img src="logo.png" alt="Home" class="logo-btn"></a>
+<h1>Card Flip Game</h1>
+
+<div id="modeSelect">
+  <button onclick="startGame('single')">One Player</button>
+  <button onclick="startGame('two')">Two Players</button>
+</div>
+
+<div id="levelSelect" style="display:none;">
+  <button onclick="initLevel(4)">Easy (4×4)</button>
+  <button onclick="initLevel(5)">Medium (5×5)</button>
+  <button onclick="initLevel(6)">Hard (6×6)</button>
+</div>
+
+<div id="gameBoard"></div>
+
+<div id="info">
+  <div id="timer"></div>
+  <div id="moves"></div>
+  <div id="playerTurn"></div>
+  <div id="playerScore"></div>
+</div>
+
+<div id="trophy" class="trophy">🏆</div>
+
+<script>
+let mode, level, firstCard=null, secondCard=null;
+let lock=false, moves=0, timerInterval, time=0;
+let player=1, scores=[0,0];
+
+const gameBoard=document.getElementById('gameBoard');
+const timerEl=document.getElementById('timer');
+const movesEl=document.getElementById('moves');
+const playerTurnEl=document.getElementById('playerTurn');
+const playerScoreEl=document.getElementById('playerScore');
+const trophyEl=document.getElementById('trophy');
+
+const emojis=["🍎","🍌","🍇","🍉","🍒","🥝","🍍","🥑","🍓","🍑","🥥","🍋","🍈","🍊","🍐","🥭","🥕","🌽","🥔","🍅","🫐","🍏","🥦","🫒","🥬","🌶️","🥜","🥯","🧄","🧅","🥨","🥩","🍖","🍗","🦴","🥓"];
+
+function startGame(selectedMode){
+  mode=selectedMode;
+  document.getElementById('modeSelect').style.display='none';
+  document.getElementById('levelSelect').style.display='block';
+}
+
+function initLevel(grid){
+  level=grid;
+  document.getElementById('levelSelect').style.display='none';
+  moves=0; time=0; firstCard=null; secondCard=null; scores=[0,0]; player=1;
+  playerTurnEl.textContent= mode==='two' ? `Player 1 Turn` : '';
+  playerScoreEl.textContent= mode==='two' ? `P1:0 P2:0` : '';
+  movesEl.textContent=mode==='single' ? `Moves:0` : '';
+  timerEl.textContent= mode==='single' ? `Time:0s` : '';
+  trophyEl.classList.remove('show');
+  generateBoard(level);
+  if(mode==='single') startTimer();
+}
+
+function startTimer(){
+  clearInterval(timerInterval);
+  timerInterval=setInterval(()=>{
+    time++; timerEl.textContent=`Time: ${time}s`;
+  },1000);
+}
+
+function generateBoard(grid){
+  gameBoard.innerHTML='';
+  let total=grid*grid;
+  let pairCount=Math.floor(total/2);
+  let cardValues=emojis.slice(0,pairCount);
+  cardValues=[...cardValues,...cardValues];
+  shuffleArray(cardValues);
+  for(let i=0;i<total;i++){
+    const card=document.createElement('div');
+    card.classList.add('card');
+    card.dataset.value=cardValues[i];
+    card.innerHTML=`<div class="front">${cardValues[i]}</div><div class="back"></div>`;
+    card.addEventListener('click',flipCard);
+    gameBoard.appendChild(card);
+  }
+}
+
+function flipCard(e){
+  if(lock) return;
+  const card=e.currentTarget;
+  if(card===firstCard) return;
+  card.classList.add('flip');
+  if(!firstCard){
+    firstCard=card; return;
+  }
+  secondCard=card;
+  lock=true;
+  moves++;
+  movesEl.textContent=mode==='single' ? `Moves: ${moves}` : '';
+  
+  if(firstCard.dataset.value===secondCard.dataset.value){
+    setTimeout(()=>{
+      firstCard.style.visibility='hidden';
+      secondCard.style.visibility='hidden';
+      resetFlip();
+      if(mode==='two'){
+        scores[player-1]+=1;
+        playerScoreEl.textContent=`P1:${scores[0]} P2:${scores[1]}`;
+      }
+      checkEnd();
+    },500);
+  }else{
+    setTimeout(()=>{
+      firstCard.classList.remove('flip');
+      secondCard.classList.remove('flip');
+      resetFlip();
+      if(mode==='two'){
+        player=player===1?2:1;
+        playerTurnEl.textContent=`Player ${player} Turn`;
+      }
+    },800);
+  }
+}
+
+function resetFlip(){ firstCard=null; secondCard=null; lock=false; }
+
+function checkEnd(){
+  const hiddenCards=Array.from(document.querySelectorAll('.card')).filter(c=>c.style.visibility!=='visible');
+  if(hiddenCards.length===document.querySelectorAll('.card').length){
+    if(mode==='single'){
+      clearInterval(timerInterval);
+      alert(`Level Complete!\nTime: ${time}s\nMoves: ${moves}`);
+    }else{
+      let winner='';
+      if(scores[0]>scores[1]) winner='Player 1 Wins!';
+      else if(scores[1]>scores[0]) winner='Player 2 Wins!';
+      else winner="It's a Tie!";
+      
+      if(winner!=="It's a Tie!"){
+        trophyEl.classList.add('show');
+        setTimeout(()=>alert(`Game Over!\n${winner}\nP1:${scores[0]} P2:${scores[1]}`),700);
+      }else{
+        alert(`Game Over!\n${winner}\nP1:${scores[0]} P2:${scores[1]}`);
+      }
+    }
+    setTimeout(()=>location.reload(),1000);
+  }
+}
+
+function shuffleArray(array){
+  for(let i=array.length-1;i>0;i--){
+    let j=Math.floor(Math.random()*(i+1));
+    [array[i],array[j]]=[array[j],array[i]];
+  }
+}
+</script>
+</body>
+  </html>
