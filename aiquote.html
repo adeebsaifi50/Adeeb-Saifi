@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Quote Generator | Adeeb Saifi</title>
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+body {
+    margin:0; padding:0; font-family: Arial, sans-serif;
+    display:flex; flex-direction:column; align-items:center;
+    justify-content:center; height:100vh; transition: background 0.5s ease;
+}
+h1 { color:white; margin-bottom:20px; }
+#quoteBox{
+    padding:20px; border-radius:15px;
+    background: rgba(0,0,0,0.5); color:white;
+    max-width: 90%; text-align:center; font-size:1.5em;
+    min-height:80px; display:flex; align-items:center; justify-content:center;
+    opacity:0; transition: opacity 0.7s ease;
+}
+button, select{
+    margin:10px; padding:10px 20px; border:none; border-radius:10px;
+    font-size:1em; cursor:pointer; font-weight:bold;
+}
+button{ background:#00ff8a; color:#021; transition:0.3s;}
+button:hover{ background:#00d278; transform:scale(1.05);}
+select{ background:white; color:#021; }
+#backBtn{
+    position:absolute; top:20px; left:20px; padding:10px 15px;
+    background:#ff4d4d; color:white; border:none; border-radius:8px;
+    cursor:pointer;
+}
+#backBtn:hover{ background:#ff1a1a; transform:scale(1.05);}
+</style>
+</head>
+<body>
+
+<button id="backBtn" onclick="window.location.href='feature.html'">Back</button>
+<h1>AI Quote Generator</h1>
+<select id="categorySelect">
+    <option value="all">All</option>
+    <option value="love">❤️ Love</option>
+    <option value="motivation">💪 Motivation</option>
+    <option value="focus">😎 Focus</option>
+    <option value="night">🌙 Night</option>
+    <option value="fun">😂 Comedy / Fun</option>
+</select>
+<button id="generateBtn">Generate Quote</button>
+
+<div id="quoteBox"></div>
+
+<script>
+// Quote Database
+const quotes = {
+    love:[
+        "Love is not about how much you say 'I love you', but how much you prove it's true.",
+        "You are my heart, my soul, my everything.",
+        "Love doesn't make the world go round, love is what makes the ride worthwhile."
+    ],
+    motivation:[
+        "Push yourself, because no one else is going to do it for you.",
+        "Success is not for the lazy.",
+        "The harder you work for something, the greater you'll feel when you achieve it."
+    ],
+    focus:[
+        "Focus on your goals, not your fears.",
+        "Discipline is choosing between what you want now and what you want most.",
+        "Stay focused and never give up."
+    ],
+    night:[
+        "Good night. Sleep tight and let your dreams take flight.",
+        "The night is dark, but your dreams are brighter.",
+        "Rest today, conquer tomorrow."
+    ],
+    fun:[
+        "I am on a seafood diet. I see food, and I eat it!",
+        "Why don’t scientists trust atoms? Because they make up everything!",
+        "Life is short. Smile while you still have teeth."
+    ]
+};
+
+// To avoid repeats
+let usedQuotes = [];
+
+function getRandomQuote(category){
+    let pool = [];
+    if(category === 'all'){
+        pool = [].concat(...Object.values(quotes));
+    }else{
+        pool = quotes[category];
+    }
+    // Remove used quotes from pool
+    const available = pool.filter(q => !usedQuotes.includes(q));
+    if(available.length === 0) { usedQuotes = []; return getRandomQuote(category); }
+    const quote = available[Math.floor(Math.random()*available.length)];
+    usedQuotes.push(quote);
+    return quote;
+}
+
+const quoteBox = document.getElementById('quoteBox');
+const generateBtn = document.getElementById('generateBtn');
+const categorySelect = document.getElementById('categorySelect');
+
+function updateBackground(category){
+    switch(category){
+        case 'love': document.body.style.background = 'linear-gradient(135deg, #ff9a9e, #fad0c4)'; break;
+        case 'motivation': document.body.style.background = 'linear-gradient(135deg, #f6d365, #fda085)'; break;
+        case 'focus': document.body.style.background = 'linear-gradient(135deg, #a1c4fd, #c2e9fb)'; break;
+        case 'night': document.body.style.background = 'linear-gradient(135deg, #2c3e50, #4ca1af)'; break;
+        case 'fun': document.body.style.background = 'linear-gradient(135deg, #fbc2eb, #a6c1ee)'; break;
+        default: document.body.style.background = 'linear-gradient(180deg,#0f0c29,#302b63,#24243e)'; break;
+    }
+}
+
+generateBtn.addEventListener('click',()=>{
+    const category = categorySelect.value;
+    const quote = getRandomQuote(category);
+    updateBackground(category);
+    quoteBox.style.opacity=0;
+    setTimeout(()=>{
+        quoteBox.textContent = quote;
+        quoteBox.style.opacity=1;
+    },200);
+});
+</script>
+
+</body>
+      </html>
