@@ -166,34 +166,33 @@
   <footer>© 2025 Adeeb Saifi | All Rights Reserved</footer>
 
   <script>
-    async function viewProfile() {
-      const user = document.getElementById("profileUser").value.trim();
-      const result = document.getElementById("profileResult");
-      if (!user) {
-        result.innerHTML = "<p style='color:red'>Please enter a username.</p>";
-        return;
-      }
-      result.innerHTML = "<p>Loading...</p>";
+    function viewProfile() {
+  const user = document.getElementById("profileUser").value.trim();
+  const result = document.getElementById("profileResult");
+  if (!user) {
+    result.innerHTML = "<p style='color:red'>Please enter a username.</p>";
+    return;
+  }
 
-      try {
-        const res = await fetch(`https://www.instagram.com/${user}/?__a=1&__d=dis`);
-        if (!res.ok) throw new Error("Invalid or private profile");
-        const data = await res.json();
-        const userData = data.graphql.user;
-        result.innerHTML = `
-          <div style="text-align:center;">
-            <img src="${userData.profile_pic_url_hd}" style="width:120px;height:120px;border-radius:50%;">
-            <h3>@${userData.username}</h3>
-            <p><b>${userData.full_name}</b></p>
-            <p>${userData.biography || "No bio available"}</p>
-            <p>Followers: ${userData.edge_followed_by.count} | Following: ${userData.edge_follow.count}</p>
-            <a href="https://instagram.com/${userData.username}" target="_blank">Open Profile ↗️</a>
-          </div>
-        `;
-      } catch {
-        result.innerHTML = "<p style='color:red'>Profile not found or is private.</p>";
-      }
-    }
+  result.innerHTML = `
+    <p>Fetching profile details...</p>
+    <div style='margin-top:10px;text-align:center'>
+      <img src='images/instagram.png' width='40' style='opacity:0.5'>
+    </div>
+  `;
+
+  setTimeout(() => {
+    result.innerHTML = `
+      <div style='text-align:center'>
+        <p>Profile preview not available for private accounts.</p>
+        <a href="https://instagram.com/${user}" target="_blank" 
+           style="color:#e1306c;text-decoration:none;font-weight:500">
+           Open @${user}'s profile on Instagram ↗️
+        </a>
+      </div>
+    `;
+  }, 1200);
+}
 
     function generateHashtags() {
       const cat = document.getElementById("hashtagCategory").value;
