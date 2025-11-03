@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instagram Tools — Adeeb Saifi</title>
+  <link rel="icon" href="images/instagram.png" type="image/png" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f9d976, #f39f86);
+      color: #222;
+      min-height: 100vh;
+    }
+
+    header {
+      background: white;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 20px 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 2px solid #e1306c;
+    }
+
+    header img {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      color: #e1306c;
+      margin-bottom: 4px;
+    }
+
+    header p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: grid;
+      gap: 25px;
+    }
+
+    .tool {
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+    }
+
+    .tool:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    }
+
+    .tool h2 {
+      color: #e1306c;
+      margin-bottom: 10px;
+    }
+
+    input, button, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    button {
+      background: linear-gradient(90deg, #e1306c, #f77737);
+      color: white;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #c0245a, #e9602c);
+    }
+
+    #resultBox {
+      margin-top: 15px;
+      background: #fafafa;
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #444;
+    }
+
+    .coming-soon {
+      background: #fff3f6;
+      border: 1px dashed #e1306c;
+      text-align: center;
+      padding: 20px;
+      border-radius: 12px;
+      font-weight: 500;
+      color: #c0245a;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="images/instagram.png" alt="Instagram Logo" />
+    <div>
+      <h1>Instagram Tools — Adeeb Saifi</h1>
+      <p>Smart utilities for every Insta lover 🌸</p>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="tool">
+      <h2>🔍 Profile Viewer</h2>
+      <p>Check any public Instagram account details by username.</p>
+      <input type="text" id="profileUser" placeholder="Enter username (without @)">
+      <button onclick="viewProfile()">View Profile</button>
+      <div id="profileResult" class="resultBox"></div>
+    </section>
+
+    <section class="tool">
+      <h2>🏷️ Hashtag Generator</h2>
+      <p>Find trending hashtags for your post topic.</p>
+      <input type="text" id="hashtagInput" placeholder="Enter topic (e.g. travel, food, fashion)">
+      <button onclick="generateHashtags()">Generate Hashtags</button>
+      <div id="hashtagResult" class="resultBox"></div>
+    </section>
+
+    <section class="tool">
+      <h2>💬 Caption Ideas</h2>
+      <p>Get unique and catchy captions for your Insta posts.</p>
+      <input type="text" id="captionInput" placeholder="Enter post type (selfie, trip, etc.)">
+      <button onclick="generateCaptions()">Get Captions</button>
+      <div id="captionResult" class="resultBox"></div>
+    </section>
+
+    <section class="tool">
+      <h2>⬇️ Media Downloader</h2>
+      <div class="coming-soon">
+        Reels / Stories / Posts download feature — Coming soon 🚀
+      </div>
+    </section>
+
+  </main>
+
+  <footer>© 2025 Adeeb Saifi — All Rights Reserved</footer>
+
+  <script>
+    function viewProfile() {
+      const user = document.getElementById("profileUser").value.trim();
+      const result = document.getElementById("profileResult");
+      if(!user) return result.innerHTML = "<p style='color:red'>Please enter a username.</p>";
+      result.innerHTML = `
+        <div id='resultBox'>
+          <b>@${user}</b> — Profile lookup is coming soon!  
+          <br><small>Only public accounts will be viewable.</small>
+        </div>`;
+    }
+
+    function generateHashtags() {
+      const topic = document.getElementById("hashtagInput").value.trim();
+      const result = document.getElementById("hashtagResult");
+      if(!topic) return result.innerHTML = "<p style='color:red'>Enter a topic first.</p>";
+      const tags = ["#instagood","#photooftheday","#style","#explore","#trending","#life","#love","#beautiful","#vibes","#inspiration"];
+      const randomTags = tags.sort(() => 0.5 - Math.random()).slice(0,8);
+      result.innerHTML = `<p>Try these hashtags for <b>${topic}</b>:</p><p>${randomTags.join(" ")}</p>`;
+    }
+
+    function generateCaptions() {
+      const type = document.getElementById("captionInput").value.trim();
+      const result = document.getElementById("captionResult");
+      if(!type) return result.innerHTML = "<p style='color:red'>Please enter your post type.</p>";
+      const captions = [
+        `Living my best ${type} life 💫`,
+        `Less perfection, more ${type} vibes 🌸`,
+        `Just a ${type} moment worth sharing ✨`,
+        `Smiles & ${type} memories 🌈`,
+        `${type} mode: ON 🔥`
+      ];
+      const random = captions[Math.floor(Math.random() * captions.length)];
+      result.innerHTML = `<p><b>Suggested caption:</b> “${random}”</p>`;
+    }
+  </script>
+</body>
+  </html>
