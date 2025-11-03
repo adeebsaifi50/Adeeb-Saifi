@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌦️ Live Weather</title>
+  <style>
+    :root {
+      --bg-dark: #0d1117;
+      --text-dark: #fff;
+      --card-dark: #161b22;
+      --bg-light: #f2f2f2;
+      --text-light: #111;
+      --card-light: #fff;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding-top: 80px;
+      transition: all 0.3s ease;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      padding: 15px;
+      background: linear-gradient(90deg, #007bff, #00d4ff);
+      color: white;
+      font-size: 1.5em;
+      font-weight: bold;
+      z-index: 10;
+    }
+
+    .container {
+      width: 95%;
+      max-width: 500px;
+      background: var(--card-dark);
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 30px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+      transition: background 0.3s ease;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      margin: 10px 0;
+      font-size: 1em;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      background: #00d4ff;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 5px;
+    }
+
+    button:hover {
+      background: #00aee0;
+      transform: scale(1.05);
+    }
+
+    .weather-box {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1.1em;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .toggle-mode {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: #ffcc00;
+      color: #111;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .home-logo {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #007bff;
+      text-decoration: none;
+      font-size: 1.2em;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    body.light .container {
+      background: var(--card-light);
+    }
+  </style>
+</head>
+<body>
+  <header>🌦️ Live Weather</header>
+  <a href="index.html" class="home-logo">🏠</a>
+  <div class="toggle-mode" id="toggleMode">☀️</div>
+
+  <div class="container">
+    <h2>Check Weather</h2>
+    <input type="text" id="cityInput" placeholder="Enter city name..." />
+    <div>
+      <button id="getWeatherBtn">Search</button>
+      <button id="getLocationBtn">📍 My Location</button>
+    </div>
+
+    <div id="weatherResult" class="weather-box">
+      Enter city or use My Location
+    </div>
+  </div>
+
+  <script type="module">
+    import { API_KEY } from './config.js'; // 🔒 Secure import
+
+    const weatherResult = document.getElementById("weatherResult");
+
+    async function getWeather(city) {
+      try {
+        const res = await fetch(
+          \`https://api.openweathermap.org/data/2.5/weather?q=\${city}&appid=\${API_KEY}&units=metric\`
+        );
+        const data = await res.json();
+
+        if (data.cod === 200) {
+          weatherResult.innerHTML = \`
+            <h3>\${data.name}, \${data.sys.country}</h3>
+            <p>🌡️ Temperature: \${data.main.temp}°C</p>
+            <p>☁️ Condition: \${data.weather[0].description}</p>
+            <p>💨 Wind Speed: \${data.wind.speed} m/s</p>
+          \`;
+        } else {
+          weatherResult.textContent = "City not found!";
+        }
+      } catch (error) {
+        weatherResult.textContent = "Error fetching weather data!";
+      }
+    }
+
+    document.getElementById("getWeatherBtn").addEventListener("click", () => {
+      const city = document.getElementById("cityInput").value;
+      if (city) getWeather(city);
+    });
+
+    document.getElementById("getLocationBtn").addEventListener("click", () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+          const { latitude, longitude } = pos.coords;
+          const res = await fetch(
+            \`https://api.openweathermap.org/data/2.5/weather?lat=\${latitude}&lon=\${longitude}&appid=\${API_KEY}&units=metric\`
+          );
+          const data = await res.json();
+          weatherResult.innerHTML = \`
+            <h3>\${data.name}, \${data.sys.country}</h3>
+            <p>🌡️ Temperature: \${data.main.temp}°C</p>
+            <p>☁️ Condition: \${data.weather[0].description}</p>
+            <p>💨 Wind Speed: \${data.wind.speed} m/s</p>
+          \`;
+        });
+      } else {
+        alert("Location not supported by your browser!");
+      }
+    });
+
+    const toggle = document.getElementById("toggleMode");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      toggle.textContent = document.body.classList.contains("light")
+        ? "🌙"
+        : "☀️";
+    });
+  </script>
+</body>
+  </html>
