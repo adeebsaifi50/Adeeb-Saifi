@@ -1,13 +1,15 @@
+        </html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adeeb Saifi | Home</title>
-  <link rel="icon" type="image/png" href="logo.png" />
-  <meta name="description" content="Official website of Adeeb Saifi - Digital Creator, Influencer & Editor. Explore my work, travel, blog, and social media journey." />
+  <link rel="icon" type="image/png" href="logo.png">
+  <meta name="description" content="Official website of Adeeb Saifi - Digital Creator, Influencer & Editor. Explore my work, tools, and social media journey.">
 
   <style>
+    /* RESET */
     * {margin:0; padding:0; box-sizing:border-box;}
     body {
       font-family:'Poppins', sans-serif;
@@ -15,13 +17,16 @@
       color:#333;
       line-height:1.8;
       overflow-x:hidden;
+      animation:fadeIn 1.5s ease;
     }
 
+    /* HEADER */
     header {
       background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
       color:#fff;
       padding:60px 20px;
       text-align:center;
+      animation:fadeDown 1s ease;
     }
     header h1 {
       font-size:3rem;
@@ -31,6 +36,7 @@
     }
     header p {font-size:1.2rem; color:#ddd;}
 
+    /* NAVBAR */
     nav {
       background:#111;
       text-align:center;
@@ -49,14 +55,17 @@
     }
     nav a:hover {color:#00bfff; transform:scale(1.05);}
 
+    /* CONTAINER */
     .container {max-width:1100px; margin:auto; padding:40px 20px;}
 
+    /* SECTION TITLE */
     .section-title {
       text-align:center;
       font-size:2.2rem;
       margin:60px 0 30px;
       color:#00bfff;
       position:relative;
+      animation:fadeUp 1s ease;
     }
     .section-title::after {
       content:'';
@@ -70,6 +79,7 @@
       border-radius:3px;
     }
 
+    /* HERO SECTION */
     .hero {
       display:flex;
       flex-wrap:wrap;
@@ -77,6 +87,7 @@
       justify-content:center;
       gap:30px;
       padding:40px 0;
+      animation:fadeUp 1s ease;
     }
     .hero-left img {
       width:260px;
@@ -92,17 +103,25 @@
     .social-links a {color:#00bfff; text-decoration:none;}
     .social-links a:hover {text-decoration:underline;}
 
+    /* CARD */
     .travel-card {
       background:rgba(255,255,255,0.9);
       backdrop-filter:blur(8px);
       padding:25px;
       border-radius:15px;
       box-shadow:0 6px 20px rgba(0,0,0,0.1);
+      transition:all 0.4s ease;
       margin-bottom:25px;
+      animation:fadeIn 1.2s ease;
+    }
+    .travel-card:hover {
+      transform: translateY(-5px);
+      box-shadow:0 12px 25px rgba(0,0,0,0.15);
     }
     .travel-card h3 {color:#00bfff; font-size:1.6rem; margin-bottom:15px;}
     .travel-card p {margin-bottom:12px; color:#555; line-height:1.6;}
 
+    /* BUTTON */
     button, .btn {
       display:inline-block;
       margin-top:20px;
@@ -119,21 +138,115 @@
     }
     button:hover, .btn:hover {background:#008fc7; transform:translateY(-2px);}
 
-    form input, form textarea {
-      width:100%;
-      padding:12px;
-      margin:10px 0;
-      border-radius:8px;
-      border:1px solid #ccc;
-      background:#f9fbff;
-      transition:0.3s;
+    /* INSTAGRAM CHAT BUTTON */
+    .insta-btn {
+      background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+      background-size:200% 200%;
+      animation:gradientMove 4s ease infinite;
+      color:#fff;
+      text-decoration:none;
+      padding:12px 30px;
+      border-radius:30px;
+      font-weight:600;
+      display:inline-block;
+      margin-bottom:20px;
+      box-shadow:0 6px 20px rgba(220,39,67,0.3);
+      transition:transform 0.3s ease;
     }
-    form input:focus, form textarea:focus {
-      border-color:#00bfff;
-      outline:none;
-      box-shadow:0 0 6px rgba(0,191,255,0.3);
+    .insta-btn:hover {transform:scale(1.07);}
+    @keyframes gradientMove {
+      0% {background-position:0% 50%;}
+      50% {background-position:100% 50%;}
+      100% {background-position:0% 50%;}
     }
 
+    /* TESTIMONIAL PREVIEW */
+    .testimonial-preview {
+      display:flex;
+      justify-content:center;
+      margin-top:40px;
+      animation:fadeUp 1.2s ease;
+    }
+    .testimonial-card {
+      background:rgba(255,255,255,0.95);
+      border-radius:15px;
+      box-shadow:0 8px 25px rgba(0,0,0,0.1);
+      overflow:hidden;
+      max-width:700px;
+      transition:transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .testimonial-card:hover {
+      transform:translateY(-8px);
+      box-shadow:0 12px 35px rgba(0,191,255,0.3);
+    }
+    .testimonial-card img {
+      width:100%;
+      height:auto;
+      border-bottom:3px solid #00bfff;
+    }
+    .testimonial-content {
+      padding:25px;
+      text-align:center;
+    }
+    .testimonial-content h3 {color:#00bfff; margin-bottom:10px; font-size:1.4rem;}
+    .testimonial-content p {color:#555; font-size:1.05rem;}
+
+    /* TOOLS HUB SECTION */
+    .tools-section {
+      text-align:center;
+      padding:60px 20px;
+      background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#00bfff);
+      background-size:400% 400%;
+      animation:gradientMove 10s ease infinite;
+      color:#fff;
+      margin-top:40px;
+      border-radius:15px;
+      box-shadow:0 0 25px rgba(0,191,255,0.25);
+      transition:0.4s ease-in-out;
+    }
+    .tools-card {
+      max-width:700px;
+      margin:auto;
+      background:rgba(255,255,255,0.08);
+      padding:40px 25px;
+      border-radius:15px;
+      border:1px solid rgba(255,255,255,0.2);
+      box-shadow:0 0 25px rgba(0,191,255,0.15);
+      transition:transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .tools-card:hover {
+      transform:translateY(-8px);
+      box-shadow:0 0 40px rgba(0,191,255,0.4);
+    }
+    .tools-card h2 {
+      font-size:2rem;
+      margin-bottom:15px;
+      color:#00bfff;
+      text-shadow:0 0 15px rgba(0,191,255,0.6);
+    }
+    .tools-card p {
+      color:#eee;
+      margin-bottom:25px;
+      font-size:1.1rem;
+    }
+    .tools-btn {
+      background:#00bfff;
+      color:#fff;
+      text-decoration:none;
+      padding:14px 35px;
+      border-radius:8px;
+      font-weight:bold;
+      font-size:1.1rem;
+      transition:background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow:0 0 15px rgba(0,191,255,0.3);
+    }
+    .tools-btn:hover {
+      background:#008fc7;
+      transform:scale(1.08);
+      box-shadow:0 0 25px rgba(0,191,255,0.5);
+    }
+
+    /* FOOTER */
     footer {
       background:linear-gradient(135deg,#1a1a1a,#111);
       color:#fff;
@@ -144,6 +257,7 @@
       letter-spacing:0.5px;
     }
 
+    /* SCROLL TO TOP */
     #scrollTop {
       position:fixed;
       bottom:25px;
@@ -161,63 +275,12 @@
     }
     #scrollTop:hover {background:#009bd9;}
 
-    /* Tools Hub Section */
-    .tools-section {
-      text-align: center;
-      padding: 60px 20px;
-      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #00bfff);
-      background-size: 400% 400%;
-      animation: gradientMove 10s ease infinite;
-      color: #fff;
-      margin-top: 60px;
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(0,191,255,0.25);
-    }
+    /* ANIMATIONS */
+    @keyframes fadeUp {from{opacity:0; transform:translateY(40px);} to{opacity:1; transform:translateY(0);}}
+    @keyframes fadeDown {from{opacity:0; transform:translateY(-40px);} to{opacity:1; transform:translateY(0);}}
+    @keyframes fadeIn {from{opacity:0;} to{opacity:1;}}
 
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .tools-card {
-      max-width: 700px;
-      margin: auto;
-      background: rgba(255,255,255,0.08);
-      padding: 40px 25px;
-      border-radius: 15px;
-      border: 1px solid rgba(255,255,255,0.2);
-      box-shadow: 0 0 25px rgba(0,191,255,0.15);
-    }
-
-    .tools-card h2 {
-      font-size: 2rem;
-      margin-bottom: 15px;
-      color: #00bfff;
-      text-shadow: 0 0 15px rgba(0,191,255,0.6);
-    }
-    .tools-card p {
-      color: #eee;
-      margin-bottom: 25px;
-      font-size: 1.1rem;
-    }
-    .tools-btn {
-      background: #00bfff;
-      color: #fff;
-      text-decoration: none;
-      padding: 14px 35px;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 15px rgba(0,191,255,0.3);
-    }
-    .tools-btn:hover {
-      background: #008fc7;
-      transform: scale(1.08);
-      box-shadow: 0 0 25px rgba(0,191,255,0.5);
-    }
-
+    /* RESPONSIVE */
     @media(max-width:768px){
       .hero {flex-direction:column;}
       .hero-left img {width:200px;}
@@ -225,8 +288,8 @@
     }
   </style>
 </head>
-
 <body>
+
   <header>
     <h1>Adeeb Saifi</h1>
     <p>Digital Creator | Influencer | Editor | Web Developer</p>
@@ -243,7 +306,7 @@
 
     <section class="hero">
       <div class="hero-left">
-        <img src="profile.jpg" alt="Adeeb Profile" />
+        <img src="profile.jpg" alt="Adeeb Profile">
       </div>
       <div class="hero-right">
         <h2>Hello! I'm Adeeb Saifi 👋</h2>
@@ -267,19 +330,20 @@
 
     <section class="section-title"><h2>📞 Contact Me</h2></section>
     <div class="travel-card">
+      <a href="https://www.instagram.com/direct/t/17842662639618653" class="insta-btn" target="_blank">💬 DM on Instagram</a>
       <h3>Get in Touch</h3>
       <p><strong>Email:</strong><br> adeeb8734@gmail.com<br> adeebsaifi646@gmail.com<br> adeebsaifi644@gmail.com</p>
-
-      <a href="https://ig.me/m/adeeb_saifi_50" target="_blank" class="btn">💬 Chat on Instagram</a>
-
       <form onsubmit="return false">
-        <input type="text" placeholder="Your Name" required />
-        <input type="email" placeholder="Your Email" required />
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
         <textarea placeholder="Your Message" rows="5" required></textarea>
         <button type="submit">Send Message</button>
       </form>
     </div>
 
+
+
+    <!-- TOOLS HUB SECTION -->
     <section class="tools-section">
       <div class="tools-card">
         <h2>🚀 Explore My Tools Hub</h2>
@@ -287,6 +351,21 @@
         <a href="feature.html" class="tools-btn">Go to Tools Hub</a>
       </div>
     </section>
+
+        <section class="section-title"><h2>💬 Testimonials</h2></section>
+    <div class="travel-card">
+      <p style="text-align:center; color:#555;">Coming soon... Stay tuned for reviews and feedback from clients and followers!</p>
+    </div>
+
+    <div class="testimonial-preview">
+      <div class="testimonial-card">
+        <img src="testimonial-placeholder.jpg" alt="Testimonials Preview">
+        <div class="testimonial-content">
+          <h3>🌟 New testimonials are loading...</h3>
+          <p>Stay tuned for real stories, reviews & experiences from amazing people!</p>
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -300,11 +379,14 @@
   <script>
     const scrollBtn = document.getElementById("scrollTop");
     window.onscroll = () => {
-      scrollBtn.style.display =
-        document.documentElement.scrollTop > 200 ? "block" : "none";
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        scrollBtn.style.display = "block";
+      } else {
+        scrollBtn.style.display = "none";
+      }
     };
-    scrollBtn.onclick = () =>
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   </script>
+
 </body>
-                                            </html>
+  </html>
