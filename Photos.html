@@ -1,14 +1,9 @@
-body>
-  </html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>📸 Photo Gallery | Adeeb Saifi</title>
-
-<!-- LightGallery CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css"/>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -26,9 +21,6 @@ header{
   text-align:center;
 }
 
-header h1{font-size:2.5rem;}
-header p{color:#ccc;margin-top:8px;}
-
 nav{
   background:#333;
   text-align:center;
@@ -39,7 +31,6 @@ nav a{
   margin:0 15px;
   text-decoration:none;
   font-weight:bold;
-  transition:.3s;
 }
 nav a:hover{color:#00bfff;}
 
@@ -49,82 +40,33 @@ nav a:hover{color:#00bfff;}
   padding:40px 20px;
 }
 
-/* Gallery Grid */
 .gallery{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:25px;
 }
 
-/* Gallery Card */
 .gallery-item{
   border-radius:12px;
   overflow:hidden;
   box-shadow:0 6px 18px rgba(0,0,0,0.1);
-  transition:all .6s ease;
-  opacity:0;
-  transform:translateY(60px);
+  cursor:pointer;
 }
 
-.gallery-item.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.gallery-item:hover{
-  transform:translateY(-8px);
-  box-shadow:0 10px 25px rgba(0,0,0,0.15);
-}
-
-/* Blur Loading */
 .gallery-item img{
   width:100%;
   height:250px;
   object-fit:cover;
   display:block;
-  filter:blur(20px);
-  transform:scale(1.1);
-  transition:all .6s ease;
+  transition:.4s;
 }
 
-.gallery-item img.loaded{
-  filter:blur(0);
-  transform:scale(1);
+.gallery-item:hover img{
+  transform:scale(1.05);
 }
 
-/* Back Button */
-.back-wrapper{
-  text-align:center;
-}
-
-.back-home{
-  display:inline-block;
-  margin:60px auto 0;
-  padding:14px 35px;
-  background:#00bfff;
-  color:#fff;
-  font-weight:bold;
-  text-decoration:none;
-  border-radius:50px;
-  transition:.3s;
-  box-shadow:0 6px 15px rgba(0,191,255,0.4);
-}
-
-.back-home:hover{
-  background:#009acd;
-  transform:translateY(-4px);
-  box-shadow:0 10px 20px rgba(0,191,255,0.5);
-}
-
-footer{
-  background:#222;
-  color:#fff;
-  text-align:center;
-  padding:20px;
-  margin-top:50px;
-}
-</style>
-  #lightbox{
+/* LIGHTBOX */
+#lightbox{
   position:fixed;
   inset:0;
   background:rgba(0,0,0,0.9);
@@ -146,7 +88,6 @@ footer{
   max-width:90%;
   max-height:85%;
   border-radius:10px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
 .close-btn{
@@ -157,6 +98,30 @@ footer{
   color:#fff;
   cursor:pointer;
 }
+
+.back-wrapper{
+  text-align:center;
+}
+
+.back-home{
+  display:inline-block;
+  margin:60px auto 0;
+  padding:14px 35px;
+  background:#00bfff;
+  color:#fff;
+  font-weight:bold;
+  text-decoration:none;
+  border-radius:50px;
+}
+
+footer{
+  background:#222;
+  color:#fff;
+  text-align:center;
+  padding:20px;
+  margin-top:50px;
+}
+</style>
 </head>
 
 <body>
@@ -168,36 +133,28 @@ footer{
 
 <nav>
   <a href="index.html">Home</a>
-  <a href="Travel.html">Travel</a>
-  <a href="Blog.html">Blog</a>
-  <a href="future.html">Future Hub</a>
 </nav>
 
 <div class="container">
 
-<div id="lightgallery" class="gallery">
+<div class="gallery">
 
-  <!-- PHOTO 1 -->
   <div class="gallery-item">
-  <img src="/Adeeb-Saifi/Images/thumb-adeeb2.jpg" 
-       data-full="/Adeeb-Saifi/Images/adeeb2.png" 
-       class="gallery-img"
-       loading="lazy"
-       alt="Adeeb Photo">
+    <img src="/Adeeb-Saifi/Images/thumb-adeeb2.jpg"
+         data-full="/Adeeb-Saifi/Images/adeeb2.png"
+         class="gallery-img">
   </div>
 
-  <!-- PHOTO 2 -->
   <div class="gallery-item">
-    <a href="Images/adeeb3.png">
-      <img src="Images/thumb-adeeb3.jpg" loading="lazy" alt="">
-    </a>
+    <img src="/Adeeb-Saifi/Images/thumb-adeeb3.jpg"
+         data-full="/Adeeb-Saifi/Images/adeeb3.png"
+         class="gallery-img">
   </div>
 
-  <!-- PHOTO 3 -->
   <div class="gallery-item">
-    <a href="Images/adeeb4.jpeg">
-      <img src="Images/thumb-adeeb4.jpg" loading="lazy" alt="">
-    </a>
+    <img src="/Adeeb-Saifi/Images/thumb-adeeb4.jpg"
+         data-full="/Adeeb-Saifi/Images/adeeb4.jpeg"
+         class="gallery-img">
   </div>
 
 </div>
@@ -212,56 +169,20 @@ footer{
   © 2026 Adeeb Saifi | All Rights Reserved
 </footer>
 
-<!-- LightGallery JS -->
-<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+<!-- LIGHTBOX HTML -->
+<div id="lightbox">
+  <span class="close-btn">&times;</span>
+  <img id="lightbox-img">
+</div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  /* LightGallery Init */
-  lightGallery(document.getElementById("lightgallery"), {
-    plugins: [lgZoom, lgThumbnail],
-    speed: 500,
-    download: false
-  });
-
-  /* Remove Blur When Image Loads */
-  document.querySelectorAll('.gallery-item img').forEach(img=>{
-    img.onload = function(){
-      this.classList.add('loaded');
-    }
-  });
-
-  /* Scroll Animation */
-  const items = document.querySelectorAll(".gallery-item");
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add("show");
-        }, index * 150);
-      }
-    });
-  }, { threshold: 0.2 });
-
-  items.forEach(item => {
-    observer.observe(item);
-  });
-
-});
-</script>
-  <script>
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const closeBtn = document.querySelector(".close-btn");
 
 document.querySelectorAll(".gallery-img").forEach(img=>{
   img.addEventListener("click", ()=>{
-    const fullImg = img.getAttribute("data-full");
-    lightboxImg.src = fullImg;
+    lightboxImg.src = img.getAttribute("data-full");
     lightbox.classList.add("show");
   });
 });
@@ -275,12 +196,7 @@ lightbox.addEventListener("click", (e)=>{
     lightbox.classList.remove("show");
   }
 });
-  </script>
-  <!-- Custom Lightbox -->
-<div id="lightbox">
-  <span class="close-btn">&times;</span>
-  <img id="lightbox-img">
-</div>
+</script>
 
 </body>
   </html>
