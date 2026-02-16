@@ -1,173 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📸 Photo Gallery | Adeeb Saifi</title>
-  <meta name="description" content="Photo gallery of Adeeb Saifi - travel, nature, food and lifestyle moments.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📸 Photo Gallery | Adeeb Saifi</title>
 
-  <!-- LightGallery CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css"/>
 
-  <style>
-    * {margin:0; padding:0; box-sizing:border-box;}
-    body {font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f9f9f9; color:#333; line-height:1.8;}
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
 
-    header {background:#222; color:#fff; padding:30px 20px; text-align:center;}
-    header h1 {font-size:2.5rem; margin-bottom:10px;}
-    header p {color:#ccc; font-size:1.1rem;}
+body{
+  font-family:'Segoe UI',sans-serif;
+  background:#f9f9f9;
+  color:#333;
+}
 
-    nav {background:#333; text-align:center; padding:12px 0;}
-    nav a {color:#fff; margin:0 15px; text-decoration:none; font-weight:bold; transition:0.3s;}
-    nav a:hover {color:#00bfff; text-decoration:underline;}
+header{
+  background:#222;
+  color:#fff;
+  padding:30px 20px;
+  text-align:center;
+}
 
-    .container {max-width:1200px; margin:auto; padding:30px 20px;}
+header h1{font-size:2.5rem;}
+header p{color:#ccc;margin-top:8px;}
 
-    .search-box {text-align:center; margin-bottom:25px;}
-    .search-box input {padding:10px; width:80%; max-width:400px; border-radius:6px; border:1px solid #ccc;}
+nav{
+  background:#333;
+  text-align:center;
+  padding:12px 0;
+}
+nav a{
+  color:#fff;
+  margin:0 15px;
+  text-decoration:none;
+  font-weight:bold;
+  transition:.3s;
+}
+nav a:hover{color:#00bfff;}
 
-    .filter-buttons {text-align:center; margin-bottom:25px;}
-    .filter-buttons button {
-      padding:10px 20px; margin:5px; border:none; background:#333; color:#fff;
-      cursor:pointer; border-radius:6px; transition:0.3s;
-    }
-    .filter-buttons button.active,
-    .filter-buttons button:hover {background:#00bfff;}
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:40px 20px;
+}
 
-  .gallery-item img {
-    width: 300px;       /* jitna chhota chahiye */
-    height: 200px;      /* fix height */
-    object-fit: cover;  /* image crop hoke box me fit hogi */
-    border-radius: 10px; /* style ke liye rounded corners */
-  }
+/* Gallery Grid */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+}
+
+/* Gallery Card */
+.gallery-item{
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 6px 18px rgba(0,0,0,0.1);
+  transition:all .6s ease;
+
+  opacity:0;
+  transform:translateY(60px);
+}
+
+.gallery-item.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.gallery-item:hover{
+  transform:translateY(-8px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Blur Loading */
+.gallery-item img{
+  width:100%;
+  height:250px;
+  object-fit:cover;
+  display:block;
+  filter:blur(20px);
+  transform:scale(1.1);
+  transition:all .6s ease;
+}
+
+.gallery-item img.loaded{
+  filter:blur(0);
+  transform:scale(1);
+}
+
+/* Back Button */
+.back-wrapper{
+  text-align:center;
+}
+
+.back-home{
+  display:inline-block;
+  margin:60px auto 0;
+  padding:14px 35px;
+  background:#00bfff;
+  color:#fff;
+  font-weight:bold;
+  text-decoration:none;
+  border-radius:50px;
+  transition:.3s;
+  box-shadow:0 6px 15px rgba(0,191,255,0.4);
+}
+
+.back-home:hover{
+  background:#009acd;
+  transform:translateY(-4px);
+  box-shadow:0 10px 20px rgba(0,191,255,0.5);
+}
+
+footer{
+  background:#222;
+  color:#fff;
+  text-align:center;
+  padding:20px;
+  margin-top:50px;
+}
 </style>
 </head>
+
 <body>
 
-  <header>
-    <h1>📸 My Photos Gallery</h1>
-    <p>Explore my collection of photos from different categories</p>
-  </header>
+<header>
+  <h1>📸 My Photos Gallery</h1>
+  <p>Captured Moments</p>
+</header>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="Travel.html">Travel</a>
-    <a href="Blog.html">Blog</a>
-    <a href="future.html">Future Hub</a>
-    
-  </nav>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="Travel.html">Travel</a>
+  <a href="Blog.html">Blog</a>
+  <a href="future.html">Future Hub</a>
+</nav>
 
-  <div class="container">
+<div class="container">
 
-    <!-- Search -->
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search photos by name or description...">
-    </div>
+<div id="lightgallery" class="gallery">
 
-    <!-- Filters -->
-    <div class="filter-buttons">
-      <button class="active" onclick="filterSelection('all')">All</button>
-      <button onclick="filterSelection('travel')">Travel</button>
-      
-      <button onclick="filterSelection('friends')">Friends</button>
-      <button onclick="filterSelection('Adeeb')">Adeeb</button>
-    </div>
-
-    
-  <div class="gallery">
+  <!-- PHOTO 1 -->
   <div class="gallery-item">
-    <img src="Images/adeeb2.png" alt="Rishikesh">
-    <img src="Images/adeeb3.png" alt="Rishikesh">
-    
-    <h4>Rishikesh</h4>
-    <p>Serene vibes near Ganga</p>
+    <a href="Images/adeeb2.png">
+      <img src="Images/thumb-adeeb2.jpg" loading="lazy" alt="">
+    </a>
   </div>
 
+  <!-- PHOTO 2 -->
   <div class="gallery-item">
-    <img src="Images/adeeb4.jpgi" alt="Mussoorie">
-    <img src="Images/adeeb5.png" alt="Mussoorie">
-    <img src="Images/adeeb1.png" alt="Mussoorie">
-    <img src="Images/adeeb6.png" alt="Mussoorie">
-    <img src="Images/adeeb7.png" alt="Mussoorie">
-    <img src="Images/adeeb8.png" alt="Mussoorie">
-    <img src="Images/adeeb9.png" alt="Mussoorie">
-    <h4>Mussoorie 🌄</h4>
-    <p>Pahaado ki Rani 🏞️</p>
+    <a href="Images/adeeb3.png">
+      <img src="Images/thumb-adeeb3.jpg" loading="lazy" alt="">
+    </a>
   </div>
+
+  <!-- PHOTO 3 -->
+  <div class="gallery-item">
+    <a href="Images/adeeb4.png">
+      <img src="Images/thumb-adeeb4.jpg" loading="lazy" alt="">
+    </a>
+  </div>
+
+  <!-- Add more same format -->
+
 </div>
 
-      <!-- Example Photos (copy-paste these blocks to add more) -->
-    <div class="gallery">
-  <div class="gallery-item">
-    <img src="images/Adeeb1.jpg" alt="Rishikesh">
-    <h4>Rishikesh</h4>
-    <p>Serene vibes near Ganga</p>
-  </div>
+<div class="back-wrapper">
+  <a href="index.html" class="back-home">⬅ Back To Home</a>
+</div>
 
-  <div class="gallery-item">
-    <img src="images/Haridwar.jpg" alt="Haridwar">
-    <h4>Haridwar</h4>
-    <p>Evening Ganga Aarti</p>
-  </div>
-    </div>
+</div>
 
+<footer>
+  © 2026 Adeeb Saifi | All Rights Reserved
+</footer>
 
-      
+<!-- LightGallery -->
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.umd.min.js"></script>
 
-      
+<script>
+lightGallery(document.getElementById('lightgallery'), {
+  plugins:[lgZoom,lgThumbnail],
+  speed:400
+});
 
-      <!-- Example extra category -->
-      <div class="gallery-item friends" data-title="Picnic" data-description="Friends enjoying picnic in park">
-        <a href="images/friends.jpg" data-lg-size="1406-1390">
-          <img src="images/friends.jpg" alt="Friends Picnic" loading="lazy">
-        </a>
-        <h4>Friends</h4>
-        <p>Chilling with my squad</p>
-      </div>
+/* Remove Blur When Image Loads */
+document.querySelectorAll('.gallery-item img').forEach(img=>{
+  img.onload = function(){
+    this.classList.add('loaded');
+  }
+});
 
-    </div>
-  </div>
+/* Cinematic Stagger Scroll Animation */
+const items = document.querySelectorAll(".gallery-item");
 
-  <footer>
-    <p>© 2025 Adeeb Saifi | All Rights Reserved</p>
-  </footer>
-
-  <!-- LightGallery JS -->
-  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/fullscreen/lg-fullscreen.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/share/lg-share.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/download/lg-download.umd.min.js"></script>
-
-  <script>
-    // LightGallery init
-    lightGallery(document.getElementById('lightgallery'), {
-      plugins: [lgZoom, lgThumbnail, lgFullscreen, lgShare, lgDownload],
-      speed: 400,
-    });
-
-    // Filter Function
-    function filterSelection(category) {
-      let items = document.getElementsByClassName("gallery-item");
-      for (let i = 0; i < items.length; i++) {
-        items[i].style.display = (category === 'all' || items[i].classList.contains(category)) ? "block" : "none";
-      }
-      let buttons = document.querySelectorAll('.filter-buttons button');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add("show");
+      }, index * 150);
     }
+  });
+}, {
+  threshold: 0.2
+});
 
-    // Search Function
-    document.getElementById("searchInput").addEventListener("keyup", function() {
-      let filter = this.value.toLowerCase();
-      let items = document.getElementsByClassName("gallery-item");
-      for (let i = 0; i < items.length; i++) {
-        let title = items[i].getAttribute("data-title").toLowerCase();
-        let desc = items[i].getAttribute("data-description").toLowerCase();
-        items[i].style.display = (title.includes(filter) || desc.includes(filter)) ? "block" : "none";
-      }
-    });
-  </script>
+items.forEach(item => {
+  observer.observe(item);
+});
+</script>
+
 </body>
   </html>
