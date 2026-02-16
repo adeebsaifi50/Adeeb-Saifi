@@ -1,3 +1,5 @@
+body>
+  </html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>📸 Photo Gallery | Adeeb Saifi</title>
 
+<!-- LightGallery CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css"/>
 
 <style>
@@ -59,7 +62,6 @@ nav a:hover{color:#00bfff;}
   overflow:hidden;
   box-shadow:0 6px 18px rgba(0,0,0,0.1);
   transition:all .6s ease;
-
   opacity:0;
   transform:translateY(60px);
 }
@@ -121,7 +123,6 @@ footer{
   padding:20px;
   margin-top:50px;
 }
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css" />
 </style>
 </head>
 
@@ -145,9 +146,9 @@ footer{
 
   <!-- PHOTO 1 -->
   <div class="gallery-item">
-  <a href="Images/adeeb2.png" 
-    <img src="Images/thumb-adeeb2.jpg" loading="lazy" alt="Adeeb Photo">
-  </a>
+    <a href="Images/adeeb2.png">
+      <img src="Images/thumb-adeeb2.jpg" loading="lazy" alt="Adeeb Photo">
+    </a>
   </div>
 
   <!-- PHOTO 2 -->
@@ -159,12 +160,10 @@ footer{
 
   <!-- PHOTO 3 -->
   <div class="gallery-item">
-    <a href="Images/adeeb4.png">
+    <a href="Images/adeeb4.jpeg">
       <img src="Images/thumb-adeeb4.jpg" loading="lazy" alt="">
     </a>
   </div>
-
-  <!-- Add more same format -->
 
 </div>
 
@@ -178,9 +177,6 @@ footer{
   © 2026 Adeeb Saifi | All Rights Reserved
 </footer>
 
-<!-- LightGallery CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css"/>
-
 <!-- LightGallery JS -->
 <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script>
@@ -188,38 +184,38 @@ footer{
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+
+  /* LightGallery Init */
   lightGallery(document.getElementById("lightgallery"), {
     plugins: [lgZoom, lgThumbnail],
     speed: 500,
     download: false
   });
-});
-</script>
 
-/* Remove Blur When Image Loads */
-document.querySelectorAll('.gallery-item img').forEach(img=>{
-  img.onload = function(){
-    this.classList.add('loaded');
-  }
-});
-
-/* Cinematic Stagger Scroll Animation */
-const items = document.querySelectorAll(".gallery-item");
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, index) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.classList.add("show");
-      }, index * 150);
+  /* Remove Blur When Image Loads */
+  document.querySelectorAll('.gallery-item img').forEach(img=>{
+    img.onload = function(){
+      this.classList.add('loaded');
     }
   });
-}, {
-  threshold: 0.2
-});
 
-items.forEach(item => {
-  observer.observe(item);
+  /* Scroll Animation */
+  const items = document.querySelectorAll(".gallery-item");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add("show");
+        }, index * 150);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  items.forEach(item => {
+    observer.observe(item);
+  });
+
 });
 </script>
 
