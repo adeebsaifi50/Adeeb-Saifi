@@ -124,6 +124,39 @@ footer{
   margin-top:50px;
 }
 </style>
+  #lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  visibility:hidden;
+  transition:.3s;
+  z-index:9999;
+}
+
+#lightbox.show{
+  opacity:1;
+  visibility:visible;
+}
+
+#lightbox img{
+  max-width:90%;
+  max-height:85%;
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+.close-btn{
+  position:absolute;
+  top:30px;
+  right:40px;
+  font-size:40px;
+  color:#fff;
+  cursor:pointer;
+}
 </head>
 
 <body>
@@ -146,11 +179,11 @@ footer{
 
   <!-- PHOTO 1 -->
   <div class="gallery-item">
-  <a 
-    data-lg-size="1600-900"
-    data-src="/Adeeb-Saifi/Images/adeeb2.png">
-    <img src="/Adeeb-Saifi/Images/thumb-adeeb2.jpg" loading="lazy" alt="Adeeb Photo">
-  </a>
+  <img src="/Adeeb-Saifi/Images/thumb-adeeb2.jpg" 
+       data-full="/Adeeb-Saifi/Images/adeeb2.png" 
+       class="gallery-img"
+       loading="lazy"
+       alt="Adeeb Photo">
   </div>
 
   <!-- PHOTO 2 -->
@@ -220,6 +253,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+  <script>
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.querySelector(".close-btn");
+
+document.querySelectorAll(".gallery-img").forEach(img=>{
+  img.addEventListener("click", ()=>{
+    const fullImg = img.getAttribute("data-full");
+    lightboxImg.src = fullImg;
+    lightbox.classList.add("show");
+  });
+});
+
+closeBtn.addEventListener("click", ()=>{
+  lightbox.classList.remove("show");
+});
+
+lightbox.addEventListener("click", (e)=>{
+  if(e.target === lightbox){
+    lightbox.classList.remove("show");
+  }
+});
+  </script>
+  <!-- Custom Lightbox -->
+<div id="lightbox">
+  <span class="close-btn">&times;</span>
+  <img id="lightbox-img">
+</div>
 
 </body>
   </html>
