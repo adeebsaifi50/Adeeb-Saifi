@@ -1,24 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-   <url>
-      <loc>https://adeebsaifi50.github.io/Adeeb-Saifi/</loc>
-      <lastmod>2025-09-05</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>1.0</priority>
-   </url>
-   <url>
-      <loc>https://adeebsaifi50.github.io/Adeeb-Saifi/about</loc>
-      <changefreq>monthly</changefreq>
-      <priority>0.8</priority>
-   </url>
-   <url>
-      <loc>https://adeebsaifi50.github.io/Adeeb-Saifi/projects</loc>
-      <changefreq>monthly</changefreq>
-      <priority>0.7</priority>
-   </url>
-   <url>
-      <loc>https://adeebsaifi50.github.io/Adeeb-Saifi/contact</loc>
-      <changefreq>monthly</changefreq>
-      <priority>0.6</priority>
-   </url>
+
+<url>
+<loc>https://adeebsaifi50.github.io/Adeeb-Saifi/</loc>
+<changefreq>weekly</changefreq>
+<priority>1.0</priority>
+</url>
+
+<url>
+<loc>https://adeebsaifi50.github.io/Adeeb-Saifi/index.html</loc>
+<changefreq>monthly</changefreq>
+<priority>0.9</priority>
+</url>
+
+<url>
+<loc>https://adeebsaifi50.github.io/Adeeb-Saifi/Photos.html</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url>
+
+<url>
+<loc>https://adeebsaifi50.github.io/Adeeb-Saifi/Travel.html</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url>
+
+<url>
+<loc>https://adeebsaifi50.github.io/Adeeb-Saifi/Blog.html</loc>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
+</url>
+
+<url>
+<loc>https://adeebsaifi50.github.io/Adeeb-Saifi/instagram.html</loc>
+<changefreq>monthly</changefreq>
+<priority>0.6</priority>
+</url>
+
+<url>
+<loc>https://adeebsaifi50.github.io/Adeeb-Saifi/notes.html</loc>
+<changefreq>monthly</changefreq>
+<priority>0.6</priority>
+</url>
+
+<url>
+<loc>https://adeebsaifi50.github.io/Adeeb-Saifi/weather.html</loc>
+<changefreq>monthly</changefreq>
+<priority>0.6</priority>
+</url>
+
+<url>
+<loc>https://adeebsaifi50.github.io/Adeeb-Saifi/typing.html</loc>
+<changefreq>monthly</changefreq>
+<priority>0.6</priority>
+</url>
+
 </urlset>
