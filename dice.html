@@ -15,8 +15,9 @@ box-sizing:border-box;
 }
 
 body{
-height:100vh;
-overflow:hidden;
+min-height:100vh;
+overflow-x:hidden;
+overflow-y:auto;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -24,9 +25,10 @@ font-family:'Segoe UI',sans-serif;
 background:
 radial-gradient(circle at top,#16222A,#0B0F14 70%);
 color:#fff;
+padding:120px 15px 40px;
 }
 
-/* BACKGROUND GLOW */
+/* GLOW */
 
 .glow{
 position:absolute;
@@ -51,6 +53,8 @@ transform:translateY(-30px);
 position:relative;
 z-index:2;
 text-align:center;
+width:100%;
+max-width:500px;
 }
 
 h1{
@@ -298,31 +302,89 @@ border-radius:18px;
 
 @media(max-width:768px){
 
+body{
+padding-top:140px;
+}
+
 h1{
-font-size:2rem;
+font-size:1.8rem;
+margin-bottom:35px;
 }
 
 .scene{
-width:140px;
-height:140px;
+width:120px;
+height:120px;
+perspective:900px;
 }
 
 .face{
-width:140px;
-height:140px;
-padding:18px;
+width:120px;
+height:120px;
+padding:15px;
+border-radius:20px;
 }
 
-.front{transform:rotateY(0deg) translateZ(70px);}
-.back{transform:rotateY(180deg) translateZ(70px);}
-.right{transform:rotateY(90deg) translateZ(70px);}
-.left{transform:rotateY(-90deg) translateZ(70px);}
-.top{transform:rotateX(90deg) translateZ(70px);}
-.bottom{transform:rotateX(-90deg) translateZ(70px);}
+.dot{
+width:16px;
+height:16px;
+}
+
+/* MOBILE DICE POSITION */
+
+.front{transform:rotateY(0deg) translateZ(60px);}
+.back{transform:rotateY(180deg) translateZ(60px);}
+.right{transform:rotateY(90deg) translateZ(60px);}
+.left{transform:rotateY(-90deg) translateZ(60px);}
+.top{transform:rotateX(90deg) translateZ(60px);}
+.bottom{transform:rotateX(-90deg) translateZ(60px);}
+
+.roll-btn{
+margin-top:40px;
+padding:14px 30px;
+font-size:17px;
+}
+
+.result{
+font-size:1.2rem;
+margin-top:20px;
+}
+
+.music-btn,
+.sound-toggle{
+width:55px;
+height:55px;
+font-size:24px;
+top:15px;
+}
+
+.music-btn{
+left:15px;
+}
+
+.sound-toggle{
+right:15px;
+}
 
 .player-popup{
-width:90%;
-left:5%;
+width:92%;
+left:4%;
+top:85px;
+padding:15px;
+border-radius:18px;
+}
+
+.player-popup input{
+padding:12px;
+font-size:14px;
+}
+
+.player-popup button{
+padding:12px;
+font-size:15px;
+}
+
+.player-popup iframe{
+height:180px;
 }
 
 }
@@ -416,15 +478,13 @@ ROLL DICE
 
 </div>
 
-<!-- DICE SOUND -->
+<!-- SOUND -->
 
 <audio id="sound">
 <source src="https://assets.mixkit.co/active_storage/sfx/2003/2003-preview.mp3">
 </audio>
 
 <script>
-
-/* DICE */
 
 const dice =
 document.getElementById("dice");
@@ -438,7 +498,7 @@ document.getElementById("sound");
 let rolling = false;
 let diceMuted = false;
 
-/* ROLL */
+/* ROLL DICE */
 
 function rollDice(){
 
@@ -525,17 +585,8 @@ diceMuted = !diceMuted;
 const btn =
 document.getElementById("soundToggle");
 
-if(diceMuted){
-
-btn.innerHTML = "🔇";
-
-}
-
-else{
-
-btn.innerHTML = "🔊";
-
-}
+btn.innerHTML =
+diceMuted ? "🔇" : "🔊";
 
 }
 
