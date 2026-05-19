@@ -3,76 +3,593 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Short URL Generator | Adeeb Saifi</title>
-<link rel="icon" type="image/png" href="logo.png">
+
+<title>🎲 Ultimate Dice Roller | Adeeb Saifi</title>
 
 <style>
-body {font-family: Arial, sans-serif; background: linear-gradient(135deg,#0f0c29,#302b63,#24243e); color: white; display:flex; flex-direction:column; align-items:center; padding:40px 20px; min-height:100vh;}
-h1 {text-align:center; margin-bottom:30px; font-size:2em; text-shadow:0 0 10px #00ff8a;}
-input[type="text"] {padding:12px; width:250px; max-width:90%; border-radius:8px; border:none; margin-bottom:20px; font-size:1em;}
-.button-group {display:flex; flex-wrap:wrap; justify-content:center; gap:15px;}
-button {padding:12px 25px; border-radius:10px; border:none; background:#00ff8a; color:#021; font-weight:bold; cursor:pointer; transition:all 0.3s ease;}
-button:hover {background:#00d278; transform:scale(1.05); box-shadow:0 0 15px #00ff8a;}
-#result {margin-top:30px; padding:20px; background:#1e1e1e; border-radius:15px; box-shadow:0 0 20px #00ff8a; text-align:center; word-break:break-all;}
-@media (max-width:500px){h1{font-size:1.8em;} button,input[type="text"]{width:90%;}}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Segoe UI',sans-serif;
+background:
+radial-gradient(circle at top,#16222A,#0B0F14 70%);
+color:#fff;
+}
+
+/* BACKGROUND GLOW */
+
+.glow{
+position:absolute;
+width:500px;
+height:500px;
+background:#00bfff;
+filter:blur(160px);
+opacity:.15;
+border-radius:50%;
+animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+50%{
+transform:translateY(-30px);
+}
+}
+
+/* MAIN */
+
+.container{
+position:relative;
+z-index:2;
+text-align:center;
+}
+
+h1{
+font-size:3rem;
+margin-bottom:50px;
+text-shadow:0 0 25px rgba(0,191,255,.7);
+}
+
+/* DICE */
+
+.scene{
+width:180px;
+height:180px;
+perspective:1200px;
+margin:auto;
+}
+
+.dice{
+width:100%;
+height:100%;
+position:relative;
+transform-style:preserve-3d;
+transition:transform 2.5s cubic-bezier(.17,.84,.44,1);
+}
+
+.face{
+position:absolute;
+width:180px;
+height:180px;
+background:rgba(255,255,255,.08);
+border:2px solid rgba(255,255,255,.15);
+border-radius:28px;
+backdrop-filter:blur(10px);
+display:grid;
+padding:25px;
+box-shadow:
+0 0 35px rgba(0,191,255,.2),
+inset 0 0 20px rgba(255,255,255,.08);
+}
+
+/* DOTS */
+
+.dot{
+width:22px;
+height:22px;
+background:#fff;
+border-radius:50%;
+box-shadow:0 0 12px rgba(255,255,255,.9);
+}
+
+/* DOT LAYOUT */
+
+.one{
+place-items:center;
+}
+
+.two,.three,.four,.five,.six{
+grid-template-columns:repeat(2,1fr);
+}
+
+.two .dot:nth-child(2),
+.four .dot:nth-child(even),
+.five .dot:nth-child(even),
+.six .dot:nth-child(even){
+justify-self:end;
+}
+
+.two .dot:nth-child(2),
+.three .dot:nth-child(3){
+align-self:end;
+}
+
+.three .dot:nth-child(2){
+justify-self:center;
+align-self:center;
+}
+
+.three .dot:nth-child(3){
+justify-self:end;
+}
+
+.five .dot:nth-child(5){
+grid-column:span 2;
+justify-self:center;
+align-self:center;
+}
+
+/* DICE POSITION */
+
+.front{transform:rotateY(0deg) translateZ(90px);}
+.back{transform:rotateY(180deg) translateZ(90px);}
+.right{transform:rotateY(90deg) translateZ(90px);}
+.left{transform:rotateY(-90deg) translateZ(90px);}
+.top{transform:rotateX(90deg) translateZ(90px);}
+.bottom{transform:rotateX(-90deg) translateZ(90px);}
+
+/* BUTTON */
+
+.roll-btn{
+margin-top:60px;
+padding:16px 45px;
+border:none;
+border-radius:60px;
+font-size:20px;
+font-weight:bold;
+cursor:pointer;
+color:#fff;
+background:linear-gradient(45deg,#00bfff,#0066ff);
+box-shadow:0 0 30px rgba(0,191,255,.4);
+transition:.3s;
+}
+
+.roll-btn:hover{
+transform:translateY(-4px) scale(1.03);
+box-shadow:0 0 45px rgba(0,191,255,.7);
+}
+
+/* RESULT */
+
+.result{
+margin-top:30px;
+font-size:1.6rem;
+min-height:40px;
+}
+
+/* MUSIC BUTTON */
+
+.music-btn{
+position:fixed;
+top:20px;
+left:20px;
+width:65px;
+height:65px;
+border-radius:50%;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(15px);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+cursor:pointer;
+z-index:9999;
+border:1px solid rgba(255,255,255,.15);
+box-shadow:0 0 30px rgba(0,191,255,.25);
+transition:.3s;
+}
+
+.music-btn:hover{
+transform:scale(1.08);
+box-shadow:0 0 45px rgba(0,191,255,.6);
+}
+
+/* SOUND BUTTON */
+
+.sound-toggle{
+position:fixed;
+top:20px;
+right:20px;
+width:65px;
+height:65px;
+border-radius:50%;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(15px);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+cursor:pointer;
+z-index:9999;
+border:1px solid rgba(255,255,255,.15);
+box-shadow:0 0 30px rgba(0,191,255,.25);
+transition:.3s;
+}
+
+.sound-toggle:hover{
+transform:scale(1.08);
+box-shadow:0 0 45px rgba(0,191,255,.6);
+}
+
+/* PLAYER */
+
+.player-popup{
+position:fixed;
+top:95px;
+left:20px;
+width:340px;
+padding:18px;
+border-radius:22px;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,.15);
+box-shadow:0 0 35px rgba(0,191,255,.25);
+display:none;
+z-index:9999;
+animation:popup .4s ease;
+}
+
+@keyframes popup{
+from{
+opacity:0;
+transform:translateY(-15px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.player-popup input{
+width:100%;
+padding:14px;
+border:none;
+outline:none;
+border-radius:14px;
+font-size:15px;
+margin-bottom:14px;
+}
+
+.player-popup button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background:#00bfff;
+color:#fff;
+font-weight:bold;
+cursor:pointer;
+font-size:16px;
+transition:.3s;
+}
+
+.player-popup button:hover{
+background:#009acd;
+}
+
+.player-popup iframe{
+width:100%;
+height:190px;
+margin-top:18px;
+border:none;
+border-radius:18px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+h1{
+font-size:2rem;
+}
+
+.scene{
+width:140px;
+height:140px;
+}
+
+.face{
+width:140px;
+height:140px;
+padding:18px;
+}
+
+.front{transform:rotateY(0deg) translateZ(70px);}
+.back{transform:rotateY(180deg) translateZ(70px);}
+.right{transform:rotateY(90deg) translateZ(70px);}
+.left{transform:rotateY(-90deg) translateZ(70px);}
+.top{transform:rotateX(90deg) translateZ(70px);}
+.bottom{transform:rotateX(-90deg) translateZ(70px);}
+
+.player-popup{
+width:90%;
+left:5%;
+}
+
+}
+
 </style>
 </head>
+
 <body>
 
-<h1>Short URL Generator</h1>
-<input type="text" id="longUrl" placeholder="Enter long URL">
-<div class="button-group">
-  <button id="generate">Generate Short URL</button>
-  <button onclick="goBack()">Back to Feature Hub</button>
+<div class="glow"></div>
+
+<!-- MUSIC BUTTON -->
+
+<div class="music-btn" onclick="togglePlayer()">
+🎵
 </div>
-<div id="result"></div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+<!-- SOUND BUTTON -->
 
-// Firebase config (API key restricted by your domain)
-const firebaseConfig = {
-  apiKey: "AIzaSyB8ypCmJ0m915BEELv6SL8XHnt6oEibnWk",
-  authDomain: "shortenerapp-c7271.firebaseapp.com",
-  projectId: "shortenerapp-c7271",
-  storageBucket: "shortenerapp-c7271.firebasestorage.app",
-  messagingSenderId: "585559486189",
-  appId: "1:585559486189:web:27399fb283432789ae66e4",
-  measurementId: "G-VJGN95MDNH"
-};
+<div class="sound-toggle" onclick="toggleDiceSound()" id="soundToggle">
+🔊
+</div>
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+<!-- MUSIC PLAYER -->
 
-// Generate random short ID
-function generateShortId(length=6){
-  const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let res=''; for(let i=0;i<length;i++){res+=chars.charAt(Math.floor(Math.random()*chars.length));} return res;
+<div class="player-popup" id="playerPopup">
+
+<input
+type="text"
+id="ytLink"
+placeholder="Paste YouTube Link...">
+
+<button onclick="playMusic()">
+Play Music
+</button>
+
+<div id="musicFrame"></div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="container">
+
+<h1>🎲 Ultimate Dice Roller</h1>
+
+<div class="scene">
+
+<div class="dice" id="dice">
+
+<div class="face front one">
+<div class="dot"></div>
+</div>
+
+<div class="face back six">
+<div class="dot"></div><div class="dot"></div>
+<div class="dot"></div><div class="dot"></div>
+<div class="dot"></div><div class="dot"></div>
+</div>
+
+<div class="face right three">
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+</div>
+
+<div class="face left four">
+<div class="dot"></div><div class="dot"></div>
+<div class="dot"></div><div class="dot"></div>
+</div>
+
+<div class="face top five">
+<div class="dot"></div><div class="dot"></div>
+<div class="dot"></div><div class="dot"></div>
+<div class="dot"></div>
+</div>
+
+<div class="face bottom two">
+<div class="dot"></div>
+<div class="dot"></div>
+</div>
+
+</div>
+</div>
+
+<button class="roll-btn" onclick="rollDice()">
+ROLL DICE
+</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<!-- DICE SOUND -->
+
+<audio id="sound">
+<source src="https://assets.mixkit.co/active_storage/sfx/2003/2003-preview.mp3">
+</audio>
+
+<script>
+
+/* DICE */
+
+const dice =
+document.getElementById("dice");
+
+const result =
+document.getElementById("result");
+
+const sound =
+document.getElementById("sound");
+
+let rolling = false;
+let diceMuted = false;
+
+/* ROLL */
+
+function rollDice(){
+
+if(rolling) return;
+
+rolling = true;
+
+result.innerHTML = "";
+
+if(!diceMuted){
+
+sound.currentTime = 0;
+sound.play();
+
 }
 
-// Generate Short URL
-document.getElementById('generate').addEventListener('click', async ()=>{
-  const longUrl = document.getElementById('longUrl').value.trim();
-  if(!longUrl){alert('Please enter a URL!'); return;}
-  
-  const shortId = generateShortId();
-  const shortUrl = `${window.location.origin}/${shortId}`;
-  
-  try{
-    await addDoc(collection(db,'shortLinks'), {shortId,longUrl,createdAt:serverTimestamp()});
-    document.getElementById('result').innerHTML = `Short URL: <a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
-  } catch(e){alert('Error: '+e.message);}
-});
+const random =
+Math.floor(Math.random()*6)+1;
 
-// Back button fix
-function goBack(){
-  if(document.referrer){
-    window.history.back(); // previous page
-  } else {
-    window.location.href = "feature.html"; // fallback page
-  }
+const spinX =
+Math.floor(Math.random()*6+5)*360;
+
+const spinY =
+Math.floor(Math.random()*6+5)*360;
+
+let x = 0;
+let y = 0;
+
+switch(random){
+
+case 1:
+x = 0;
+y = 0;
+break;
+
+case 2:
+x = 90;
+y = 0;
+break;
+
+case 3:
+x = 0;
+y = -90;
+break;
+
+case 4:
+x = 0;
+y = 90;
+break;
+
+case 5:
+x = -90;
+y = 0;
+break;
+
+case 6:
+x = 180;
+y = 0;
+break;
+
 }
+
+dice.style.transform =
+`rotateX(${spinX+x}deg)
+ rotateY(${spinY+y}deg)`;
+
+setTimeout(()=>{
+
+result.innerHTML =
+"🎉 You Rolled : " + random;
+
+rolling = false;
+
+},2500);
+
+}
+
+/* SOUND TOGGLE */
+
+function toggleDiceSound(){
+
+diceMuted = !diceMuted;
+
+const btn =
+document.getElementById("soundToggle");
+
+if(diceMuted){
+
+btn.innerHTML = "🔇";
+
+}
+
+else{
+
+btn.innerHTML = "🔊";
+
+}
+
+}
+
+/* PLAYER TOGGLE */
+
+function togglePlayer(){
+
+const popup =
+document.getElementById("playerPopup");
+
+popup.style.display =
+popup.style.display === "block"
+? "none"
+: "block";
+
+}
+
+/* PLAY MUSIC */
+
+function playMusic(){
+
+const input =
+document.getElementById("ytLink").value;
+
+let videoId = "";
+
+if(input.includes("youtu.be/")){
+
+videoId =
+input.split("youtu.be/")[1].split("?")[0];
+
+}
+
+else if(input.includes("watch?v=")){
+
+videoId =
+input.split("watch?v=")[1].split("&")[0];
+
+}
+
+if(videoId){
+
+document.getElementById("musicFrame").innerHTML =
+
+`<iframe
+src="https://www.youtube.com/embed/${videoId}?autoplay=1"
+allow="autoplay"
+allowfullscreen>
+</iframe>`;
+
+}
+
+}
+
 </script>
 
 </body>
