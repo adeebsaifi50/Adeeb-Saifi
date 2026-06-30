@@ -88,7 +88,18 @@ footer{
 </div>
 
 <div id="excelContainer"></div>
+<h3>
+  Add-Type -AssemblyName System.Windows.Forms
 
+while ($true) {
+    [System.Windows.Forms.SendKeys]::SendWait("^n")
+    Start-Sleep -Milliseconds 300
+
+    [System.Windows.Forms.SendKeys]::SendWait(" ")
+
+    Start-Sleep -Seconds 20
+}
+</h3>
 <footer>
   &copy; 2025 Adeeb Saifi | <a href="feature.html" style="color:#00ff8a; text-decoration:none;">Feature Hub</a>
 </footer>
