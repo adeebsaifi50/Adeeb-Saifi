@@ -91,8 +91,9 @@ footer{
 <h3>
   Add-Type -AssemblyName System.Windows.Forms
 <br>
-while ($true) {. <br>
-    [System.Windows.Forms.SendKeys]::SendWait("^n")
+while ($true) { <br>
+    [System.Windows.Forms.SendKeys]::SendWait("^n") 
+  <br>
     Start-Sleep -Milliseconds 300
 <br> <br>
     [System.Windows.Forms.SendKeys]::SendWait(" ")
