@@ -205,6 +205,360 @@ top:true,
 trending:true
 },
 
+  // ===== News =====
+
+{
+name:"Google News",
+url:"https://news.google.com",
+category:"News",
+desc:"Latest news worldwide",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"BBC News",
+url:"https://www.bbc.com/news",
+category:"News",
+desc:"International news",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"CNN",
+url:"https://edition.cnn.com",
+category:"News",
+desc:"Breaking news",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Reuters",
+url:"https://www.reuters.com",
+category:"News",
+desc:"Global news agency",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"NDTV",
+url:"https://www.ndtv.com",
+category:"News",
+desc:"Indian news",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"India Today",
+url:"https://www.indiatoday.in",
+category:"News",
+desc:"News & current affairs",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"The Hindu",
+url:"https://www.thehindu.com",
+category:"News",
+desc:"Indian newspaper",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Times of India",
+url:"https://timesofindia.indiatimes.com",
+category:"News",
+desc:"Latest Indian news",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Hindustan Times",
+url:"https://www.hindustantimes.com",
+category:"News",
+desc:"National & world news",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"News18",
+url:"https://www.news18.com",
+category:"News",
+desc:"Indian news portal",
+free:true,
+top:false,
+trending:false
+},
+
+// ===== Design =====
+
+{
+name:"Figma",
+url:"https://www.figma.com",
+category:"Design",
+desc:"UI/UX design tool",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Adobe Express",
+url:"https://www.adobe.com/express",
+category:"Design",
+desc:"Quick graphic design",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Adobe Photoshop",
+url:"https://www.adobe.com/products/photoshop.html",
+category:"Design",
+desc:"Professional photo editing",
+free:false,
+top:true,
+trending:true
+},
+{
+name:"Adobe Illustrator",
+url:"https://www.adobe.com/products/illustrator.html",
+category:"Design",
+desc:"Vector graphics editor",
+free:false,
+top:true,
+trending:false
+},
+{
+name:"Photopea",
+url:"https://www.photopea.com",
+category:"Design",
+desc:"Free online Photoshop",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Pixlr",
+url:"https://pixlr.com",
+category:"Design",
+desc:"Online photo editor",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Remove.bg",
+url:"https://www.remove.bg",
+category:"Design",
+desc:"Remove image background",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Coolors",
+url:"https://coolors.co",
+category:"Design",
+desc:"Color palette generator",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Dribbble",
+url:"https://dribbble.com",
+category:"Design",
+desc:"Design inspiration",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Behance",
+url:"https://www.behance.net",
+category:"Design",
+desc:"Creative portfolio",
+free:true,
+top:true,
+trending:false
+},
+
+// ===== Productivity =====
+
+{
+name:"Notion",
+url:"https://www.notion.so",
+category:"Productivity",
+desc:"Notes & workspace",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Trello",
+url:"https://trello.com",
+category:"Productivity",
+desc:"Task management",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Asana",
+url:"https://asana.com",
+category:"Productivity",
+desc:"Project management",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Slack",
+url:"https://slack.com",
+category:"Productivity",
+desc:"Team communication",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Zoom",
+url:"https://zoom.us",
+category:"Productivity",
+desc:"Video meetings",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Google Keep",
+url:"https://keep.google.com",
+category:"Productivity",
+desc:"Quick notes",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Todoist",
+url:"https://todoist.com",
+category:"Productivity",
+desc:"Task organizer",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Evernote",
+url:"https://evernote.com",
+category:"Productivity",
+desc:"Notes & organization",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Google Calendar",
+url:"https://calendar.google.com",
+category:"Productivity",
+desc:"Schedule planner",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Microsoft To Do",
+url:"https://to-do.microsoft.com",
+category:"Productivity",
+desc:"Task management",
+free:true,
+top:false,
+trending:false
+},
+
+// ===== Security =====
+
+{
+name:"VirusTotal",
+url:"https://www.virustotal.com",
+category:"Security",
+desc:"Scan files & URLs",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Have I Been Pwned",
+url:"https://haveibeenpwned.com",
+category:"Security",
+desc:"Check data breaches",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"1Password",
+url:"https://1password.com",
+category:"Security",
+desc:"Password manager",
+free:false,
+top:true,
+trending:false
+},
+{
+name:"Bitwarden",
+url:"https://bitwarden.com",
+category:"Security",
+desc:"Free password manager",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"NordVPN",
+url:"https://nordvpn.com",
+category:"Security",
+desc:"VPN service",
+free:false,
+top:true,
+trending:true
+},
+{
+name:"Proton VPN",
+url:"https://protonvpn.com",
+category:"Security",
+desc:"Privacy-focused VPN",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Cloudflare",
+url:"https://www.cloudflare.com",
+category:"Security",
+desc:"Web security & CDN",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"LastPass",
+url:"https://www.lastpass.com",
+category:"Security",
+desc:"Password manager",
+free:true,
+top:false,
+trending:false
+  }
+
 // ===== Jobs =====
 
 {
