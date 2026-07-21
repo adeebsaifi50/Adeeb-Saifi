@@ -136,6 +136,9 @@ function updateCategoryCounts() {
 
     document.getElementById("aiCount").textContent =
         `(${websites.filter(site => site.category === "AI").length})`;
+    
+    document.getElementById("entertainmentCount").textContent =
+`(${websites.filter(site => site.category === "Entertainment").length})`;
 
     document.getElementById("codingCount").textContent =
         `(${websites.filter(site => site.category === "Coding").length})`;
