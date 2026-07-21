@@ -461,6 +461,282 @@ free:true,
 top:false,
 trending:false
 },
+
+// ===== Study =====
+
+{
+name:"Khan Academy",
+url:"https://www.khanacademy.org",
+category:"Study",
+desc:"Free online learning",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Coursera",
+url:"https://www.coursera.org",
+category:"Study",
+desc:"Online university courses",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Udemy",
+url:"https://www.udemy.com",
+category:"Study",
+desc:"Online courses",
+free:false,
+top:true,
+trending:true
+},
+{
+name:"edX",
+url:"https://www.edx.org",
+category:"Study",
+desc:"University learning platform",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Skillshare",
+url:"https://www.skillshare.com",
+category:"Study",
+desc:"Creative online classes",
+free:false,
+top:true,
+trending:false
+},
+{
+name:"Codecademy",
+url:"https://www.codecademy.com",
+category:"Study",
+desc:"Learn programming",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"SoloLearn",
+url:"https://www.sololearn.com",
+category:"Study",
+desc:"Coding lessons",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Great Learning",
+url:"https://www.mygreatlearning.com",
+category:"Study",
+desc:"Professional courses",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Physics Wallah",
+url:"https://www.pw.live",
+category:"Study",
+desc:"Competitive exam learning",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Unacademy",
+url:"https://unacademy.com",
+category:"Study",
+desc:"Exam preparation",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"BYJU'S",
+url:"https://byjus.com",
+category:"Study",
+desc:"Online education",
+free:false,
+top:true,
+trending:false
+},
+{
+name:"Vedantu",
+url:"https://www.vedantu.com",
+category:"Study",
+desc:"Live online classes",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Brainly",
+url:"https://brainly.com",
+category:"Study",
+desc:"Homework help",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Quizlet",
+url:"https://quizlet.com",
+category:"Study",
+desc:"Flashcards & quizzes",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Duolingo",
+url:"https://www.duolingo.com",
+category:"Study",
+desc:"Language learning",
+free:true,
+top:true,
+trending:true
+},
+
+// ===== Shopping =====
+
+{
+name:"Amazon",
+url:"https://www.amazon.in",
+category:"Shopping",
+desc:"Online shopping",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Flipkart",
+url:"https://www.flipkart.com",
+category:"Shopping",
+desc:"Shopping marketplace",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Myntra",
+url:"https://www.myntra.com",
+category:"Shopping",
+desc:"Fashion shopping",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Ajio",
+url:"https://www.ajio.com",
+category:"Shopping",
+desc:"Fashion & lifestyle",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Meesho",
+url:"https://www.meesho.com",
+category:"Shopping",
+desc:"Affordable shopping",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Nykaa",
+url:"https://www.nykaa.com",
+category:"Shopping",
+desc:"Beauty products",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Reliance Digital",
+url:"https://www.reliancedigital.in",
+category:"Shopping",
+desc:"Electronics shopping",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Croma",
+url:"https://www.croma.com",
+category:"Shopping",
+desc:"Electronics store",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Apple Store",
+url:"https://www.apple.com/in/store",
+category:"Shopping",
+desc:"Official Apple Store",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Samsung Store",
+url:"https://www.samsung.com/in",
+category:"Shopping",
+desc:"Samsung products",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"OnePlus Store",
+url:"https://www.oneplus.in",
+category:"Shopping",
+desc:"Official OnePlus Store",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Boat Lifestyle",
+url:"https://www.boat-lifestyle.com",
+category:"Shopping",
+desc:"Audio accessories",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Nike",
+url:"https://www.nike.com",
+category:"Shopping",
+desc:"Sportswear shopping",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Adidas",
+url:"https://www.adidas.co.in",
+category:"Shopping",
+desc:"Sports apparel",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Decathlon",
+url:"https://www.decathlon.in",
+category:"Shopping",
+desc:"Sports equipment",
+free:true,
+top:true,
+trending:false
+},
 {
 name:"Bored Panda",
 url:"https://www.boredpanda.com",
