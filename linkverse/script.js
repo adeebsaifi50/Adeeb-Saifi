@@ -203,3 +203,33 @@ document.addEventListener("click", function(e){
     }
 
 });
+// ===== Recently Visited =====
+
+let recent = JSON.parse(localStorage.getItem("recentWebsites")) || [];
+
+function updateRecent(){
+
+    const recentContainer = document.getElementById("recentContainer");
+
+    if(!recentContainer) return;
+
+    recentContainer.innerHTML="";
+
+    recent.forEach(name=>{
+
+        const site = websites.find(w=>w.name===name);
+
+        if(!site) return;
+
+        recentContainer.innerHTML += `
+        <div class="recent-item"
+             onclick="window.open('${site.url}','_blank')">
+             ${site.name}
+        </div>
+        `;
+
+    });
+
+}
+
+updateRecent();
