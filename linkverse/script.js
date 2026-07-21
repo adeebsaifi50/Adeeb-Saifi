@@ -5,22 +5,23 @@ let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 function displayWebsites(list) {
 
+    container.innerHTML = "";
+
+    let html = "";
+
     list.forEach(site => {
 
         const isFav = favorites.includes(site.name);
 
-        let html = "";
-
-list.forEach(site => {
-   html += `...`;
-});
-
-container.innerHTML = html;
+        html += `
             <div class="card">
 
                 <div class="card-header">
 
-                    <img src="https://www.google.com/s2/favicons?domain=${new URL(site.url).hostname}" alt="${site.name}">
+                    <img src="https://www.google.com/s2/favicons?domain=${new URL(site.url).hostname}"
+                         alt="${site.name}"
+                         loading="lazy"
+                         decoding="async">
 
                     <div class="card-actions">
                         <span>${site.category}</span>
@@ -33,45 +34,40 @@ container.innerHTML = html;
                 </div>
 
                 <h2>
-    ${site.name}
-
-    ${site.top ? '<span class="top-badge">⭐ TOP</span>' : ''}
-
-    ${site.trending ? '<span class="trend-badge">🔥 Trending</span>' : ''}
-
-</h2>
+                    ${site.name}
+                    ${site.top ? '<span class="top-badge">⭐ TOP</span>' : ''}
+                    ${site.trending ? '<span class="trend-badge">🔥 Trending</span>' : ''}
+                </h2>
 
                 <p>${site.desc}</p>
 
-<div class="card-info">
-
-    ${site.free
-        ? '<span class="free-badge">🟢 Free</span>'
-        : '<span class="paid-badge">💎 Paid</span>'
-    }
-
-</div>
+                <div class="card-info">
+                    ${site.free
+                        ? '<span class="free-badge">🟢 Free</span>'
+                        : '<span class="paid-badge">💎 Paid</span>'}
+                </div>
 
                 <p class="visit-count">
-👁️ Opened ${localStorage.getItem(site.name) || 0} times
-</p>
+                    👁️ Opened ${localStorage.getItem(site.name) || 0} times
+                </p>
 
-<a href="${site.url}"
-   target="_blank"
-   rel="noopener noreferrer"
-   class="visit-btn"
-   data-name="${site.name}">
-    Visit Website
-</a>
+                <a href="${site.url}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="visit-btn"
+                   data-name="${site.name}">
+                    Visit Website
+                </a>
 
             </div>
         `;
 
     });
 
-    updateFavoriteButtons();
+    container.innerHTML = html;
 
-}
+    updateFavoriteButtons();
+                                                    }
 
 // Page load hote hi sab websites dikhao
 displayWebsites(websites);
