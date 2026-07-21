@@ -111,6 +111,286 @@ free:true,
 top:false,
 trending:false
 },
+
+  // ===== Social Media =====
+
+{
+name:"Facebook",
+url:"https://www.facebook.com",
+category:"Social Media",
+desc:"Connect with friends",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Instagram",
+url:"https://www.instagram.com",
+category:"Social Media",
+desc:"Photo & video sharing",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"X",
+url:"https://x.com",
+category:"Social Media",
+desc:"Social networking platform",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Threads",
+url:"https://www.threads.net",
+category:"Social Media",
+desc:"Text sharing platform",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Snapchat",
+url:"https://www.snapchat.com",
+category:"Social Media",
+desc:"Share snaps & stories",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"LinkedIn",
+url:"https://www.linkedin.com",
+category:"Social Media",
+desc:"Professional networking",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Pinterest",
+url:"https://www.pinterest.com",
+category:"Social Media",
+desc:"Ideas & inspiration",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Reddit",
+url:"https://www.reddit.com",
+category:"Social Media",
+desc:"Communities & discussions",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Discord",
+url:"https://discord.com",
+category:"Social Media",
+desc:"Voice & text communities",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Telegram",
+url:"https://telegram.org",
+category:"Social Media",
+desc:"Messaging platform",
+free:true,
+top:true,
+trending:true
+},
+
+// ===== Jobs =====
+
+{
+name:"LinkedIn Jobs",
+url:"https://www.linkedin.com/jobs",
+category:"Jobs",
+desc:"Find jobs worldwide",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Indeed",
+url:"https://in.indeed.com",
+category:"Jobs",
+desc:"Job search platform",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Naukri",
+url:"https://www.naukri.com",
+category:"Jobs",
+desc:"Indian job portal",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Foundit",
+url:"https://www.foundit.in",
+category:"Jobs",
+desc:"Career opportunities",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Internshala",
+url:"https://internshala.com",
+category:"Jobs",
+desc:"Internships & jobs",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Glassdoor",
+url:"https://www.glassdoor.com",
+category:"Jobs",
+desc:"Jobs & company reviews",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Wellfound",
+url:"https://wellfound.com",
+category:"Jobs",
+desc:"Startup jobs",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Upwork",
+url:"https://www.upwork.com",
+category:"Jobs",
+desc:"Freelance marketplace",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Fiverr",
+url:"https://www.fiverr.com",
+category:"Jobs",
+desc:"Freelance services",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Freelancer",
+url:"https://www.freelancer.com",
+category:"Jobs",
+desc:"Freelance projects",
+free:true,
+top:true,
+trending:false
+},
+
+// ===== Finance =====
+
+{
+name:"Google Finance",
+url:"https://www.google.com/finance",
+category:"Finance",
+desc:"Market information",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Yahoo Finance",
+url:"https://finance.yahoo.com",
+category:"Finance",
+desc:"Stock market news",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"TradingView",
+url:"https://www.tradingview.com",
+category:"Finance",
+desc:"Charts & analysis",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Moneycontrol",
+url:"https://www.moneycontrol.com",
+category:"Finance",
+desc:"Indian finance news",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Groww",
+url:"https://groww.in",
+category:"Finance",
+desc:"Invest in stocks & mutual funds",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Zerodha",
+url:"https://zerodha.com",
+category:"Finance",
+desc:"Stock broker",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Upstox",
+url:"https://upstox.com",
+category:"Finance",
+desc:"Trading platform",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"CoinMarketCap",
+url:"https://coinmarketcap.com",
+category:"Finance",
+desc:"Crypto prices",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"CoinGecko",
+url:"https://www.coingecko.com",
+category:"Finance",
+desc:"Cryptocurrency tracker",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Paytm Money",
+url:"https://www.paytmmoney.com",
+category:"Finance",
+desc:"Investment platform",
+free:true,
+top:false,
+trending:false
+},
+  
 {
 name:"Audiomack",
 url:"https://audiomack.com",
