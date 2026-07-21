@@ -110,6 +110,15 @@ displayWebsites(websites);
 return;
 
 }
+    if(category==="Favorites"){
+
+const favSites = websites.filter(site => favorites.includes(site.name));
+
+displayWebsites(favSites);
+
+return;
+
+}
 
 const filtered = websites.filter(site=>site.category===category);
 
