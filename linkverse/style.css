@@ -537,3 +537,22 @@ background:#ff3b5c;
     transform:scale(1.02);
 
   }
+.top-badge{
+
+display:inline-block;
+
+margin-left:8px;
+
+padding:4px 10px;
+
+border-radius:20px;
+
+font-size:12px;
+
+font-weight:700;
+
+background:linear-gradient(135deg,#ffd700,#ff9800);
+
+color:#111;
+
+  }
