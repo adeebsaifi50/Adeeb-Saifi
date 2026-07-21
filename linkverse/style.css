@@ -556,3 +556,39 @@ background:linear-gradient(135deg,#ffd700,#ff9800);
 color:#111;
 
   }
+.card-info{
+
+margin:15px 0;
+
+}
+
+.free-badge,
+.paid-badge{
+
+display:inline-block;
+
+padding:6px 12px;
+
+border-radius:20px;
+
+font-size:13px;
+
+font-weight:600;
+
+}
+
+.free-badge{
+
+background:#00c853;
+
+color:#fff;
+
+}
+
+.paid-badge{
+
+background:#ff9800;
+
+color:#fff;
+
+  }
