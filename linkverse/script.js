@@ -106,7 +106,6 @@ displayWebsites(filtered);
 });
 // ===== FAVORITES =====
 
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 function updateFavoriteButtons() {
 
