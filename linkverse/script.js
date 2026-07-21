@@ -12,35 +12,31 @@ function displayWebsites(list) {
         const isFav = favorites.includes(site.name);
 
         container.innerHTML += `
+            <div class="card">
 
-        <div class="card">
+                <div class="card-header">
 
-            <div class="card-header">
+                    <img src="https://www.google.com/s2/favicons?domain=${new URL(site.url).hostname}" alt="${site.name}">
 
-                <img src="https://www.google.com/s2/favicons?domain=${new URL(site.url).hostname}" alt="${site.name}">
+                    <div class="card-actions">
+                        <span>${site.category}</span>
 
-                <div class="card-actions">
-
-                    <span>${site.category}</span>
-
-                    <button class="fav-btn ${isFav ? "active" : ""}" data-name="${site.name}">
-                        ${isFav ? "❤️" : "🤍"}
-                    </button>
+                        <button class="fav-btn ${isFav ? "active" : ""}" data-name="${site.name}">
+                            ${isFav ? "❤️" : "🤍"}
+                        </button>
+                    </div>
 
                 </div>
 
+                <h2>${site.name}</h2>
+
+                <p>${site.desc}</p>
+
+                <a href="${site.url}" target="_blank" rel="noopener noreferrer">
+                    Visit Website
+                </a>
+
             </div>
-
-            <h2>${site.name}</h2>
-
-            <p>${site.desc}</p>
-
-            <a href="${site.url}" target="_blank" rel="noopener noreferrer">
-                Visit Website
-            </a>
-
-        </div>
-
         `;
 
     });
@@ -119,27 +115,21 @@ function updateFavoriteButtons() {
         const name = btn.dataset.name;
 
         if (favorites.includes(name)) {
-
             btn.textContent = "❤️";
             btn.classList.add("active");
-
         } else {
-
             btn.textContent = "🤍";
             btn.classList.remove("active");
-
         }
 
-        btn.onclick = () => {
+        btn.onclick = function () {
 
-            if (favorites.includes(name)) {
+            const websiteName = this.dataset.name;
 
-                favorites = favorites.filter(item => item !== name);
-
+            if (favorites.includes(websiteName)) {
+                favorites = favorites.filter(item => item !== websiteName);
             } else {
-
-                favorites.push(name);
-
+                favorites.push(websiteName);
             }
 
             localStorage.setItem("favorites", JSON.stringify(favorites));
