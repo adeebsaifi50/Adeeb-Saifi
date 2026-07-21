@@ -54,6 +54,285 @@ const websites = [
     top: true,
     trending: false
 },
+
+  // ===== Music =====
+
+{
+name:"YouTube Music",
+url:"https://music.youtube.com",
+category:"Music",
+desc:"Music streaming by YouTube",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Apple Music",
+url:"https://music.apple.com",
+category:"Music",
+desc:"Apple music streaming",
+free:false,
+top:true,
+trending:true
+},
+{
+name:"Amazon Music",
+url:"https://music.amazon.com",
+category:"Music",
+desc:"Amazon music service",
+free:false,
+top:true,
+trending:false
+},
+{
+name:"JioSaavn",
+url:"https://www.jiosaavn.com",
+category:"Music",
+desc:"Indian music streaming",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Gaana",
+url:"https://gaana.com",
+category:"Music",
+desc:"Online music platform",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Wynk Music",
+url:"https://wynk.in/music",
+category:"Music",
+desc:"Airtel music app",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Audiomack",
+url:"https://audiomack.com",
+category:"Music",
+desc:"Discover new music",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Bandcamp",
+url:"https://bandcamp.com",
+category:"Music",
+desc:"Support independent artists",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Genius",
+url:"https://genius.com",
+category:"Music",
+desc:"Lyrics and song meanings",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Shazam",
+url:"https://www.shazam.com",
+category:"Music",
+desc:"Identify songs instantly",
+free:true,
+top:true,
+trending:true
+},
+
+// ===== Gaming =====
+
+{
+name:"Steam",
+url:"https://store.steampowered.com",
+category:"Gaming",
+desc:"PC game store",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Epic Games",
+url:"https://store.epicgames.com",
+category:"Gaming",
+desc:"Game store & free games",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Xbox",
+url:"https://www.xbox.com",
+category:"Gaming",
+desc:"Xbox gaming platform",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"PlayStation",
+url:"https://www.playstation.com",
+category:"Gaming",
+desc:"PlayStation official",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Nintendo",
+url:"https://www.nintendo.com",
+category:"Gaming",
+desc:"Nintendo games",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Roblox",
+url:"https://www.roblox.com",
+category:"Gaming",
+desc:"Play and create games",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Minecraft",
+url:"https://www.minecraft.net",
+category:"Gaming",
+desc:"Sandbox adventure game",
+free:false,
+top:true,
+trending:true
+},
+{
+name:"Chess.com",
+url:"https://www.chess.com",
+category:"Gaming",
+desc:"Play chess online",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Lichess",
+url:"https://lichess.org",
+category:"Gaming",
+desc:"Free chess platform",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Poki",
+url:"https://poki.com",
+category:"Gaming",
+desc:"Free online games",
+free:true,
+top:false,
+trending:false
+},
+
+// ===== Travel =====
+
+{
+name:"Booking.com",
+url:"https://www.booking.com",
+category:"Travel",
+desc:"Hotel booking",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Airbnb",
+url:"https://www.airbnb.com",
+category:"Travel",
+desc:"Vacation rentals",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Agoda",
+url:"https://www.agoda.com",
+category:"Travel",
+desc:"Hotel deals",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"MakeMyTrip",
+url:"https://www.makemytrip.com",
+category:"Travel",
+desc:"Flights & hotels",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Goibibo",
+url:"https://www.goibibo.com",
+category:"Travel",
+desc:"Travel booking",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Yatra",
+url:"https://www.yatra.com",
+category:"Travel",
+desc:"Travel services",
+free:true,
+top:false,
+trending:false
+},
+{
+name:"Tripadvisor",
+url:"https://www.tripadvisor.com",
+category:"Travel",
+desc:"Travel reviews",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"Skyscanner",
+url:"https://www.skyscanner.com",
+category:"Travel",
+desc:"Flight comparison",
+free:true,
+top:true,
+trending:false
+},
+{
+name:"Google Maps",
+url:"https://maps.google.com",
+category:"Travel",
+desc:"Maps & navigation",
+free:true,
+top:true,
+trending:true
+},
+{
+name:"IRCTC",
+url:"https://www.irctc.co.in",
+category:"Travel",
+desc:"Indian railway booking",
+free:true,
+top:true,
+trending:true
+},
 {
     name: "Hugging Face",
     url: "https://huggingface.co",
