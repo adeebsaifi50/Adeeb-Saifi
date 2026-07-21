@@ -48,9 +48,17 @@ function displayWebsites(list) {
 
 </div>
 
-                <a href="${site.url}" target="_blank" rel="noopener noreferrer">
-                    Visit Website
-                </a>
+                <p class="visit-count">
+👁️ Opened ${localStorage.getItem(site.name) || 0} times
+</p>
+
+<a href="${site.url}"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="visit-btn"
+   data-name="${site.name}">
+    Visit Website
+</a>
 
             </div>
         `;
