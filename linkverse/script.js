@@ -28,7 +28,10 @@ function displayWebsites(list) {
 
                 </div>
 
-                <h2>${site.name}</h2>
+                <h2>
+    ${site.name}
+    ${site.top ? '<span class="top-badge">⭐ TOP</span>' : ''}
+</h2>
 
                 <p>${site.desc}</p>
 
