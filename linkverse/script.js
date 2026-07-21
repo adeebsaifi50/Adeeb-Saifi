@@ -1,5 +1,7 @@
 const container = document.getElementById("websiteContainer");
 const searchInput = document.getElementById("searchInput");
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
 
 function displayWebsites(list) {
 
