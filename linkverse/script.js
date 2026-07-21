@@ -144,10 +144,10 @@ function updateFavoriteButtons() {
 
             localStorage.setItem("favorites", JSON.stringify(favorites));
 
-            updateFavoriteButtons();
+            displayWebsites(websites);
 
         };
 
     });
 
-                              }
+}
