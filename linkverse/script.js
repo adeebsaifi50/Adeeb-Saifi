@@ -39,6 +39,7 @@ function displayWebsites(list) {
 
     });
 
+    updateFavoriteButtons();
 }
 
 // Page load hote hi sab websites dikhao
