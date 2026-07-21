@@ -1,13 +1,15 @@
 const websites = [
 
   // ===== AI =====
-  {
+{
     name: "ChatGPT",
     url: "https://chatgpt.com",
     category: "AI",
-    desc: "AI assistant for writing, coding and more",
-    free: true
-  },
+    desc: "AI assistant for writing and coding",
+    free: true,
+    top: true,
+    trending: true
+},
   {
     name: "Google Gemini",
     url: "https://gemini.google.com",
