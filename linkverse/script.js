@@ -254,3 +254,14 @@ function updateRecent(){
 }
 
 updateRecent();
+document.addEventListener("click",function(e){
+
+if(e.target.classList.contains("copy-btn")){
+
+navigator.clipboard.writeText(e.target.dataset.url);
+
+alert("✅ Link Copied");
+
+}
+
+});
