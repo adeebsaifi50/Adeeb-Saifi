@@ -488,3 +488,52 @@ background:#ff3b5c;
 .fav-btn.active{
 background:#ff3b5c;
   }
+/* ===== Premium Search Bar ===== */
+
+.search-section{
+    display:flex;
+    justify-content:center;
+    margin:35px 0;
+}
+
+#searchInput{
+
+    width:min(700px,92%);
+
+    padding:18px 24px;
+
+    font-size:17px;
+
+    color:#fff;
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:18px;
+
+    outline:none;
+
+    backdrop-filter:blur(20px);
+
+    transition:.35s;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.18);
+
+}
+
+#searchInput::placeholder{
+
+    color:#cfcfcf;
+
+}
+
+#searchInput:focus{
+
+    border-color:#00e5ff;
+
+    box-shadow:0 0 25px rgba(0,229,255,.35);
+
+    transform:scale(1.02);
+
+  }
