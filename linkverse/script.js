@@ -1,46 +1,55 @@
 const container = document.getElementById("websiteContainer");
 const searchInput = document.getElementById("searchInput");
 
-function displayWebsites(list) {
+function updateFavoriteButtons() {
 
-    container.innerHTML = "";
+    const buttons = document.querySelectorAll(".fav-btn");
 
-    list.forEach(site => {
+    buttons.forEach(btn => {
 
-        container.innerHTML += `
+        const updateUI = () => {
 
-        <div class="card">
+            const name = btn.dataset.name;
 
-            <div class="card-header">
+            if (favorites.includes(name)) {
 
-    <img src="https://www.google.com/s2/favicons?domain=${new URL(site.url).hostname}" alt="${site.name}">
+                btn.textContent = "❤️";
+                btn.classList.add("active");
 
-    <div class="card-actions">
+            } else {
 
-        <span>${site.category}</span>
+                btn.textContent = "🤍";
+                btn.classList.remove("active");
 
-        <button class="fav-btn" data-name="${site.name}">🤍</button>
+            }
 
-    </div>
+        };
 
-</div>
+        updateUI();
 
-            <h2>${site.name}</h2>
+        btn.onclick = function () {
 
-            <p>${site.desc}</p>
+            const name = this.dataset.name;
 
-            <a href="${site.url}" target="_blank" rel="noopener noreferrer">
-                Visit Website
-            </a>
+            if (favorites.includes(name)) {
 
-        </div>
+                favorites = favorites.filter(item => item !== name);
 
-        `;
+            } else {
+
+                favorites.push(name);
+
+            }
+
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+
+            updateFavoriteButtons();
+
+        };
 
     });
 
-    updateFavoriteButtons();
-}
+            }
 
 // Page load hote hi sab websites dikhao
 displayWebsites(websites);
