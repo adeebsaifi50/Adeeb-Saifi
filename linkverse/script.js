@@ -130,3 +130,34 @@ this.classList.toggle("active", favorites.includes(websiteName));
     });
 
 }
+function updateCategoryCounts() {
+
+    document.getElementById("allCount").textContent = `(${websites.length})`;
+
+    document.getElementById("aiCount").textContent =
+        `(${websites.filter(site => site.category === "AI").length})`;
+
+    document.getElementById("codingCount").textContent =
+        `(${websites.filter(site => site.category === "Coding").length})`;
+
+    document.getElementById("musicCount").textContent =
+        `(${websites.filter(site => site.category === "Music").length})`;
+
+    document.getElementById("streamingCount").textContent =
+        `(${websites.filter(site => site.category === "Streaming").length})`;
+
+    document.getElementById("studyCount").textContent =
+        `(${websites.filter(site => site.category === "Study").length})`;
+
+    document.getElementById("shoppingCount").textContent =
+        `(${websites.filter(site => site.category === "Shopping").length})`;
+
+    document.getElementById("travelCount").textContent =
+        `(${websites.filter(site => site.category === "Travel").length})`;
+
+    document.getElementById("gamingCount").textContent =
+        `(${websites.filter(site => site.category === "Gaming").length})`;
+
+}
+
+updateCategoryCounts();
