@@ -123,8 +123,8 @@ function updateFavoriteButtons() {
 
             localStorage.setItem("favorites", JSON.stringify(favorites));
 
-            displayWebsites(websites);
-
+this.textContent = favorites.includes(websiteName) ? "❤️" : "🤍";
+this.classList.toggle("active", favorites.includes(websiteName));
         };
 
     });
