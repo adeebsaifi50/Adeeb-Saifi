@@ -30,7 +30,11 @@ function displayWebsites(list) {
 
                 <h2>
     ${site.name}
+
     ${site.top ? '<span class="top-badge">⭐ TOP</span>' : ''}
+
+    ${site.trending ? '<span class="trend-badge">🔥 Trending</span>' : ''}
+
 </h2>
 
                 <p>${site.desc}</p>
