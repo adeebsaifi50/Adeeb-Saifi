@@ -13,11 +13,17 @@ function displayWebsites(list) {
 
             <div class="card-header">
 
-                <img src="https://www.google.com/s2/favicons?domain=${new URL(site.url).hostname}" alt="${site.name}">
+    <img src="https://www.google.com/s2/favicons?domain=${new URL(site.url).hostname}" alt="${site.name}">
 
-                <span>${site.category}</span>
+    <div class="card-actions">
 
-            </div>
+        <span>${site.category}</span>
+
+        <button class="fav-btn" data-name="${site.name}">🤍</button>
+
+    </div>
+
+</div>
 
             <h2>${site.name}</h2>
 
