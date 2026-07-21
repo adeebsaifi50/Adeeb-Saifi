@@ -1,7 +1,7 @@
 const container = document.getElementById("websiteContainer");
 const searchInput = document.getElementById("searchInput");
 
-function updateFavoriteButtons() {
+function  {
 
     const buttons = document.querySelectorAll(".fav-btn");
 
