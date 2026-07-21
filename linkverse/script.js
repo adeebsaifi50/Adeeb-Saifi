@@ -147,6 +147,18 @@ function updateFavoriteButtons() {
 
             localStorage.setItem("favorites", JSON.stringify(favorites));
 
+            recent = recent.filter(item => item !== websiteName);
+
+recent.unshift(websiteName);
+
+if (recent.length > 10) {
+    recent.pop();
+}
+
+localStorage.setItem("recentWebsites", JSON.stringify(recent));
+
+updateRecent();
+
 this.textContent = favorites.includes(websiteName) ? "❤️" : "🤍";
 this.classList.toggle("active", favorites.includes(websiteName));
         };
