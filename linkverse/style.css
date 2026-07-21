@@ -611,3 +611,52 @@ background:linear-gradient(135deg,#ff512f,#dd2476);
 color:#fff;
 
 }
+.recent-section{
+
+margin:50px 0;
+
+}
+
+.recent-section h2{
+
+margin-bottom:20px;
+
+font-size:26px;
+
+}
+
+#recentContainer{
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:12px;
+
+}
+
+.recent-item{
+
+padding:10px 18px;
+
+border-radius:30px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(15px);
+
+border:1px solid rgba(255,255,255,.12);
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.recent-item:hover{
+
+transform:translateY(-3px);
+
+background:rgba(255,255,255,.15);
+
+}
