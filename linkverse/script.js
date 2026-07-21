@@ -100,3 +100,46 @@ displayWebsites(filtered);
 });
 
 });
+// ===== FAVORITES =====
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+function updateFavoriteButtons() {
+
+    document.querySelectorAll(".fav-btn").forEach(btn => {
+
+        const name = btn.dataset.name;
+
+        if (favorites.includes(name)) {
+
+            btn.textContent = "❤️";
+            btn.classList.add("active");
+
+        } else {
+
+            btn.textContent = "🤍";
+            btn.classList.remove("active");
+
+        }
+
+        btn.onclick = () => {
+
+            if (favorites.includes(name)) {
+
+                favorites = favorites.filter(item => item !== name);
+
+            } else {
+
+                favorites.push(name);
+
+            }
+
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+
+            updateFavoriteButtons();
+
+        };
+
+    });
+
+                              }
