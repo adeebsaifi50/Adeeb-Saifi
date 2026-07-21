@@ -188,3 +188,18 @@ function updateCategoryCounts() {
 }
 
 updateCategoryCounts();
+document.addEventListener("click", function(e){
+
+    if(e.target.classList.contains("visit-btn")){
+
+        const name = e.target.dataset.name;
+
+        let count = Number(localStorage.getItem(name) || 0);
+
+        count++;
+
+        localStorage.setItem(name, count);
+
+    }
+
+});
