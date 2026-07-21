@@ -1,55 +1,51 @@
 const container = document.getElementById("websiteContainer");
 const searchInput = document.getElementById("searchInput");
 
-function  {
+function displayWebsites(list) {
 
-    const buttons = document.querySelectorAll(".fav-btn");
+    container.innerHTML = "";
 
-    buttons.forEach(btn => {
+    list.forEach(site => {
 
-        const updateUI = () => {
+        const isFav = favorites.includes(site.name);
 
-            const name = btn.dataset.name;
+        container.innerHTML += `
 
-            if (favorites.includes(name)) {
+        <div class="card">
 
-                btn.textContent = "❤️";
-                btn.classList.add("active");
+            <div class="card-header">
 
-            } else {
+                <img src="https://www.google.com/s2/favicons?domain=${new URL(site.url).hostname}" alt="${site.name}">
 
-                btn.textContent = "🤍";
-                btn.classList.remove("active");
+                <div class="card-actions">
 
-            }
+                    <span>${site.category}</span>
 
-        };
+                    <button class="fav-btn ${isFav ? "active" : ""}" data-name="${site.name}">
+                        ${isFav ? "❤️" : "🤍"}
+                    </button>
 
-        updateUI();
+                </div>
 
-        btn.onclick = function () {
+            </div>
 
-            const name = this.dataset.name;
+            <h2>${site.name}</h2>
 
-            if (favorites.includes(name)) {
+            <p>${site.desc}</p>
 
-                favorites = favorites.filter(item => item !== name);
+            <a href="${site.url}" target="_blank" rel="noopener noreferrer">
+                Visit Website
+            </a>
 
-            } else {
+        </div>
 
-                favorites.push(name);
-
-            }
-
-            localStorage.setItem("favorites", JSON.stringify(favorites));
-
-            updateFavoriteButtons();
-
-        };
+        `;
 
     });
 
-            }
+    updateFavoriteButtons();
+
+}
 
 // Page load hote hi sab websites dikhao
 displayWebsites(websites);
