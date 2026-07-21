@@ -35,6 +35,15 @@ function displayWebsites(list) {
 
                 <p>${site.desc}</p>
 
+<div class="card-info">
+
+    ${site.free
+        ? '<span class="free-badge">🟢 Free</span>'
+        : '<span class="paid-badge">💎 Paid</span>'
+    }
+
+</div>
+
                 <a href="${site.url}" target="_blank" rel="noopener noreferrer">
                     Visit Website
                 </a>
