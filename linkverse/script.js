@@ -11,7 +11,13 @@ function displayWebsites(list) {
 
         const isFav = favorites.includes(site.name);
 
-        container.innerHTML += `
+        let html = "";
+
+list.forEach(site => {
+   html += `...`;
+});
+
+container.innerHTML = html;
             <div class="card">
 
                 <div class="card-header">
