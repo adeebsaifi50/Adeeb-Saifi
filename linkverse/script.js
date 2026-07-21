@@ -265,3 +265,22 @@ alert("✅ Link Copied");
 }
 
 });
+document.getElementById("sortSelect").addEventListener("change",function(){
+
+let arr=[...websites];
+
+if(this.value==="az"){
+
+arr.sort((a,b)=>a.name.localeCompare(b.name));
+
+}
+
+if(this.value==="za"){
+
+arr.sort((a,b)=>b.name.localeCompare(a.name));
+
+}
+
+displayWebsites(arr);
+
+});
