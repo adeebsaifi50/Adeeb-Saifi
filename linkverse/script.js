@@ -5,8 +5,6 @@ let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 function displayWebsites(list) {
 
-    container.innerHTML = "";
-
     list.forEach(site => {
 
         const isFav = favorites.includes(site.name);
