@@ -55,8 +55,6 @@ const websites = [
     trending: false
 },
 
-  // ===== Music =====
-
 {
 name:"YouTube Music",
 url:"https://music.youtube.com",
@@ -111,8 +109,6 @@ free:true,
 top:false,
 trending:false
 },
-
-  // ===== Social Media =====
 
 {
 name:"Facebook",
@@ -205,8 +201,6 @@ top:true,
 trending:true
 },
 
-  // ===== News =====
-
 {
 name:"Google News",
 url:"https://news.google.com",
@@ -288,6 +282,7 @@ free:true,
 top:false,
 trending:false
 },
+  
 {
 name:"News18",
 url:"https://www.news18.com",
@@ -297,8 +292,6 @@ free:true,
 top:false,
 trending:false
 },
-
-// ===== Design =====
 
 {
 name:"Figma",
@@ -391,8 +384,6 @@ top:true,
 trending:false
 },
 
-// ===== Productivity =====
-
 {
 name:"Notion",
 url:"https://www.notion.so",
@@ -484,8 +475,6 @@ top:false,
 trending:false
 },
 
-// ===== Security =====
-
 {
 name:"VirusTotal",
 url:"https://www.virustotal.com",
@@ -557,9 +546,7 @@ desc:"Password manager",
 free:true,
 top:false,
 trending:false
-  }
-
-// ===== Jobs =====
+  },
 
 {
 name:"LinkedIn Jobs",
@@ -1020,7 +1007,7 @@ trending:true
     free: true,
     top: true,
     trending: true
-  }
+  },
   
   {
     name: "Claude",
