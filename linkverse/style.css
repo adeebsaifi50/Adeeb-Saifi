@@ -687,3 +687,24 @@ transition:.3s;
 background:#444;
 
   }
+/* ===== Performance Boost ===== */
+
+html{
+    scroll-behavior:smooth;
+}
+
+.card{
+    will-change:transform;
+    backface-visibility:hidden;
+    transform:translateZ(0);
+}
+
+img{
+    image-rendering:auto;
+}
+
+button,
+a{
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+  }
