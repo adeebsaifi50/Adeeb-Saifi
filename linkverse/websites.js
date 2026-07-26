@@ -164,6 +164,87 @@ free:true,
 top:true,
 trending:true
 },
+  {
+name:"Bored Panda",
+url:"https://www.boredpanda.com",
+category:"Entertainment",
+desc:"Funny stories and creative content.",
+free:true
+},
+
+{
+name:"9GAG",
+url:"https://9gag.com",
+category:"Entertainment",
+desc:"Memes and viral content.",
+free:true
+},
+
+{
+name:"The Useless Web",
+url:"https://theuselessweb.com",
+category:"Entertainment",
+desc:"Random fun websites.",
+free:true
+},
+
+{
+name:"A Soft Murmur",
+url:"https://asoftmurmur.com",
+category:"Entertainment",
+desc:"Relaxing ambient sounds.",
+free:true
+},
+
+{
+name:"Window Swap",
+url:"https://window-swap.com",
+category:"Entertainment",
+desc:"View windows from around the world.",
+free:true
+},
+
+{
+name:"Little Alchemy 2",
+url:"https://littlealchemy2.com",
+category:"Entertainment",
+desc:"Fun element-combining game.",
+free:true
+},
+
+{
+name:"GeoGuessr",
+url:"https://www.geoguessr.com",
+category:"Entertainment",
+desc:"Guess locations around the world.",
+free:true
+},
+
+{
+name:"Neal.fun",
+url:"https://neal.fun",
+category:"Entertainment",
+desc:"Interactive fun experiments.",
+free:true,
+top:true
+},
+
+{
+name:"This Is Sand",
+url:"https://thisissand.com",
+category:"Entertainment",
+desc:"Create digital sand art.",
+free:true
+},
+
+{
+name:"Radio Garden",
+url:"https://radio.garden",
+category:"Entertainment",
+desc:"Explore live radio worldwide.",
+free:true
+},
+  
 {
 name:"Pinterest",
 url:"https://www.pinterest.com",
@@ -172,6 +253,85 @@ desc:"Ideas & inspiration",
 free:true,
 top:true,
 trending:false
+},
+  {
+name:"Plex",
+url:"https://www.plex.tv",
+category:"Streaming",
+desc:"Free movies and TV.",
+free:true
+},
+
+{
+name:"Tubi",
+url:"https://tubitv.com",
+category:"Streaming",
+desc:"Watch free movies and shows.",
+free:true
+},
+
+{
+name:"Pluto TV",
+url:"https://pluto.tv",
+category:"Streaming",
+desc:"Free live TV channels.",
+free:true
+},
+
+{
+name:"Poki Live",
+url:"https://poki.com",
+category:"Streaming",
+desc:"Watch and play online games.",
+free:true
+},
+
+{
+name:"Sony LIV",
+url:"https://www.sonyliv.com",
+category:"Streaming",
+desc:"Movies, TV and sports.",
+free:false
+},
+
+{
+name:"Discovery+",
+url:"https://www.discoveryplus.com",
+category:"Streaming",
+desc:"Documentaries and shows.",
+free:false
+},
+
+{
+name:"MUBI",
+url:"https://mubi.com",
+category:"Streaming",
+desc:"Curated cinema streaming.",
+free:false
+},
+
+{
+name:"Rakuten TV",
+url:"https://www.rakuten.tv",
+category:"Streaming",
+desc:"Movies and TV streaming.",
+free:true
+},
+
+{
+name:"Crunchyroll Store",
+url:"https://store.crunchyroll.com",
+category:"Streaming",
+desc:"Anime streaming and store.",
+free:false
+},
+
+{
+name:"Plexamp",
+url:"https://plexamp.com",
+category:"Streaming",
+desc:"Music streaming with Plex.",
+free:true
 },
 {
 name:"Reddit",
