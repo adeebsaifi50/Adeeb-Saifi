@@ -85,11 +85,7 @@ grid-template-columns:repeat(4,1fr);
 }
 }
 
-@media(max-width:900px){
-#websiteContainer{
-grid-template-columns:repeat(2,1fr);
-}
-}
+
 
 @media(max-width:600px){
 #websiteContainer{
