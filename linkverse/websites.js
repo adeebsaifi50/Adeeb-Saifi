@@ -507,6 +507,125 @@ free:true,
 top:false,
 trending:false
 },
+  {
+name:"ExplainShell",
+url:"https://explainshell.com",
+category:"Coding",
+desc:"Understand Linux commands.",
+free:true
+},
+
+{
+name:"QuickRef",
+url:"https://quickref.me",
+category:"Coding",
+desc:"Programming cheat sheets.",
+free:true
+},
+
+{
+name:"Refactoring Guru",
+url:"https://refactoring.guru",
+category:"Coding",
+desc:"Design patterns explained.",
+free:true
+},
+
+{
+name:"Learn X in Y Minutes",
+url:"https://learnxinyminutes.com",
+category:"Coding",
+desc:"Learn programming languages quickly.",
+free:true
+},
+
+{
+name:"PHP Sandbox",
+url:"https://phpsandbox.io",
+category:"Coding",
+desc:"Run PHP code online.",
+free:true
+},
+
+{
+name:"SQL Fiddle",
+url:"https://sqlfiddle.com",
+category:"Coding",
+desc:"Test SQL queries online.",
+free:true
+},
+
+{
+name:"SQLite Online",
+url:"https://sqliteonline.com",
+category:"Coding",
+desc:"Online SQLite editor.",
+free:true
+},
+
+{
+name:"Programiz",
+url:"https://www.programiz.com",
+category:"Coding",
+desc:"Learn programming with examples.",
+free:true
+},
+
+{
+name:"OneCompiler",
+url:"https://onecompiler.com",
+category:"Coding",
+desc:"Compile 70+ languages online.",
+free:true
+},
+
+{
+name:"CodeBeautify",
+url:"https://codebeautify.org",
+category:"Coding",
+desc:"Developer formatting tools.",
+free:true
+},
+
+{
+name:"HTTP Status Dogs",
+url:"https://httpstatusdogs.com",
+category:"Coding",
+desc:"HTTP status codes with dogs.",
+free:true
+},
+
+{
+name:"Public APIs",
+url:"https://publicapis.dev",
+category:"Coding",
+desc:"Free public API directory.",
+free:true
+},
+
+{
+name:"API Ninjas",
+url:"https://api-ninjas.com",
+category:"Coding",
+desc:"Collection of useful APIs.",
+free:true
+},
+
+{
+name:"SVG Repo",
+url:"https://www.svgrepo.com",
+category:"Coding",
+desc:"Free SVG icons and vectors.",
+free:true
+},
+
+{
+name:"Shields.io",
+url:"https://shields.io",
+category:"Coding",
+desc:"Generate badges for GitHub projects.",
+free:true
+},
 {
 name:"Remove.bg",
 url:"https://www.remove.bg",
