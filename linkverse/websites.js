@@ -1,6 +1,14 @@
 const websites = [
 
   // ===== AI =====
+  {
+name:"Adeeb Saifi",
+url:"https://adeebsaifi50.github.io/Adeeb-Saifi/",
+category:"Entertainment",
+desc:"Personal website with travel blogs, photos and creative projects.",
+free:true,
+top:true
+},
 {
     name: "ChatGPT",
     url: "https://chatgpt.com",
@@ -17,6 +25,15 @@ const websites = [
     desc: "Google AI assistant",
     free: true
   },
+{
+name:"YouTube",
+url:"https://www.youtube.com",
+category:"Entertainment",
+desc:"Watch videos, Shorts and live streams.",
+free:true,
+top:true,
+trending:true
+},
 
 {
     name: "Microsoft Copilot",
