@@ -78,16 +78,26 @@ transition:.3s;
 transform:translateY(-3px);
 background:#2563eb;
 }
-
-@media(max-width:1200px){
 #websiteContainer{
-grid-template-columns:repeat(4,1fr);
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:25px;
+align-items:start;
+}
+
+@media (max-width:1200px){
+#websiteContainer{
+grid-template-columns:repeat(3,1fr);
 }
 }
 
+@media (max-width:900px){
+#websiteContainer{
+grid-template-columns:repeat(2,1fr);
+}
+}
 
-
-@media(max-width:600px){
+@media (max-width:600px){
 #websiteContainer{
 grid-template-columns:1fr;
 }
