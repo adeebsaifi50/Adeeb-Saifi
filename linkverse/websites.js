@@ -273,6 +273,166 @@ free:true,
 top:true,
 trending:false
 },
+  {
+name:"Claude",
+url:"https://claude.ai",
+category:"AI",
+desc:"AI assistant by Anthropic.",
+free:true,
+top:true
+},
+
+{
+name:"Qwen Chat",
+url:"https://chat.qwen.ai",
+category:"AI",
+desc:"Alibaba AI Chat.",
+free:true
+},
+
+{
+name:"Mistral AI",
+url:"https://chat.mistral.ai",
+category:"AI",
+desc:"Fast AI Assistant.",
+free:true
+},
+
+{
+name:"Lovable",
+url:"https://lovable.dev",
+category:"AI",
+desc:"Build apps using AI.",
+free:true
+},
+
+{
+name:"Codewars",
+url:"https://www.codewars.com",
+category:"Coding",
+desc:"Improve coding skills.",
+free:true
+},
+
+{
+name:"Frontend Mentor",
+url:"https://www.frontendmentor.io",
+category:"Coding",
+desc:"Frontend coding challenges.",
+free:true
+},
+
+{
+name:"W3Schools Spaces",
+url:"https://spaces.w3schools.com",
+category:"Coding",
+desc:"Host HTML projects online.",
+free:true
+},
+
+{
+name:"Codecademy",
+url:"https://www.codecademy.com",
+category:"Coding",
+desc:"Interactive coding lessons.",
+free:true
+},
+
+{
+name:"Spotify Charts",
+url:"https://charts.spotify.com",
+category:"Music",
+desc:"Global music charts.",
+free:true
+},
+
+{
+name:"Genius",
+url:"https://genius.com",
+category:"Music",
+desc:"Lyrics and song meanings.",
+free:true
+},
+
+{
+name:"Apple Music",
+url:"https://music.apple.com",
+category:"Music",
+desc:"Stream music online.",
+free:false
+},
+
+{
+name:"Crunchyroll",
+url:"https://www.crunchyroll.com",
+category:"Streaming",
+desc:"Watch anime online.",
+free:true
+},
+
+{
+name:"JioHotstar",
+url:"https://www.jiohotstar.com",
+category:"Streaming",
+desc:"Movies, TV & Sports.",
+free:false
+},
+
+{
+name:"TED",
+url:"https://www.ted.com",
+category:"Study",
+desc:"Educational talks.",
+free:true
+},
+
+{
+name:"OpenStax",
+url:"https://openstax.org",
+category:"Study",
+desc:"Free textbooks.",
+free:true
+},
+
+{
+name:"AliExpress",
+url:"https://www.aliexpress.com",
+category:"Shopping",
+desc:"International shopping.",
+free:true
+},
+
+{
+name:"Myntra",
+url:"https://www.myntra.com",
+category:"Shopping",
+desc:"Fashion shopping.",
+free:true
+},
+
+{
+name:"Rome2Rio",
+url:"https://www.rome2rio.com",
+category:"Travel",
+desc:"Travel route planner.",
+free:true
+},
+
+{
+name:"HowLongToBeat",
+url:"https://howlongtobeat.com",
+category:"Gaming",
+desc:"Game completion times.",
+free:true
+},
+
+{
+name:"Game Jolt",
+url:"https://gamejolt.com",
+category:"Gaming",
+desc:"Indie games platform.",
+free:true
+},
 {
 name:"Hindustan Times",
 url:"https://www.hindustantimes.com",
