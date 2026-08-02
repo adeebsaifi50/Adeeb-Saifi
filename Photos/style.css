@@ -274,3 +274,34 @@ margin:8px;
 .tap-right{
     right:0;
     }
+/* Download Button */
+
+#downloadBtn{
+    position:absolute;
+    top:20px;
+    right:80px;
+    font-size:30px;
+    color:white;
+    text-decoration:none;
+    z-index:99999;
+    cursor:pointer;
+}
+
+/* Share Button */
+
+#shareBtn{
+    position:absolute;
+    top:18px;
+    right:135px;
+    font-size:26px;
+    background:none;
+    border:none;
+    color:white;
+    cursor:pointer;
+    z-index:99999;
+}
+
+#downloadBtn:hover,
+#shareBtn:hover{
+    transform:scale(1.15);
+    }
