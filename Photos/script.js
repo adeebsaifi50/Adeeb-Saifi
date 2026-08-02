@@ -20,10 +20,10 @@ photos.sort(() => Math.random() - 0.5);
       const img = document.createElement("img");
 
       // Thumbnail
-img.src = `Images/adeebthmb${photo}.jpg`;
+img.src = `adeebthmb${photo}.jpg`;
 
-// Full Image
-img.dataset.full = `Images/adeeb${photo}.jpg`;
+      // Full Image
+img.dataset.full = `adeeb${photo}.jpg`;
 
 img.alt = `Adeeb Photo ${photo}`;
 
