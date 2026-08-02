@@ -35,9 +35,10 @@ img.alt = `Adeeb Photo ${photo}`;
 
       // Click to open
       img.addEventListener("click", () => {
-        lightboxImage.src = img.dataset.full;
-        lightbox.classList.add("show");
-      });
+  currentIndex = photoList.indexOf(photo);
+  showPhoto();
+  lightbox.classList.add("show");
+});
 
       item.appendChild(img);
       gallery.appendChild(item);
