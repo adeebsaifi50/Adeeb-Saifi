@@ -20,12 +20,12 @@ photos.sort(() => Math.random() - 0.5);
       const img = document.createElement("img");
 
       // Thumbnail
-      img.src = `Images/thumb-${photo}.jpg`;
+img.src = `Images/adeebthmb${photo}.jpg`;
 
-      // Full Image
-      img.dataset.full = `Images/${photo}.jpg`;
+// Full Image
+img.dataset.full = `Images/adeeb${photo}.jpg`;
 
-      img.alt = photo;
+img.alt = `Adeeb Photo ${photo}`;
 
       // Click to open
       img.addEventListener("click", () => {
