@@ -169,19 +169,14 @@ nav a:hover{
 }
 
 #closeLightbox{
-
     position:absolute;
-
     top:20px;
-
-    right:30px;
-
-    font-size:45px;
-
+    right:20px;
+    font-size:40px;
+    color:#fff;
     cursor:pointer;
-
-    color:white;
-
+    z-index:99999;
+    padding:10px;
 }
 
 /* ========== BACK BUTTON ========== */
@@ -266,11 +261,10 @@ margin:8px;
 .tap-left,
 .tap-right{
     position:absolute;
-    top:0;
+    top:70px;
     width:30%;
-    height:100%;
+    height:calc(100% - 70px);
     z-index:1000;
-    cursor:pointer;
 }
 
 .tap-left{
