@@ -6,74 +6,66 @@ const closeLightbox = document.getElementById("closeLightbox");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
-let currentIndex = 0;
 let photoList = [];
+let currentIndex = 0;
 
 // ===== Load Photos =====
 fetch("photos.json")
-  .then(response => response.json())
-  .then(photos => {
+  .then(res => res.json())
+  .then(data => {
 
-    // Random order
-photos.sort(() => Math.random() - 0.5);
-    
-    photoList = photos;
-    photos.forEach(photo => {
+    // Random Order
+    photoList = [...data];
+    photoList.sort(() => Math.random() - 0.5);
+
+    photoList.forEach((photo, index) => {
 
       const item = document.createElement("div");
       item.className = "gallery-item";
 
       const img = document.createElement("img");
+      img.src = `adeebthmb${photo}.jpg`;
+      img.alt = `Adeeb Photo ${photo}`;
 
-      // Thumbnail
-img.src = `adeebthmb${photo}.jpg`;
-
-      // Full Image
-img.dataset.full = `adeeb${photo}.jpg`;
-
-img.alt = `Adeeb Photo ${photo}`;
-
-      // Click to open
       img.addEventListener("click", () => {
-  currentIndex = photoList.indexOf(photo);
-  showPhoto();
-  lightbox.classList.add("show");
-});
+        currentIndex = index;
+        openPhoto();
+      });
 
       item.appendChild(img);
       gallery.appendChild(item);
 
     });
 
-  })
-  .catch(error => {
-    console.error("Photos load nahi hui:", error);
   });
 
-// ===== Close Lightbox =====
-closeLightbox.addEventListener("click", () => {
-  lightbox.classList.remove("show");
-});
+// ===== Open Photo =====
+function openPhoto() {
+  lightboxImage.src = `adeeb${photoList[currentIndex]}.jpg`;
+  lightbox.classList.add("show");
+}
 
-lightbox.addEventListener("click", (e) => {
+// ===== Close =====
+closeLightbox.onclick = () => {
+  lightbox.classList.remove("show");
+};
+
+lightbox.onclick = (e) => {
   if (e.target === lightbox) {
     lightbox.classList.remove("show");
   }
-});
+};
 
-function showPhoto() {
-  lightboxImage.src = `adeeb${photoList[currentIndex]}.jpg`;
-  lightbox.classList.add("show");
-  }
+// ===== Next =====
+nextBtn.onclick = () => {
+  currentIndex++;
+  if (currentIndex >= photoList.length) currentIndex = 0;
+  openPhoto();
+};
 
-prevBtn.addEventListener("click", () => {
-  currentIndex =
-    (currentIndex - 1 + photoList.length) % photoList.length;
-  showPhoto();
-});
-
-nextBtn.addEventListener("click", () => {
-  currentIndex =
-    (currentIndex + 1) % photoList.length;
-  showPhoto();
-});
+// ===== Previous =====
+prevBtn.onclick = () => {
+  currentIndex--;
+  if (currentIndex < 0) currentIndex = photoList.length - 1;
+  openPhoto();
+};
