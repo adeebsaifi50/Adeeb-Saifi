@@ -16,7 +16,8 @@ fetch("photos.json")
 
     // Random order
 photos.sort(() => Math.random() - 0.5);
-
+    
+    photoList = photos;
     photos.forEach(photo => {
 
       const item = document.createElement("div");
