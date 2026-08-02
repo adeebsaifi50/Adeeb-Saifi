@@ -1,4 +1,6 @@
 // ===== Elements =====
+const downloadBtn = document.getElementById("downloadBtn");
+const shareBtn = document.getElementById("shareBtn");
 const gallery = document.getElementById("gallery");
 const lightbox = document.getElementById("lightbox");
 const lightboxImage = document.getElementById("lightboxImage");
@@ -41,8 +43,15 @@ fetch("photos.json")
 
 // ===== Open Photo =====
 function openPhoto() {
-  lightboxImage.src = `adeeb${photoList[currentIndex]}.jpg`;
-  lightbox.classList.add("show");
+
+    const image = `adeeb${photoList[currentIndex]}.jpg`;
+
+    lightboxImage.src = image;
+
+    downloadBtn.href = image;
+    downloadBtn.download = image;
+
+    lightbox.classList.add("show");
 }
 
 // ===== Close =====
@@ -103,3 +112,22 @@ function handleSwipe() {
         openPhoto();
     }
 }
+shareBtn.onclick = async () => {
+
+    const image = `adeeb${photoList[currentIndex]}.jpg`;
+
+    if (navigator.share) {
+
+        navigator.share({
+            title: "Adeeb Saifi Gallery",
+            text: "Check out this photo!",
+            url: location.origin + location.pathname.replace("Photos.html","") + image
+        });
+
+    } else {
+
+        alert("Share is not supported on this device.");
+
+    }
+
+};
