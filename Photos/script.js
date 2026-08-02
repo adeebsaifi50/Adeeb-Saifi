@@ -60,3 +60,18 @@ lightbox.addEventListener("click", (e) => {
     lightbox.classList.remove("show");
   }
 });
+function showPhoto() {
+  lightboxImage.src = `adeeb${photoList[currentIndex]}.jpg`;
+}
+
+prevBtn.addEventListener("click", () => {
+  currentIndex =
+    (currentIndex - 1 + photoList.length) % photoList.length;
+  showPhoto();
+});
+
+nextBtn.addEventListener("click", () => {
+  currentIndex =
+    (currentIndex + 1) % photoList.length;
+  showPhoto();
+});
