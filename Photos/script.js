@@ -69,3 +69,38 @@ prevBtn.onclick = () => {
   if (currentIndex < 0) currentIndex = photoList.length - 1;
   openPhoto();
 };
+
+// ===== Swipe Gesture =====
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+lightbox.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+lightbox.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+
+    const swipeDistance = touchEndX - touchStartX;
+
+    // Right Swipe = Previous
+    if (swipeDistance > 60) {
+        currentIndex--;
+        if (currentIndex < 0)
+            currentIndex = photoList.length - 1;
+        openPhoto();
+    }
+
+    // Left Swipe = Next
+    else if (swipeDistance < -60) {
+        currentIndex++;
+        if (currentIndex >= photoList.length)
+            currentIndex = 0;
+        openPhoto();
+    }
+}
