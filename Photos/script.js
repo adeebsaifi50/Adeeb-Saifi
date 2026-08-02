@@ -75,15 +75,14 @@ prevBtn.onclick = () => {
 let touchStartX = 0;
 let touchEndX = 0;
 
-lightbox.addEventListener("touchstart", (e) => {
+lightboxImage.addEventListener("touchstart", (e) => {
     touchStartX = e.changedTouches[0].screenX;
 });
 
-lightbox.addEventListener("touchend", (e) => {
+lightboxImage.addEventListener("touchend", (e) => {
     touchEndX = e.changedTouches[0].screenX;
     handleSwipe();
 });
-
 function handleSwipe() {
 
     const swipeDistance = touchEndX - touchStartX;
