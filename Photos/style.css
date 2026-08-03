@@ -158,6 +158,8 @@ nav a:hover{
 
 #lightbox img{
 
+    touch-action:none;
+will-change:transform;
     max-width:92%;
 
     max-height:88%;
