@@ -131,3 +131,75 @@ shareBtn.onclick = async () => {
     }
 
 };
+// ===== Drag Down To Close =====
+
+let startY = 0;
+let currentY = 0;
+let isDragging = false;
+
+lightboxImage.addEventListener("touchstart", (e) => {
+
+    startY = e.touches[0].clientY;
+    isDragging = true;
+
+}, { passive: true });
+
+lightboxImage.addEventListener("touchmove", (e) => {
+
+    if (!isDragging) return;
+
+    currentY = e.touches[0].clientY;
+
+    const moveY = currentY - startY;
+
+    // Sirf niche drag hone do
+    if (moveY > 0) {
+
+        lightboxImage.style.transform =
+            `translateY(${moveY}px) scale(${1 - moveY / 900})`;
+
+        lightbox.style.background =
+            `rgba(0,0,0,${0.85 - moveY / 500})`;
+
+    }
+
+}, { passive: true });
+
+lightboxImage.addEventListener("touchend", () => {
+
+    if (!isDragging) return;
+
+    isDragging = false;
+
+    const moveY = currentY - startY;
+
+    // Agar 150px se jyada niche gaya
+    if (moveY > 150) {
+
+        lightbox.classList.remove("show");
+
+        setTimeout(() => {
+
+            lightboxImage.style.transform = "";
+            lightbox.style.background = "";
+
+        },300);
+
+    }
+
+    // Wapas center
+    else{
+
+        lightboxImage.style.transition = ".25s";
+
+        lightboxImage.style.transform = "";
+
+        lightbox.style.background = "";
+
+        setTimeout(()=>{
+            lightboxImage.style.transition="";
+        },250);
+
+    }
+
+});
