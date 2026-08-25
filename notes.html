@@ -84,8 +84,48 @@ footer{
   <button onclick="window.location.href='feature.html'"><i class="fas fa-arrow-left"></i> Back to Feature Hub</button>
 </div>
   
-<p1>
-Add-Type @"
+<style>
+.code-box {
+    position: relative;
+    background: #111;
+    border-radius: 12px;
+    padding: 50px 15px 15px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.code-box button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.code-box pre {
+    margin: 0;
+    color: #fff;
+    font-family: Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
+
+.code-box code {
+    font-family: inherit;
+}
+</style>
+
+
+<div class="code-box">
+
+    <button onclick="copyCode()">📋 Copy Code</button>
+
+    <pre id="powerShellCode"><code>Add-Type @"
 using System;
 using System.Runtime.InteropServices;
 
@@ -97,7 +137,7 @@ public class HotKey {
     public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
     [DllImport("user32.dll")]
-    public static extern int GetMessage(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
+    public static extern bool PeekMessage(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax, uint wRemoveMsg);
 
     [DllImport("user32.dll")]
     public static extern bool TranslateMessage(ref MSG lpMsg);
@@ -123,37 +163,60 @@ Add-Type -AssemblyName System.Windows.Forms
 $START = 1
 $STOP  = 2
 
-# F8
-[HotKey]::RegisterHotKey([IntPtr]::Zero, $START, 0, 0x77)
+# F8 = START
+if (-not [HotKey]::RegisterHotKey([IntPtr]::Zero, $START, 0, 0x77)) {
+    Write-Host "F8 register nahi ho paya."
+    exit
+}
 
-# F9
-[HotKey]::RegisterHotKey([IntPtr]::Zero, $STOP, 0, 0x78)
+# F9 = STOP
+if (-not [HotKey]::RegisterHotKey([IntPtr]::Zero, $STOP, 0, 0x78)) {
+    [HotKey]::UnregisterHotKey([IntPtr]::Zero, $START)
+    Write-Host "F9 register nahi ho paya."
+    exit
+}
 
 $running = $false
 $nextWork = [DateTime]::Now
 
-Write-Host "Automation Ready"
-Write-Host "F8 = START"
-Write-Host "F9 = STOP"
+Write-Host ""
+Write-Host "=============================="
+Write-Host " Automation Ready"
+Write-Host " F8 = START"
+Write-Host " F9 = STOP"
+Write-Host "=============================="
+Write-Host ""
 
 try {
+
     while ($true) {
 
-        if ([HotKey]::GetMessage([ref]$msg, [IntPtr]::Zero, 0, 0)) {
+        # F8 / F9 check
+        while ([HotKey]::PeekMessage(
+            [ref]$msg,
+            [IntPtr]::Zero,
+            0,
+            0,
+            1
+        )) {
 
             if ($msg.message -eq 0x0312) {
 
                 $id = $msg.wParam.ToUInt32()
 
                 if ($id -eq $START) {
+
                     $running = $true
                     $nextWork = [DateTime]::Now
-                    Write-Host "STARTED"
+
+                    Write-Host "$(Get-Date -Format 'HH:mm:ss')  STARTED"
                 }
 
                 elseif ($id -eq $STOP) {
+
                     $running = $false
-                    Write-Host "STOPPED"
+
+                    Write-Host "$(Get-Date -Format 'HH:mm:ss')  STOPPED"
                 }
             }
 
@@ -172,18 +235,52 @@ try {
             # Space
             [System.Windows.Forms.SendKeys]::SendWait(" ")
 
-            # 20 seconds
+            # Next run after 20 seconds
             $nextWork = [DateTime]::Now.AddSeconds(20)
         }
 
         Start-Sleep -Milliseconds 50
     }
 }
+
 finally {
-    [HotKey]::UnregisterHotKey([IntPtr]::Zero, $START)
-    [HotKey]::UnregisterHotKey([IntPtr]::Zero, $STOP)
+
+    [HotKey]::UnregisterHotKey(
+        [IntPtr]::Zero,
+        $START
+    )
+
+    [HotKey]::UnregisterHotKey(
+        [IntPtr]::Zero,
+        $STOP
+    )
+
+    Write-Host "Automation closed."
+}</code></pre>
+
+</div>
+
+
+<script>
+function copyCode() {
+    const code = document.getElementById("powerShellCode").innerText;
+
+    navigator.clipboard.writeText(code).then(function() {
+
+        const button = document.querySelector(".code-box button");
+        button.innerText = "✅ Copied!";
+
+        setTimeout(function() {
+            button.innerText = "📋 Copy Code";
+        }, 1500);
+
+    }).catch(function() {
+        alert("Code copy nahi ho paya.");
+    });
 }
-</p1>
+  </script>
+
+
 <footer>
   &copy; 2025 Adeeb Saifi | <a href="feature.html" style="color:#00ff8a; text-decoration:none;">Back to Feature Hub</a>
 </footer>
