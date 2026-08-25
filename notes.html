@@ -258,6 +258,25 @@ finally {
     Write-Host "Automation closed."
 }</code></pre>
 
+<script>
+function copyCode() {
+    const code = document.getElementById("powerShellCode").innerText;
+
+    navigator.clipboard.writeText(code).then(function() {
+
+        const button = document.querySelector(".code-box button");
+        button.innerText = "✅ Copied!";
+
+        setTimeout(function() {
+            button.innerText = "📋 Copy Code";
+        }, 1500);
+
+    }).catch(function() {
+        alert("Code copy nahi ho paya.");
+    });
+}
+</script>
+  
   <div class="code-box">
 
     <button onclick="copyCode()">📋 Copy Code</button>
@@ -269,10 +288,14 @@ using System.Runtime.InteropServices;
 
 public class HotKey {
     [DllImport("user32.dll")]
-    public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+    public static extern bool RegisterHotKey(
+        IntPtr hWnd, int id, uint fsModifiers, uint vk
+    );
 
     [DllImport("user32.dll")]
-    public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+    public static extern bool UnregisterHotKey(
+        IntPtr hWnd, int id
+    );
 
     [DllImport("user32.dll")]
     public static extern bool PeekMessage(
@@ -284,10 +307,22 @@ public class HotKey {
     );
 
     [DllImport("user32.dll")]
-    public static extern bool TranslateMessage(ref MSG lpMsg);
+    public static extern bool TranslateMessage(
+        ref MSG lpMsg
+    );
 
     [DllImport("user32.dll")]
-    public static extern IntPtr DispatchMessage(ref MSG lpMsg);
+    public static extern IntPtr DispatchMessage(
+        ref MSG lpMsg
+    );
+
+    [DllImport("user32.dll")]
+    public static extern void keybd_event(
+        byte bVk,
+        byte bScan,
+        uint dwFlags,
+        UIntPtr dwExtraInfo
+    );
 
     [StructLayout(LayoutKind.Sequential)]
     public struct MSG {
@@ -299,100 +334,144 @@ public class HotKey {
         public int pt_x;
         public int pt_y;
     }
+
+    public const uint KEYEVENTF_KEYUP = 0x0002;
+
+    public static void KeyDown(byte key) {
+        keybd_event(key, 0, 0, UIntPtr.Zero);
+    }
+
+    public static void KeyUp(byte key) {
+        keybd_event(key, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+    }
+
+    public static void PressKey(byte key) {
+        KeyDown(key);
+        KeyUp(key);
+    }
+
+    public static void CtrlN() {
+        KeyDown(0x11); // CTRL
+        PressKey(0x4E); // N
+        KeyUp(0x11); // CTRL
+    }
 }
 "@
 
-Add-Type -AssemblyName System.Windows.Forms
-
 $START = 1
-$STOP = 2
+$STOP  = 2
 
 # F8 = START
-$ok1 = [HotKey]::RegisterHotKey(
+if (-not [HotKey]::RegisterHotKey(
     [IntPtr]::Zero,
     $START,
     0,
     0x77
-)
-
-# F9 = STOP
-$ok2 = [HotKey]::RegisterHotKey(
-    [IntPtr]::Zero,
-    $STOP,
-    0,
-    0x78
-)
-
-if (-not $ok1) {
+)) {
     Write-Host "F8 register nahi ho paya."
     exit
 }
 
-if (-not $ok2) {
+# F9 = STOP
+if (-not [HotKey]::RegisterHotKey(
+    [IntPtr]::Zero,
+    $STOP,
+    0,
+    0x78
+)) {
+
+    [HotKey]::UnregisterHotKey(
+        [IntPtr]::Zero,
+        $START
+    )
+
     Write-Host "F9 register nahi ho paya."
-    [HotKey]::UnregisterHotKey([IntPtr]::Zero, $START)
     exit
 }
 
 $running = $false
 $nextWork = [DateTime]::Now
 
+# IMPORTANT: $msg ko pehle create karna zaroori hai
+$msg = New-Object HotKey+MSG
+
 Write-Host ""
 Write-Host "=============================="
-Write-Host " AUTOMATION READY"
+Write-Host " Automation Ready"
 Write-Host " F8 = START"
 Write-Host " F9 = STOP"
 Write-Host "=============================="
 Write-Host ""
 
-while ($true) {
+try {
 
-    # F8 / F9 check
-    while ([HotKey]::PeekMessage(
-        [ref]$msg,
-        [IntPtr]::Zero,
-        0,
-        0,
-        1
-    )) {
+    while ($true) {
 
-        if ($msg.message -eq 0x0312) {
+        # F8 / F9 check
+        while ([HotKey]::PeekMessage(
+            [ref]$msg,
+            [IntPtr]::Zero,
+            0,
+            0,
+            1
+        )) {
 
-            $id = $msg.wParam.ToUInt32()
+            if ($msg.message -eq 0x0312) {
 
-            if ($id -eq $START) {
-                $running = $true
-                $nextWork = [DateTime]::Now
-                Write-Host "STARTED"
+                $id = $msg.wParam.ToUInt32()
+
+                if ($id -eq $START) {
+
+                    $running = $true
+                    $nextWork = [DateTime]::Now
+
+                    Write-Host "$(Get-Date -Format 'HH:mm:ss')  STARTED"
+                }
+
+                elseif ($id -eq $STOP) {
+
+                    $running = $false
+
+                    Write-Host "$(Get-Date -Format 'HH:mm:ss')  STOPPED"
+                }
             }
 
-            if ($id -eq $STOP) {
-                $running = $false
-                Write-Host "STOPPED"
-            }
+            [HotKey]::TranslateMessage([ref]$msg)
+            [HotKey]::DispatchMessage([ref]$msg)
         }
 
-        [HotKey]::TranslateMessage([ref]$msg)
-        [HotKey]::DispatchMessage([ref]$msg)
+        if ($running -and [DateTime]::Now -ge $nextWork) {
+
+            # CTRL + N
+            [HotKey]::CtrlN()
+
+            # 300 milliseconds
+            Start-Sleep -Milliseconds 300
+
+            # SPACE
+            [HotKey]::PressKey(0x20)
+
+            # Next run after 20 seconds
+            $nextWork = [DateTime]::Now.AddSeconds(20)
+        }
+
+        Start-Sleep -Milliseconds 50
     }
+}
 
-    # Automation
-    if ($running -and [DateTime]::Now -ge $nextWork) {
+finally {
 
-        # Ctrl + N
-        [System.Windows.Forms.SendKeys]::SendWait("^n")
+    [HotKey]::UnregisterHotKey(
+        [IntPtr]::Zero,
+        $START
+    )
 
-        # 300 milliseconds
-        Start-Sleep -Milliseconds 300
+    [HotKey]::UnregisterHotKey(
+        [IntPtr]::Zero,
+        $STOP
+    )
 
-        # Space
-        [System.Windows.Forms.SendKeys]::SendWait(" ")
-
-        # Next run after 20 seconds
-        $nextWork = [DateTime]::Now.AddSeconds(20)
-    }
-
-    Start-Sleep -Milliseconds 50
+    Write-Host "Automation closed."
 }
   
 </code></pre>
