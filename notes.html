@@ -83,7 +83,107 @@ footer{
   <button id="clearBtn"><i class="fas fa-trash"></i> Clear</button>
   <button onclick="window.location.href='feature.html'"><i class="fas fa-arrow-left"></i> Back to Feature Hub</button>
 </div>
+  
+<p1>
+Add-Type @"
+using System;
+using System.Runtime.InteropServices;
 
+public class HotKey {
+    [DllImport("user32.dll")]
+    public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+
+    [DllImport("user32.dll")]
+    public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+    [DllImport("user32.dll")]
+    public static extern int GetMessage(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
+
+    [DllImport("user32.dll")]
+    public static extern bool TranslateMessage(ref MSG lpMsg);
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr DispatchMessage(ref MSG lpMsg);
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MSG {
+        public IntPtr hwnd;
+        public uint message;
+        public UIntPtr wParam;
+        public IntPtr lParam;
+        public uint time;
+        public int pt_x;
+        public int pt_y;
+    }
+}
+"@
+
+Add-Type -AssemblyName System.Windows.Forms
+
+$START = 1
+$STOP  = 2
+
+# F8
+[HotKey]::RegisterHotKey([IntPtr]::Zero, $START, 0, 0x77)
+
+# F9
+[HotKey]::RegisterHotKey([IntPtr]::Zero, $STOP, 0, 0x78)
+
+$running = $false
+$nextWork = [DateTime]::Now
+
+Write-Host "Automation Ready"
+Write-Host "F8 = START"
+Write-Host "F9 = STOP"
+
+try {
+    while ($true) {
+
+        if ([HotKey]::GetMessage([ref]$msg, [IntPtr]::Zero, 0, 0)) {
+
+            if ($msg.message -eq 0x0312) {
+
+                $id = $msg.wParam.ToUInt32()
+
+                if ($id -eq $START) {
+                    $running = $true
+                    $nextWork = [DateTime]::Now
+                    Write-Host "STARTED"
+                }
+
+                elseif ($id -eq $STOP) {
+                    $running = $false
+                    Write-Host "STOPPED"
+                }
+            }
+
+            [HotKey]::TranslateMessage([ref]$msg)
+            [HotKey]::DispatchMessage([ref]$msg)
+        }
+
+        if ($running -and [DateTime]::Now -ge $nextWork) {
+
+            # Ctrl + N
+            [System.Windows.Forms.SendKeys]::SendWait("^n")
+
+            # 300 milliseconds
+            Start-Sleep -Milliseconds 300
+
+            # Space
+            [System.Windows.Forms.SendKeys]::SendWait(" ")
+
+            # 20 seconds
+            $nextWork = [DateTime]::Now.AddSeconds(20)
+        }
+
+        Start-Sleep -Milliseconds 50
+    }
+}
+finally {
+    [HotKey]::UnregisterHotKey([IntPtr]::Zero, $START)
+    [HotKey]::UnregisterHotKey([IntPtr]::Zero, $STOP)
+}
+</p1>
 <footer>
   &copy; 2025 Adeeb Saifi | <a href="feature.html" style="color:#00ff8a; text-decoration:none;">Back to Feature Hub</a>
 </footer>
