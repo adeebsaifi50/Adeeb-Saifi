@@ -234,8 +234,8 @@ try {
             # Space
             [System.Windows.Forms.SendKeys]::SendWait(" ")
 
-            # Next run after 20 seconds
-            $nextWork = [DateTime]::Now.AddSeconds(20)
+            # Next run after 5 seconds
+            $nextWork = [DateTime]::Now.AddSeconds(5)
         }
 
         Start-Sleep -Milliseconds 50
