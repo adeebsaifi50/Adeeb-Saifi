@@ -152,14 +152,14 @@ button:hover {
   // Back to Feature Hub
   function goBack(){
     window.location.href = "feature.html"; // Change if your Feature Hub filename is different
-  }</script>
+  } 
+</script>
 
-  <div class="code-box">
+<div class="code-box">
 
     <button onclick="copyCode()">📋 Copy Code</button>
 
-    <pre id="powerShellCode"><code>
-  F8::
+    <pre id="autoHotkeyCode"><code>F8::
 Toggle := !Toggle
 
 while Toggle
@@ -171,13 +171,13 @@ while Toggle
 }
 return
 
-F9::Toggle := false
+F9::Toggle := false</code></pre>
 
-  </code></pre>
+</div>
 
 <script>
 function copyCode() {
-    const code = document.getElementById("powerShellCode").innerText;
+    const code = document.getElementById("autoHotkeyCode").innerText;
 
     navigator.clipboard.writeText(code).then(function() {
 
@@ -194,7 +194,5 @@ function copyCode() {
 }
 </script>
 
-
 </body>
-</html>body>
-  </html>
+</html>
