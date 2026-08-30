@@ -152,7 +152,7 @@ button:hover {
   // Back to Feature Hub
   function goBack(){
     window.location.href = "feature.html"; // Change if your Feature Hub filename is different
-  }
+  }</script>
 
   <div class="code-box">
 
@@ -172,7 +172,28 @@ while Toggle
 return
 
 F9::Toggle := false
+
+  </code></pre>
+
+<script>
+function copyCode() {
+    const code = document.getElementById("powerShellCode").innerText;
+
+    navigator.clipboard.writeText(code).then(function() {
+
+        const button = document.querySelector(".code-box button");
+        button.innerText = "✅ Copied!";
+
+        setTimeout(function() {
+            button.innerText = "📋 Copy Code";
+        }, 1500);
+
+    }).catch(function() {
+        alert("Code copy nahi ho paya.");
+    });
+}
 </script>
+
 
 </body>
 </html>body>
