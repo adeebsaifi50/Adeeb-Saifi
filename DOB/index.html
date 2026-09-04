@@ -416,6 +416,480 @@
             </p>
 
         </section>
+        <!-- ================= PHASE 3 : ADVANCED CONTROLS ================= -->
+
+<section class="phase3-panel" id="phase3Panel">
+
+  <!-- HEADER -->
+  <div class="phase3-header">
+    <div>
+      <span class="phase3-eyebrow">ADVANCED EXPLORATION</span>
+      <h2>Explore the Solar System</h2>
+      <p>
+        Inspect real astronomical data and customize your view.
+      </p>
+    </div>
+
+    <button
+      id="settingsBtn"
+      class="settings-btn"
+      type="button"
+      aria-label="Open simulation settings"
+    >
+      ⚙
+    </button>
+  </div>
+
+
+  <!-- VIEW OPTIONS -->
+  <div class="view-options">
+
+    <button
+      id="toggleOrbits"
+      class="view-option active"
+      type="button"
+    >
+      <span>◌</span>
+      <span>Orbits</span>
+    </button>
+
+    <button
+      id="toggleLabels"
+      class="view-option active"
+      type="button"
+    >
+      <span>⌖</span>
+      <span>Labels</span>
+    </button>
+
+    <button
+      id="toggleMoon"
+      class="view-option active"
+      type="button"
+    >
+      <span>☾</span>
+      <span>Moon</span>
+    </button>
+
+    <button
+      id="toggleTrails"
+      class="view-option"
+      type="button"
+    >
+      <span>〰</span>
+      <span>Trails</span>
+    </button>
+
+  </div>
+
+
+  <!-- PLANET DATA -->
+  <div class="advanced-data" id="advancedData">
+
+    <div class="advanced-data-header">
+
+      <div>
+        <span class="data-eyebrow">
+          SELECTED OBJECT
+        </span>
+
+        <h3 id="advancedPlanetName">
+          Earth
+        </h3>
+      </div>
+
+      <span
+        class="object-status"
+        id="objectStatus"
+      >
+        ACTIVE
+      </span>
+
+    </div>
+
+
+    <!-- DISTANCE -->
+    <div class="data-group">
+
+      <div class="data-group-title">
+        <span>📏</span>
+        DISTANCE
+      </div>
+
+      <div class="data-grid">
+
+        <div class="data-card">
+
+          <span>
+            FROM SUN
+          </span>
+
+          <strong id="advancedSunDistance">
+            149.6 million km
+          </strong>
+
+          <small id="advancedSunDistanceAU">
+            1.00 AU
+          </small>
+
+        </div>
+
+
+        <div class="data-card">
+
+          <span>
+            FROM EARTH
+          </span>
+
+          <strong id="advancedEarthDistance">
+            0 km
+          </strong>
+
+          <small id="advancedEarthDistanceAU">
+            0 AU
+          </small>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PHYSICAL DATA -->
+    <div class="data-group">
+
+      <div class="data-group-title">
+        <span>◉</span>
+        PHYSICAL DATA
+      </div>
+
+      <div class="data-grid">
+
+        <div class="data-card">
+
+          <span>
+            DIAMETER
+          </span>
+
+          <strong id="advancedDiameter">
+            12,742 km
+          </strong>
+
+        </div>
+
+
+        <div class="data-card">
+
+          <span>
+            GRAVITY
+          </span>
+
+          <strong id="advancedGravity">
+            9.81 m/s²
+          </strong>
+
+        </div>
+
+
+        <div class="data-card">
+
+          <span>
+            TEMPERATURE
+          </span>
+
+          <strong id="advancedTemperature">
+            15°C
+          </strong>
+
+        </div>
+
+
+        <div class="data-card">
+
+          <span>
+            MOONS
+          </span>
+
+          <strong id="advancedMoons">
+            1
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- TIME -->
+    <div class="data-group">
+
+      <div class="data-group-title">
+        <span>◷</span>
+        ORBITAL DATA
+      </div>
+
+      <div class="data-grid">
+
+        <div class="data-card">
+
+          <span>
+            DAY LENGTH
+          </span>
+
+          <strong id="advancedDayLength">
+            23.93 hours
+          </strong>
+
+        </div>
+
+
+        <div class="data-card">
+
+          <span>
+            YEAR LENGTH
+          </span>
+
+          <strong id="advancedYearLength">
+            365.25 days
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= SETTINGS MODAL ================= -->
+
+<div
+  class="settings-overlay"
+  id="settingsOverlay"
+  aria-hidden="true"
+>
+
+  <div
+    class="settings-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="settingsTitle"
+  >
+
+    <div class="settings-header">
+
+      <div>
+        <span class="data-eyebrow">
+          SIMULATION
+        </span>
+
+        <h2 id="settingsTitle">
+          View Settings
+        </h2>
+      </div>
+
+      <button
+        id="closeSettings"
+        class="settings-close"
+        type="button"
+        aria-label="Close settings"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="settings-list">
+
+      <!-- ORBITS -->
+
+      <label class="setting-row">
+
+        <div>
+          <strong>Orbital Paths</strong>
+
+          <span>
+            Show planetary orbital paths
+          </span>
+        </div>
+
+        <input
+          type="checkbox"
+          id="settingOrbits"
+          checked
+        >
+
+      </label>
+
+
+      <!-- LABELS -->
+
+      <label class="setting-row">
+
+        <div>
+          <strong>Planet Labels</strong>
+
+          <span>
+            Display planet names in space
+          </span>
+        </div>
+
+        <input
+          type="checkbox"
+          id="settingLabels"
+          checked
+        >
+
+      </label>
+
+
+      <!-- MOON -->
+
+      <label class="setting-row">
+
+        <div>
+          <strong>Moon</strong>
+
+          <span>
+            Show Earth's Moon
+          </span>
+        </div>
+
+        <input
+          type="checkbox"
+          id="settingMoon"
+          checked
+        >
+
+      </label>
+
+
+      <!-- TRAILS -->
+
+      <label class="setting-row">
+
+        <div>
+          <strong>Planet Trails</strong>
+
+          <span>
+            Display motion trails
+          </span>
+        </div>
+
+        <input
+          type="checkbox"
+          id="settingTrails"
+        >
+
+      </label>
+
+    </div>
+
+
+    <div class="settings-footer">
+
+      <button
+        id="restoreSettings"
+        class="restore-settings"
+        type="button"
+      >
+        Restore Defaults
+      </button>
+
+      <button
+        id="doneSettings"
+        class="done-settings"
+        type="button"
+      >
+        Done
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ================= PLANET LABEL LAYER ================= -->
+
+<div
+  class="planet-label-layer"
+  id="planetLabelLayer"
+  aria-hidden="true"
+>
+
+  <span
+    class="planet-label"
+    data-label="Mercury"
+    id="labelMercury"
+  >
+    Mercury
+  </span>
+
+  <span
+    class="planet-label"
+    data-label="Venus"
+    id="labelVenus"
+  >
+    Venus
+  </span>
+
+  <span
+    class="planet-label"
+    data-label="Earth"
+    id="labelEarth"
+  >
+    Earth
+  </span>
+
+  <span
+    class="planet-label"
+    data-label="Mars"
+    id="labelMars"
+  >
+    Mars
+  </span>
+
+  <span
+    class="planet-label"
+    data-label="Jupiter"
+    id="labelJupiter"
+  >
+    Jupiter
+  </span>
+
+  <span
+    class="planet-label"
+    data-label="Saturn"
+    id="labelSaturn"
+  >
+    Saturn
+  </span>
+
+  <span
+    class="planet-label"
+    data-label="Uranus"
+    id="labelUranus"
+  >
+    Uranus
+  </span>
+
+  <span
+    class="planet-label"
+    data-label="Neptune"
+    id="labelNeptune"
+  >
+    Neptune
+  </span>
+
+</div>
 
     </main>
 
