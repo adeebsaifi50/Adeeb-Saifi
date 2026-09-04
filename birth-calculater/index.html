@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Calculate your exact age, total days, hours, minutes and live seconds. Discover your birth day and next birthday.">
+
+    <meta name="theme-color" content="#08090c">
+
+    <title>Life Counter — How Long Have You Been Alive?</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+    <!-- HEADER -->
+    <header class="site-header">
+
+        <a href="#" class="brand">
+            <span class="brand-mark">L</span>
+            <span>Life Counter</span>
+        </a>
+
+        <div class="header-status">
+            <span class="status-dot"></span>
+            Live
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="hero-badge">
+                <span>✦</span>
+                YOUR LIFE IN NUMBERS
+            </div>
+
+            <h1>
+                How long have<br>
+                <span>you been alive?</span>
+            </h1>
+
+            <p class="hero-text">
+                Enter your date of birth and discover your life
+                in years, days, hours, minutes and live seconds.
+            </p>
+
+        </section>
+
+
+        <!-- INPUT CARD -->
+        <section class="input-section">
+
+            <div class="input-card">
+
+                <div class="input-heading">
+
+                    <div>
+                        <span class="small-label">STEP 01</span>
+                        <h2>Enter your birth details</h2>
+                    </div>
+
+                    <span class="calendar-icon">⌁</span>
+
+                </div>
+
+
+                <div class="input-grid">
+
+                    <div class="field">
+
+                        <label for="birthDate">
+                            Date of Birth
+                        </label>
+
+                        <input
+                            type="date"
+                            id="birthDate"
+                            max=""
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="birthTime">
+                            Birth Time
+                            <span>(optional)</span>
+                        </label>
+
+                        <input
+                            type="time"
+                            id="birthTime"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="calculate-button"
+                    id="calculateButton"
+                    type="button"
+                >
+
+                    <span class="button-text">
+                        Calculate My Life
+                    </span>
+
+                    <span class="button-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <p class="privacy-note">
+                    Your information is processed locally in your browser.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- CALCULATING -->
+        <section
+            class="loading-section"
+            id="loadingSection"
+        >
+
+            <div class="loading-card">
+
+                <div class="loader-ring"></div>
+
+                <h2 id="loadingTitle">
+                    Calculating your life...
+                </h2>
+
+                <p id="loadingText">
+                    Preparing your numbers
+                </p>
+
+                <div class="loading-progress">
+
+                    <div
+                        class="loading-progress-bar"
+                        id="progressBar"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESULTS -->
+        <section
+            class="results-section"
+            id="resultsSection"
+        >
+
+            <div class="results-header">
+
+                <div>
+
+                    <span class="small-label">
+                        YOUR RESULTS
+                    </span>
+
+                    <h2>Your Life So Far</h2>
+
+                </div>
+
+                <button
+                    class="reset-button"
+                    id="resetButton"
+                >
+                    ↻ New Calculation
+                </button>
+
+            </div>
+
+
+            <!-- EXACT AGE -->
+            <div class="age-card">
+
+                <div class="age-label">
+                    YOUR CURRENT AGE
+                </div>
+
+                <div
+                    class="exact-age"
+                    id="exactAge"
+                >
+                    0 Years • 0 Months • 0 Days
+                </div>
+
+            </div>
+
+
+            <!-- STAT GRID -->
+            <div class="stats-grid">
+
+                <!-- DAYS -->
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ◷
+                    </div>
+
+                    <div class="stat-value" id="daysValue">
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        DAYS ALIVE
+                    </div>
+
+                </div>
+
+
+                <!-- HOURS -->
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ◴
+                    </div>
+
+                    <div class="stat-value" id="hoursValue">
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        HOURS ALIVE
+                    </div>
+
+                </div>
+
+
+                <!-- MINUTES -->
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ◵
+                    </div>
+
+                    <div class="stat-value" id="minutesValue">
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        MINUTES ALIVE
+                    </div>
+
+                </div>
+
+
+                <!-- SECONDS -->
+                <div class="stat-card seconds-card">
+
+                    <div class="live-label">
+                        <span class="live-dot"></span>
+                        LIVE
+                    </div>
+
+                    <div class="stat-icon">
+                        ⚡
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="secondsValue"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        SECONDS ALIVE
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DETAILS -->
+            <div class="details-grid">
+
+                <!-- BIRTH DAY -->
+                <div class="detail-card">
+
+                    <span class="detail-label">
+                        YOU WERE BORN ON
+                    </span>
+
+                    <div
+                        class="detail-main"
+                        id="birthDay"
+                    >
+                        —
+                    </div>
+
+                    <div
+                        class="detail-sub"
+                        id="birthDateDisplay"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <!-- NEXT BIRTHDAY -->
+                <div class="detail-card birthday-card">
+
+                    <span class="detail-label">
+                        NEXT BIRTHDAY
+                    </span>
+
+                    <div
+                        class="detail-main"
+                        id="nextBirthday"
+                    >
+                        —
+                    </div>
+
+                    <div
+                        class="detail-sub"
+                        id="nextBirthdayDate"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- COUNTDOWN -->
+            <div class="countdown-card">
+
+                <div class="countdown-heading">
+
+                    <div>
+
+                        <span class="detail-label">
+                            COUNTDOWN
+                        </span>
+
+                        <h3>
+                            Time until your next birthday
+                        </h3>
+
+                    </div>
+
+                    <div class="birthday-symbol">
+                        ✦
+                    </div>
+
+                </div>
+
+
+                <div class="countdown-grid">
+
+                    <div class="countdown-unit">
+                        <strong id="countDays">0</strong>
+                        <span>Days</span>
+                    </div>
+
+                    <div class="countdown-divider">:</div>
+
+                    <div class="countdown-unit">
+                        <strong id="countHours">00</strong>
+                        <span>Hours</span>
+                    </div>
+
+                    <div class="countdown-divider">:</div>
+
+                    <div class="countdown-unit">
+                        <strong id="countMinutes">00</strong>
+                        <span>Minutes</span>
+                    </div>
+
+                    <div class="countdown-divider">:</div>
+
+                    <div class="countdown-unit">
+                        <strong id="countSeconds">00</strong>
+                        <span>Seconds</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTNOTE -->
+            <p class="calculation-note">
+                Calculations update automatically using your local time.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+        <p>
+            © 2026 Life Counter
+        </p>
+
+        <span>
+            Built for curiosity.
+        </span>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
