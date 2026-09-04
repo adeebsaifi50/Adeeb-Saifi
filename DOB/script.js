@@ -2550,3 +2550,618 @@ setTimeout(
   },
   350
 );
+/* =========================================================
+   PHASE 3 — ADVANCED UNIVERSE EXPLORER JS
+   ========================================================= */
+
+(() => {
+
+  "use strict";
+
+  /* ================= DATA ================= */
+
+  const planetData = {
+
+    Mercury: {
+      type: "Rocky Planet",
+      diameter: "4,879 km",
+      gravity: "3.70 m/s²",
+      temperature: "167°C",
+      moons: "0",
+      day: "1,407.6 hours",
+      year: "87.97 days",
+      sunDistance: "57.9 million km",
+      sunAU: "0.39 AU",
+      description:
+        "The smallest planet and the closest planet to the Sun."
+    },
+
+    Venus: {
+      type: "Rocky Planet",
+      diameter: "12,104 km",
+      gravity: "8.87 m/s²",
+      temperature: "464°C",
+      moons: "0",
+      day: "5,832 hours",
+      year: "224.7 days",
+      sunDistance: "108.2 million km",
+      sunAU: "0.72 AU",
+      description:
+        "A hot, cloudy world with the densest atmosphere of the rocky planets."
+    },
+
+    Earth: {
+      type: "Rocky Planet",
+      diameter: "12,742 km",
+      gravity: "9.81 m/s²",
+      temperature: "15°C",
+      moons: "1",
+      day: "23.93 hours",
+      year: "365.25 days",
+      sunDistance: "149.6 million km",
+      sunAU: "1.00 AU",
+      description:
+        "Our home planet and the only known world with life."
+    },
+
+    Mars: {
+      type: "Rocky Planet",
+      diameter: "6,779 km",
+      gravity: "3.71 m/s²",
+      temperature: "-63°C",
+      moons: "2",
+      day: "24.62 hours",
+      year: "687 days",
+      sunDistance: "227.9 million km",
+      sunAU: "1.52 AU",
+      description:
+        "A cold desert world known for its red surface and ancient valleys."
+    },
+
+    Jupiter: {
+      type: "Gas Giant",
+      diameter: "139,820 km",
+      gravity: "24.79 m/s²",
+      temperature: "-110°C",
+      moons: "95+",
+      day: "9.93 hours",
+      year: "11.86 years",
+      sunDistance: "778.5 million km",
+      sunAU: "5.20 AU",
+      description:
+        "The largest planet in our Solar System."
+    },
+
+    Saturn: {
+      type: "Gas Giant",
+      diameter: "116,460 km",
+      gravity: "10.44 m/s²",
+      temperature: "-140°C",
+      moons: "140+",
+      day: "10.7 hours",
+      year: "29.45 years",
+      sunDistance: "1.43 billion km",
+      sunAU: "9.58 AU",
+      description:
+        "A giant planet famous for its spectacular ring system."
+    },
+
+    Uranus: {
+      type: "Ice Giant",
+      diameter: "50,724 km",
+      gravity: "8.69 m/s²",
+      temperature: "-195°C",
+      moons: "28",
+      day: "17.2 hours",
+      year: "84 years",
+      sunDistance: "2.87 billion km",
+      sunAU: "19.2 AU",
+      description:
+        "An ice giant rotating on its side with a blue-green atmosphere."
+    },
+
+    Neptune: {
+      type: "Ice Giant",
+      diameter: "49,244 km",
+      gravity: "11.15 m/s²",
+      temperature: "-200°C",
+      moons: "16",
+      day: "16.1 hours",
+      year: "164.8 years",
+      sunDistance: "4.50 billion km",
+      sunAU: "30.1 AU",
+      description:
+        "The farthest major planet from the Sun."
+    }
+
+  };
+
+
+  /* ================= ELEMENTS ================= */
+
+  const advancedName =
+    document.getElementById("advancedPlanetName");
+
+  const advancedSunDistance =
+    document.getElementById("advancedSunDistance");
+
+  const advancedSunAU =
+    document.getElementById("advancedSunDistanceAU");
+
+  const advancedEarthDistance =
+    document.getElementById("advancedEarthDistance");
+
+  const advancedEarthAU =
+    document.getElementById("advancedEarthDistanceAU");
+
+  const advancedDiameter =
+    document.getElementById("advancedDiameter");
+
+  const advancedGravity =
+    document.getElementById("advancedGravity");
+
+  const advancedTemperature =
+    document.getElementById("advancedTemperature");
+
+  const advancedMoons =
+    document.getElementById("advancedMoons");
+
+  const advancedDay =
+    document.getElementById("advancedDayLength");
+
+  const advancedYear =
+    document.getElementById("advancedYearLength");
+
+  const objectStatus =
+    document.getElementById("objectStatus");
+
+
+  /* ================= UPDATE DATA ================= */
+
+  function updateAdvancedData(name) {
+
+    if (!planetData[name]) return;
+
+    const data = planetData[name];
+
+    if (advancedName)
+      advancedName.textContent = name;
+
+    if (advancedSunDistance)
+      advancedSunDistance.textContent = data.sunDistance;
+
+    if (advancedSunAU)
+      advancedSunAU.textContent = data.sunAU;
+
+    if (advancedDiameter)
+      advancedDiameter.textContent = data.diameter;
+
+    if (advancedGravity)
+      advancedGravity.textContent = data.gravity;
+
+    if (advancedTemperature)
+      advancedTemperature.textContent = data.temperature;
+
+    if (advancedMoons)
+      advancedMoons.textContent = data.moons;
+
+    if (advancedDay)
+      advancedDay.textContent = data.day;
+
+    if (advancedYear)
+      advancedYear.textContent = data.year;
+
+    /* Earth distance */
+
+    if (advancedEarthDistance && advancedEarthAU) {
+
+      if (name === "Earth") {
+
+        advancedEarthDistance.textContent = "0 km";
+        advancedEarthAU.textContent = "0 AU";
+
+      } else {
+
+        const earthDistance =
+          calculateEarthDistance(name);
+
+        advancedEarthDistance.textContent =
+          earthDistance.km;
+
+        advancedEarthAU.textContent =
+          earthDistance.au;
+
+      }
+
+    }
+
+    if (objectStatus)
+      objectStatus.textContent = "SELECTED";
+
+  }
+
+
+  /* ================= EARTH DISTANCE ================= */
+
+  const orbitalAU = {
+    Mercury: 0.39,
+    Venus: 0.72,
+    Earth: 1,
+    Mars: 1.52,
+    Jupiter: 5.20,
+    Saturn: 9.58,
+    Uranus: 19.2,
+    Neptune: 30.1
+  };
+
+
+  function calculateEarthDistance(name) {
+
+    const difference =
+      Math.abs(orbitalAU[name] - 1);
+
+    const km =
+      difference * 149597870.7;
+
+    return {
+      km: formatDistance(km),
+      au: difference.toFixed(2) + " AU"
+    };
+
+  }
+
+
+  function formatDistance(km) {
+
+    if (km < 1000)
+      return Math.round(km) + " km";
+
+    if (km < 1000000)
+      return Math.round(km / 1000) + " thousand km";
+
+    if (km < 1000000000)
+      return (km / 1000000).toFixed(1) + " million km";
+
+    return (km / 1000000000).toFixed(2) + " billion km";
+
+  }
+
+
+  /* ================= PLANET CLICK DETECTION ================= */
+
+  document.addEventListener("click", event => {
+
+    const planet =
+      event.target.closest("[data-planet]");
+
+    if (!planet) return;
+
+    const name =
+      planet.getAttribute("data-planet");
+
+    if (!planetData[name]) return;
+
+    updateAdvancedData(name);
+
+  });
+
+
+  /* ================= ORBIT TOGGLE ================= */
+
+  const toggleOrbits =
+    document.getElementById("toggleOrbits");
+
+  const settingOrbits =
+    document.getElementById("settingOrbits");
+
+  function setOrbits(enabled) {
+
+    document
+      .querySelectorAll(".orbit")
+      .forEach(orbit => {
+
+        orbit.style.borderColor =
+          enabled
+            ? ""
+            : "transparent";
+
+      });
+
+    toggleOrbits?.classList.toggle(
+      "active",
+      enabled
+    );
+
+    if (settingOrbits)
+      settingOrbits.checked = enabled;
+
+  }
+
+  toggleOrbits?.addEventListener(
+    "click",
+    () => {
+
+      const enabled =
+        !toggleOrbits.classList.contains("active");
+
+      setOrbits(enabled);
+
+    }
+  );
+
+
+  /* ================= LABEL TOGGLE ================= */
+
+  const toggleLabels =
+    document.getElementById("toggleLabels");
+
+  const settingLabels =
+    document.getElementById("settingLabels");
+
+  function setLabels(enabled) {
+
+    document
+      .querySelectorAll(".planet-label")
+      .forEach(label => {
+
+        label.style.display =
+          enabled ? "block" : "none";
+
+      });
+
+    toggleLabels?.classList.toggle(
+      "active",
+      enabled
+    );
+
+    if (settingLabels)
+      settingLabels.checked = enabled;
+
+  }
+
+
+  toggleLabels?.addEventListener(
+    "click",
+    () => {
+
+      const enabled =
+        !toggleLabels.classList.contains("active");
+
+      setLabels(enabled);
+
+    }
+  );
+
+
+  /* ================= MOON TOGGLE ================= */
+
+  const toggleMoon =
+    document.getElementById("toggleMoon");
+
+  const settingMoon =
+    document.getElementById("settingMoon");
+
+  function setMoon(enabled) {
+
+    document
+      .querySelectorAll(".earth-moon-orbit, .moon")
+      .forEach(item => {
+
+        item.style.display =
+          enabled ? "" : "none";
+
+      });
+
+    toggleMoon?.classList.toggle(
+      "active",
+      enabled
+    );
+
+    if (settingMoon)
+      settingMoon.checked = enabled;
+
+  }
+
+
+  toggleMoon?.addEventListener(
+    "click",
+    () => {
+
+      const enabled =
+        !toggleMoon.classList.contains("active");
+
+      setMoon(enabled);
+
+    }
+  );
+
+
+  /* ================= TRAILS ================= */
+
+  const toggleTrails =
+    document.getElementById("toggleTrails");
+
+  const settingTrails =
+    document.getElementById("settingTrails");
+
+  function setTrails(enabled) {
+
+    document.body.classList.toggle(
+      "trails-enabled",
+      enabled
+    );
+
+    toggleTrails?.classList.toggle(
+      "active",
+      enabled
+    );
+
+    if (settingTrails)
+      settingTrails.checked = enabled;
+
+  }
+
+
+  toggleTrails?.addEventListener(
+    "click",
+    () => {
+
+      const enabled =
+        !toggleTrails.classList.contains("active");
+
+      setTrails(enabled);
+
+    }
+  );
+
+
+  /* ================= SETTINGS MODAL ================= */
+
+  const settingsBtn =
+    document.getElementById("settingsBtn");
+
+  const settingsOverlay =
+    document.getElementById("settingsOverlay");
+
+  const closeSettings =
+    document.getElementById("closeSettings");
+
+  const doneSettings =
+    document.getElementById("doneSettings");
+
+  const restoreSettings =
+    document.getElementById("restoreSettings");
+
+
+  function openSettings() {
+
+    settingsOverlay?.classList.add("open");
+
+    settingsOverlay?.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+  }
+
+
+  function closeSettingsPanel() {
+
+    settingsOverlay?.classList.remove("open");
+
+    settingsOverlay?.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+  }
+
+
+  settingsBtn?.addEventListener(
+    "click",
+    openSettings
+  );
+
+  closeSettings?.addEventListener(
+    "click",
+    closeSettingsPanel
+  );
+
+  doneSettings?.addEventListener(
+    "click",
+    closeSettingsPanel
+  );
+
+
+  settingsOverlay?.addEventListener(
+    "click",
+    event => {
+
+      if (event.target === settingsOverlay)
+        closeSettingsPanel();
+
+    }
+  );
+
+
+  /* ================= SETTINGS SYNC ================= */
+
+  settingOrbits?.addEventListener(
+    "change",
+    event => {
+
+      setOrbits(event.target.checked);
+
+    }
+  );
+
+
+  settingLabels?.addEventListener(
+    "change",
+    event => {
+
+      setLabels(event.target.checked);
+
+    }
+  );
+
+
+  settingMoon?.addEventListener(
+    "change",
+    event => {
+
+      setMoon(event.target.checked);
+
+    }
+  );
+
+
+  settingTrails?.addEventListener(
+    "change",
+    event => {
+
+      setTrails(event.target.checked);
+
+    }
+  );
+
+
+  /* ================= RESTORE ================= */
+
+  restoreSettings?.addEventListener(
+    "click",
+    () => {
+
+      setOrbits(true);
+      setLabels(true);
+      setMoon(true);
+      setTrails(false);
+
+    }
+  );
+
+
+  /* ================= ESCAPE ================= */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (event.key === "Escape")
+        closeSettingsPanel();
+
+    }
+  );
+
+
+  /* ================= INITIAL ================= */
+
+  setOrbits(true);
+  setLabels(true);
+  setMoon(true);
+  setTrails(false);
+
+  updateAdvancedData("Earth");
+
+
+})();
