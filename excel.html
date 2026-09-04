@@ -93,29 +93,23 @@ footer{
 
     <button onclick="copyCode()">📋 Copy Code</button>
 
-    <pre id="autoHotkeyCode"><code>
+    <pre id="powerShellCode"><code>Add-Type -AssemblyName System.Windows.Forms
 
+while ($true) {
+    [System.Windows.Forms.SendKeys]::SendWait("^n")
 
-<h3>
-  Add-Type -AssemblyName System.Windows.Forms
-<br>
-while ($true) { <br>
-    [System.Windows.Forms.SendKeys]::SendWait("^n") 
-  <br>
     Start-Sleep -Milliseconds 300
-<br> <br>
-    [System.Windows.Forms.SendKeys]::SendWait(" ")
-<br>
-    Start-Sleep -Seconds 5 <br>
-}
-</h3>
-      </code></pre>
 
-  </div>
-  
-  <script>
+    [System.Windows.Forms.SendKeys]::SendWait(" ")
+
+    Start-Sleep -Seconds 5
+}</code></pre>
+
+</div>
+
+<script>
 function copyCode() {
-    const code = document.getElementById("autoHotkeyCode").innerText;
+    const code = document.getElementById("powerShellCode").innerText;
 
     navigator.clipboard.writeText(code).then(function() {
 
@@ -130,7 +124,7 @@ function copyCode() {
         alert("Code copy nahi ho paya.");
     });
 }
-  </script>
+</script>
 <footer>
   &copy; 2026 Adeeb Saifi | <a href="feature.html" style="color:#00ff8a; text-decoration:none;">Feature Hub</a>
 </footer>
