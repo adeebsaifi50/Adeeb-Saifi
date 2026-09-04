@@ -1,1021 +1,269 @@
-/* =====================================================
-   LIFE COUNTER
-===================================================== */
-
-const birthDateInput =
-    document.getElementById("birthDate");
-
-const birthTimeInput =
-    document.getElementById("birthTime");
-
-const calculateButton =
-    document.getElementById("calculateButton");
-
-const resetButton =
-    document.getElementById("resetButton");
-
-const loadingSection =
-    document.getElementById("loadingSection");
-
-const resultsSection =
-    document.getElementById("resultsSection");
-
-const loadingTitle =
-    document.getElementById("loadingTitle");
-
-const loadingText =
-    document.getElementById("loadingText");
-
-const progressBar =
-    document.getElementById("progressBar");
-
-
-let birthDate = null;
-
-let liveTimer = null;
-
-let birthdayTimer = null;
-
-
-/* =====================================================
-   MAXIMUM DATE
-===================================================== */
-
-function setMaximumBirthDate() {
-
-    const today = new Date();
-
-    const year =
-        today.getFullYear();
-
-    const month =
-        String(today.getMonth() + 1)
-        .padStart(2, "0");
-
-    const day =
-        String(today.getDate())
-        .padStart(2, "0");
-
-    birthDateInput.max =
-        `${year}-${month}-${day}`;
-}
-
-setMaximumBirthDate();
-
-
-/* =====================================================
-   DATE CREATION
-===================================================== */
-
-function createBirthDate() {
-
-    const dateValue =
-        birthDateInput.value;
-
-    if (!dateValue) {
-        return null;
-    }
-
-
-    const [
-        year,
-        month,
-        day
-    ] = dateValue
-        .split("-")
-        .map(Number);
-
-
-    let hours = 0;
-
-    let minutes = 0;
-
-
-    if (birthTimeInput.value) {
-
-        const [
-            h,
-            m
-        ] = birthTimeInput.value
-            .split(":")
-            .map(Number);
-
-        hours = h;
-
-        minutes = m;
-    }
-
-
-    return new Date(
-        year,
-        month - 1,
-        day,
-        hours,
-        minutes,
-        0,
-        0
-    );
-}
-
-
-/* =====================================================
-   FORMAT NUMBER
-===================================================== */
-
-function formatNumber(number) {
-
-    return new Intl.NumberFormat(
-        "en-US"
-    ).format(number);
-}
-
-
-/* =====================================================
-   EXACT AGE
-===================================================== */
-
-function calculateExactAge(birth, now) {
-
-    let years =
-        now.getFullYear() -
-        birth.getFullYear();
-
-    let months =
-        now.getMonth() -
-        birth.getMonth();
-
-    let days =
-        now.getDate() -
-        birth.getDate();
-
-
-    if (days < 0) {
-
-        months--;
-
-        const previousMonth =
-            new Date(
-                now.getFullYear(),
-                now.getMonth(),
-                0
-            );
-
-        days +=
-            previousMonth.getDate();
-    }
-
-
-    if (months < 0) {
-
-        years--;
-
-        months += 12;
-    }
-
-
-    return {
-        years,
-        months,
-        days
-    };
-}
-
-
-/* =====================================================
-   TOTAL TIME
-===================================================== */
-
-function calculateTotals(birth, now) {
-
-    const difference =
-        now.getTime() -
-        birth.getTime();
-
-
-    const seconds =
-        Math.floor(
-            difference / 1000
-        );
-
-
-    const minutes =
-        Math.floor(
-            seconds / 60
-        );
-
-
-    const hours =
-        Math.floor(
-            seconds / 3600
-        );
-
-
-    const days =
-        Math.floor(
-            seconds / 86400
-        );
-
-
-    return {
-        seconds,
-        minutes,
-        hours,
-        days
-    };
-}
-
-
-/* =====================================================
-   BIRTH DAY
-===================================================== */
-
-function getBirthDay(birth) {
-
-    return birth.toLocaleDateString(
-        "en-US",
-        {
-            weekday: "long"
-        }
-    );
-}
-
-
-/* =====================================================
-   DATE DISPLAY
-===================================================== */
-
-function formatDate(date) {
-
-    return date.toLocaleDateString(
-        "en-US",
-        {
-            day: "numeric",
-            month: "long",
-            year: "numeric"
-        }
-    );
-}
-
-
-/* =====================================================
-   NEXT BIRTHDAY
-===================================================== */
-
-function getNextBirthday(birth, now) {
-
-    let nextBirthday =
-        new Date(
-            now.getFullYear(),
-            birth.getMonth(),
-            birth.getDate()
-        );
-
-
-    /*
-       If this year's birthday
-       has already passed,
-       use next year.
-    */
-
-    if (
-        nextBirthday.getTime() <=
-        now.getTime()
-    ) {
-
-        nextBirthday =
-            new Date(
-                now.getFullYear() + 1,
-                birth.getMonth(),
-                birth.getDate()
-            );
-    }
-
-
-    /*
-       Preserve birth time
-       if supplied.
-    */
-
-    if (birthTimeInput.value) {
-
-        nextBirthday.setHours(
-            birth.getHours(),
-            birth.getMinutes(),
-            0,
-            0
-        );
-    }
-
-
-    return nextBirthday;
-}
-
-
-/* =====================================================
-   COUNTDOWN
-===================================================== */
-
-function updateBirthdayCountdown() {
-
-    if (!birthDate) {
-        return;
-    }
-
-
-    const now =
-        new Date();
-
-
-    const nextBirthday =
-        getNextBirthday(
-            birthDate,
-            now
-        );
-
-
-    let difference =
-        nextBirthday.getTime() -
-        now.getTime();
-
-
-    if (difference < 0) {
-        return;
-    }
-
-
-    const totalSeconds =
-        Math.floor(
-            difference / 1000
-        );
-
-
-    const days =
-        Math.floor(
-            totalSeconds / 86400
-        );
-
-
-    const hours =
-        Math.floor(
-            (totalSeconds % 86400)
-            / 3600
-        );
-
-
-    const minutes =
-        Math.floor(
-            (totalSeconds % 3600)
-            / 60
-        );
-
-
-    const seconds =
-        totalSeconds % 60;
-
-
-    document.getElementById(
-        "countDays"
-    ).textContent =
-        formatNumber(days);
-
-
-    document.getElementById(
-        "countHours"
-    ).textContent =
-        String(hours)
-        .padStart(2, "0");
-
-
-    document.getElementById(
-        "countMinutes"
-    ).textContent =
-        String(minutes)
-        .padStart(2, "0");
-
-
-    document.getElementById(
-        "countSeconds"
-    ).textContent =
-        String(seconds)
-        .padStart(2, "0");
-
-
-    /*
-       Update birthday text
-       automatically after midnight.
-    */
-
-    document.getElementById(
-        "nextBirthday"
-    ).textContent =
-        nextBirthday.toLocaleDateString(
-            "en-US",
-            {
-                weekday: "long"
-            }
-        );
-
-
-    document.getElementById(
-        "nextBirthdayDate"
-    ).textContent =
-        formatDate(nextBirthday);
-}
-
-
-/* =====================================================
-   UPDATE LIFE STATS
-===================================================== */
-
-function updateLifeStats() {
-
-    if (!birthDate) {
-        return;
-    }
-
-
-    const now =
-        new Date();
-
-
-    const age =
-        calculateExactAge(
-            birthDate,
-            now
-        );
-
-
-    const totals =
-        calculateTotals(
-            birthDate,
-            now
-        );
-
-
-    /* Exact Age */
-
-    document.getElementById(
-        "exactAge"
-    ).textContent =
-        `${age.years} Years • ` +
-        `${age.months} Months • ` +
-        `${age.days} Days`;
-
-
-    /* Total Days */
-
-    document.getElementById(
-        "daysValue"
-    ).textContent =
-        formatNumber(
-            totals.days
-        );
-
-
-    /* Total Hours */
-
-    document.getElementById(
-        "hoursValue"
-    ).textContent =
-        formatNumber(
-            totals.hours
-        );
-
-
-    /* Total Minutes */
-
-    document.getElementById(
-        "minutesValue"
-    ).textContent =
-        formatNumber(
-            totals.minutes
-        );
-
-
-    /* LIVE SECONDS */
-
-    document.getElementById(
-        "secondsValue"
-    ).textContent =
-        formatNumber(
-            totals.seconds
-        );
-
-
-    /* Birth Day */
-
-    document.getElementById(
-        "birthDay"
-    ).textContent =
-        getBirthDay(
-            birthDate
-        );
-
-
-    /* Birth Date */
-
-    document.getElementById(
-        "birthDateDisplay"
-    ).textContent =
-        formatDate(
-            birthDate
-        );
-
-
-    updateBirthdayCountdown();
-}
-
-
-/* =====================================================
-   CALCULATION ANIMATION
-===================================================== */
-
-function runCalculationAnimation() {
-
-    loadingSection.style.display =
-        "block";
-
-    resultsSection.style.display =
-        "none";
-
-
-    const steps = [
-
-        {
-            title:
-                "Calculating your life...",
-            text:
-                "Reading your birth date",
-            progress:
-                20
-        },
-
-        {
-            title:
-                "Counting your years...",
-            text:
-                "Calculating your exact age",
-            progress:
-                40
-        },
-
-        {
-            title:
-                "Counting your time...",
-            text:
-                "Converting days, hours and minutes",
-            progress:
-                60
-        },
-
-        {
-            title:
-                "Counting your seconds...",
-            text:
-                "Preparing your live counter",
-            progress:
-                80
-        },
-
-        {
-            title:
-                "Finding your birthday...",
-            text:
-                "Almost ready",
-            progress:
-                100
-        }
-
-    ];
-
-
-    let currentStep = 0;
-
-
-    function nextStep() {
-
-        const step =
-            steps[currentStep];
-
-
-        loadingTitle.textContent =
-            step.title;
-
-        loadingText.textContent =
-            step.text;
-
-        progressBar.style.width =
-            step.progress + "%";
-
-
-        currentStep++;
-
-
-        if (
-            currentStep <
-            steps.length
-        ) {
-
-            setTimeout(
-                nextStep,
-                480
-            );
-
-        } else {
-
-            setTimeout(
-                showResults,
-                650
-            );
-        }
-    }
-
-
-    nextStep();
-}
-
-
-/* =====================================================
-   SHOW RESULTS
-===================================================== */
-
-function showResults() {
-
-    loadingSection.style.display =
-        "none";
-
-
-    resultsSection.style.display =
-        "block";
-
-
-    resultsSection.classList.remove(
-        "result-reveal"
-    );
-
-
-    void resultsSection.offsetWidth;
-
-
-    resultsSection.classList.add(
-        "result-reveal"
-    );
-
-
-    updateLifeStats();
-
-
-    /*
-       Live update every second.
-    */
-
-    clearInterval(
-        liveTimer
-    );
-
-    liveTimer =
-        setInterval(
-            updateLifeStats,
-            1000
-        );
-
-
-    clearInterval(
-        birthdayTimer
-    );
-
-    birthdayTimer =
-        setInterval(
-            updateBirthdayCountdown,
-            1000
-        );
-
-
-    setTimeout(
-        () => {
-
-            resultsSection.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        },
-        200
-    );
-}
-
-
-/* =====================================================
-   CALCULATE BUTTON
-===================================================== */
-
-calculateButton.addEventListener(
-    "click",
-    function() {
-
-        const selectedBirthDate =
-            createBirthDate();
-
-
-        if (!selectedBirthDate) {
-
-            alert(
-                "Please enter your date of birth."
-            );
-
-            return;
-        }
-
-
-        const now =
-            new Date();
-
-
-        if (
-            selectedBirthDate >
-            now
-        ) {
-
-            alert(
-                "Birth date cannot be in the future."
-            );
-
-            return;
-        }
-
-
-        birthDate =
-            selectedBirthDate;
-
-
-        clearInterval(
-            liveTimer
-        );
-
-        clearInterval(
-            birthdayTimer
-        );
-
-
-        runCalculationAnimation();
-    }
-);
-
-
-/* =====================================================
-   RESET
-===================================================== */
-
-resetButton.addEventListener(
-    "click",
-    function() {
-
-        clearInterval(
-            liveTimer
-        );
-
-        clearInterval(
-            birthdayTimer
-        );
-
-
-        birthDate =
-            null;
-
-
-        birthDateInput.value =
-            "";
-
-        birthTimeInput.value =
-            "";
-
-
-        resultsSection.style.display =
-            "none";
-
-        loadingSection.style.display =
-            "none";
-
-
-        progressBar.style.width =
-            "0%";
-
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    }
-);
-
-
-/* =====================================================
-   ENTER KEY
-===================================================== */
-
-birthDateInput.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Enter"
-        ) {
-
-            calculateButton.click();
-
-        }
-    }
-);
-
-birthTimeInput.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Enter"
-        ) {
-
-            calculateButton.click();
-
-        }
-    }
-);
-
 /* =========================================================
    UNIVERSE EXPLORER
-   PHASE 2
-========================================================= */
+   COMPLETE CLEAN JAVASCRIPT
+   ========================================================= */
+
+"use strict";
 
 
 /* =========================================================
    PLANET DATABASE
-========================================================= */
+   ========================================================= */
 
 const planets = {
 
   Mercury: {
-    type: "Rocky planet",
+    type: "Rocky Planet",
     diameter: "4,879 km",
-    year: "88 days",
-    day: "58.6 days",
+    day: "1,407.6 hours",
+    year: "87.97 days",
     gravity: "3.70 m/s²",
     moons: "0",
-    sunDistance: 57.9,
+    temperature: "167°C",
+    orbit: "0.39 AU",
+    sunDistance: 57.9e6,
+    color: "mercury",
+
     description:
-      "The smallest planet and the closest planet to the Sun.",
+      "Mercury is the smallest planet and the closest planet to the Sun.",
+
     fact:
-      "Mercury completes one orbit around the Sun in only 88 Earth days."
+      "A year on Mercury lasts only about 88 Earth days."
   },
+
 
   Venus: {
-    type: "Rocky planet",
+    type: "Rocky Planet",
     diameter: "12,104 km",
+    day: "5,832 hours",
     year: "224.7 days",
-    day: "243 days",
     gravity: "8.87 m/s²",
     moons: "0",
-    sunDistance: 108.2,
+    temperature: "464°C",
+    orbit: "0.72 AU",
+    sunDistance: 108.2e6,
+    color: "venus",
+
     description:
-      "A rocky world wrapped in a thick atmosphere and intense heat.",
+      "Venus is a hot world covered by a thick carbon-dioxide atmosphere.",
+
     fact:
-      "Venus rotates so slowly that one Venusian day is longer than its year."
+      "Venus rotates so slowly that one Venus day is longer than its year."
   },
+
 
   Earth: {
-    type: "Rocky planet",
+    type: "Rocky Planet",
     diameter: "12,742 km",
+    day: "23.93 hours",
     year: "365.25 days",
-    day: "23h 56m",
     gravity: "9.81 m/s²",
     moons: "1",
-    sunDistance: 149.6,
+    temperature: "15°C",
+    orbit: "1.00 AU",
+    sunDistance: 149.6e6,
+    color: "earth",
+
     description:
-      "Our home planet and the only world currently known to support life.",
+      "Earth is our home planet and the only world currently known to support life.",
+
     fact:
-      "Earth is the only known astronomical body to naturally support life."
+      "About 71% of Earth's surface is covered by oceans."
   },
+
 
   Mars: {
-    type: "Rocky planet",
+    type: "Rocky Planet",
     diameter: "6,779 km",
+    day: "24.62 hours",
     year: "687 days",
-    day: "24h 37m",
     gravity: "3.71 m/s²",
     moons: "2",
-    sunDistance: 227.9,
+    temperature: "-63°C",
+    orbit: "1.52 AU",
+    sunDistance: 227.9e6,
+    color: "mars",
+
     description:
-      "The cold, dusty red planet with a thin atmosphere.",
+      "Mars is a cold desert world with a thin atmosphere and a reddish surface.",
+
     fact:
-      "Mars has the largest volcano known in the Solar System: Olympus Mons."
+      "Mars has the largest volcano known in the Solar System, Olympus Mons."
   },
+
 
   Jupiter: {
-    type: "Gas giant",
+    type: "Gas Giant",
     diameter: "139,820 km",
+    day: "9.93 hours",
     year: "11.86 years",
-    day: "9h 56m",
     gravity: "24.79 m/s²",
     moons: "95+",
-    sunDistance: 778.5,
+    temperature: "-110°C",
+    orbit: "5.20 AU",
+    sunDistance: 778.5e6,
+    color: "jupiter",
+
     description:
-      "The largest planet in our Solar System.",
+      "Jupiter is the largest planet in the Solar System.",
+
     fact:
-      "Jupiter is more than twice as massive as all the other planets combined."
+      "Jupiter's Great Red Spot is a giant storm that has lasted for centuries."
   },
+
 
   Saturn: {
-    type: "Gas giant",
+    type: "Gas Giant",
     diameter: "116,460 km",
+    day: "10.7 hours",
     year: "29.45 years",
-    day: "10h 42m",
     gravity: "10.44 m/s²",
     moons: "140+",
-    sunDistance: 1432,
+    temperature: "-140°C",
+    orbit: "9.58 AU",
+    sunDistance: 1.434e9,
+    color: "saturn",
+
     description:
-      "A gas giant famous for its spectacular ring system.",
+      "Saturn is a gas giant famous for its extensive system of icy rings.",
+
     fact:
-      "Saturn's rings are made mostly of countless pieces of ice and rock."
+      "Saturn is less dense than water at average density."
   },
+
 
   Uranus: {
-    type: "Ice giant",
+    type: "Ice Giant",
     diameter: "50,724 km",
+    day: "17.2 hours",
     year: "84 years",
-    day: "17h 14m",
     gravity: "8.69 m/s²",
     moons: "28",
-    sunDistance: 2867,
+    temperature: "-195°C",
+    orbit: "19.2 AU",
+    sunDistance: 2.871e9,
+    color: "uranus",
+
     description:
-      "An ice giant with an extreme axial tilt.",
+      "Uranus is an ice giant with a blue-green atmosphere and an unusual sideways rotation.",
+
     fact:
-      "Uranus rotates on its side with an axial tilt of roughly 98 degrees."
+      "Uranus rotates at an extreme axial tilt of about 98 degrees."
   },
 
+
   Neptune: {
-    type: "Ice giant",
+    type: "Ice Giant",
     diameter: "49,244 km",
+    day: "16.1 hours",
     year: "164.8 years",
-    day: "16h 6m",
     gravity: "11.15 m/s²",
     moons: "16",
-    sunDistance: 4515,
+    temperature: "-200°C",
+    orbit: "30.1 AU",
+    sunDistance: 4.495e9,
+    color: "neptune",
+
     description:
-      "The most distant recognized planet in our Solar System.",
+      "Neptune is the outermost major planet of the Solar System.",
+
     fact:
-      "Neptune takes almost 165 Earth years to complete one orbit around the Sun."
+      "Neptune has some of the fastest winds measured anywhere in the Solar System."
   }
 
 };
 
 
 /* =========================================================
-   VISUAL PLANET COLORS
-========================================================= */
+   SUN DATA
+   ========================================================= */
 
-const planetStyles = {
+const sunData = {
 
-  Mercury:
-    "radial-gradient(circle at 32% 28%, #e1ddd4, #8c857a 48%, #4d4945)",
+  type: "Star",
 
-  Venus:
-    "repeating-linear-gradient(160deg, #e4bd75 0 3px, #b87937 4px 6px, #f0ce8c 7px 9px)",
+  diameter: "1.39 million km",
 
-  Earth:
-    "radial-gradient(circle at 30% 25%, #72e1ff, #277dc4 43%, #174b7d 70%, #0b2038)",
+  day: "≈ 25–35 days",
 
-  Mars:
-    "radial-gradient(circle at 30% 28%, #e99a78, #b74730 52%, #67251b)",
+  year: "≈ 230 million years",
 
-  Jupiter:
-    "repeating-linear-gradient(175deg, #c69b70 0 3px, #ead2ad 4px 6px, #9a7456 7px 9px, #d4b28d 10px 13px, #8b6247 14px 17px)",
+  gravity: "274 m/s²",
 
-  Saturn:
-    "repeating-linear-gradient(170deg, #d9c28e 0 3px, #a48b60 4px 6px, #e2cd9a 7px 9px)",
+  moons: "—",
 
-  Uranus:
-    "radial-gradient(circle at 32% 28%, #d3ffff, #77cbd0 48%, #3c8f9c)",
+  temperature:
+    "≈ 5,500°C surface",
 
-  Neptune:
-    "radial-gradient(circle at 30% 27%, #9dc5ff, #376ec0 48%, #17366f)"
+  orbit:
+    "Galactic orbit",
+
+  description:
+    "The Sun is the star at the centre of our Solar System.",
+
+  fact:
+    "The Sun contains almost all of the mass in the Solar System."
 
 };
 
 
 /* =========================================================
-   DOM
-========================================================= */
+   ELEMENTS
+   ========================================================= */
 
-const infoPanel =
-  document.getElementById("infoPanel");
+const space =
+  document.getElementById("space");
 
-const panelClose =
-  document.getElementById("panelClose");
+const spaceView =
+  document.getElementById("spaceView");
 
-const panelBackdrop =
-  document.getElementById("panelBackdrop");
+const pauseBtn =
+  document.getElementById("pauseBtn");
 
-const largePlanet =
-  document.getElementById("largePlanet");
+const pauseIcon =
+  document.getElementById("pauseIcon");
+
+const pauseText =
+  document.getElementById("pauseText");
+
+const resetView =
+  document.getElementById("resetView");
+
+const zoomIn =
+  document.getElementById("zoomIn");
+
+const zoomOut =
+  document.getElementById("zoomOut");
+
+const zoomValue =
+  document.getElementById("zoomValue");
+
+const simulationDot =
+  document.getElementById("simulationDot");
+
+const simulationText =
+  document.getElementById("simulationText");
+
+const followIndicator =
+  document.getElementById("followIndicator");
+
+const followingName =
+  document.getElementById("followingName");
+
+const stopFollow =
+  document.getElementById("stopFollow");
+
+const followBtn =
+  document.getElementById("followBtn");
+
+const planetPanel =
+  document.getElementById("planetPanel");
+
+const panelEmpty =
+  document.getElementById("panelEmpty");
+
+const planetInfo =
+  document.getElementById("planetInfo");
 
 const infoName =
   document.getElementById("infoName");
@@ -1029,11 +277,11 @@ const infoType =
 const infoDiameter =
   document.getElementById("infoDiameter");
 
-const infoYear =
-  document.getElementById("infoYear");
-
 const infoDay =
   document.getElementById("infoDay");
+
+const infoYear =
+  document.getElementById("infoYear");
 
 const infoGravity =
   document.getElementById("infoGravity");
@@ -1041,8 +289,23 @@ const infoGravity =
 const infoMoons =
   document.getElementById("infoMoons");
 
+const infoTemperature =
+  document.getElementById("infoTemperature");
+
+const infoOrbit =
+  document.getElementById("infoOrbit");
+
 const infoFact =
   document.getElementById("infoFact");
+
+const largePlanet =
+  document.getElementById("largePlanet");
+
+const sunDistance =
+  document.getElementById("sunDistance");
+
+const sunDistanceSub =
+  document.getElementById("sunDistanceSub");
 
 const earthDistance =
   document.getElementById("earthDistance");
@@ -1050,196 +313,335 @@ const earthDistance =
 const earthDistanceSub =
   document.getElementById("earthDistanceSub");
 
-const sunDistance =
-  document.getElementById("sunDistance");
+const settingsBtn =
+  document.getElementById("settingsBtn");
 
-const followBtn =
-  document.getElementById("followBtn");
+const settingsOverlay =
+  document.getElementById("settingsOverlay");
 
-const compareBtn =
-  document.getElementById("compareBtn");
+const closeSettings =
+  document.getElementById("closeSettings");
 
-const followIndicator =
-  document.getElementById("followIndicator");
+const doneSettings =
+  document.getElementById("doneSettings");
 
-const followName =
-  document.getElementById("followName");
+const restoreSettings =
+  document.getElementById("restoreSettings");
 
-const solarSystem =
-  document.getElementById("solarSystem");
+const settingOrbits =
+  document.getElementById("settingOrbits");
 
-const camera =
-  document.getElementById("camera");
+const settingLabels =
+  document.getElementById("settingLabels");
 
-const zoomValue =
-  document.getElementById("zoomValue");
+const settingMoon =
+  document.getElementById("settingMoon");
 
-const simulationDate =
-  document.getElementById("simulationDate");
-
-const pauseBtn =
-  document.getElementById("pauseBtn");
-
-const pauseIcon =
-  document.getElementById("pauseIcon");
-
-const pauseText =
-  document.getElementById("pauseText");
-
-const resetBtn =
-  document.getElementById("resetBtn");
-
-const zoomIn =
-  document.getElementById("zoomIn");
-
-const zoomOut =
-  document.getElementById("zoomOut");
-
-const planetSearch =
-  document.getElementById("planetSearch");
-
-const searchResults =
-  document.getElementById("searchResults");
-
-const fullscreenBtn =
-  document.getElementById("fullscreenBtn");
-
-const compareModal =
-  document.getElementById("compareModal");
-
-const modalClose =
-  document.getElementById("modalClose");
-
-const comparePlanet =
-  document.getElementById("comparePlanet");
-
-const comparePlanetName =
-  document.getElementById("comparePlanetName");
-
-const comparePlanetLabel =
-  document.getElementById("comparePlanetLabel");
-
-const compareDiameter =
-  document.getElementById("compareDiameter");
-
-const compareGravity =
-  document.getElementById("compareGravity");
-
-const compareYear =
-  document.getElementById("compareYear");
-
-
-/* =========================================================
-   ORBITS
-========================================================= */
-
-const orbitElements =
-  document.querySelectorAll(".orbit");
+const settingTrails =
+  document.getElementById("settingTrails");
 
 
 /* =========================================================
    STATE
-========================================================= */
+   ========================================================= */
+
+let isPaused = false;
+
+let speed = 1;
+
+let zoom = 1;
 
 let selectedPlanet = null;
 
 let followedPlanet = null;
 
-let paused = false;
-
-let simulationSpeed = 1;
-
-let simulationDays = 1;
-
-let zoom = 1;
-
 
 /* =========================================================
-   PLANET ORBIT DATA
-========================================================= */
+   SPEED
+   ========================================================= */
 
-/*
-   These values are normalized orbital radii for
-   the visualization.
-
-   They are NOT physical screen distances.
-*/
-
-const orbitRadius = {
-
-  Mercury: 0.06,
-  Venus: 0.105,
-  Earth: 0.15,
-  Mars: 0.20,
-  Jupiter: 0.265,
-  Saturn: 0.33,
-  Uranus: 0.39,
-  Neptune: 0.45
-
-};
+const speedButtons =
+  document.querySelectorAll(
+    "[data-speed]"
+  );
 
 
-/* =========================================================
-   ORBITAL PERIODS
-========================================================= */
+function updateSpeed(newSpeed) {
 
-const orbitalPeriods = {
+  speed = Number(newSpeed);
 
-  Mercury: 87.969,
-  Venus: 224.701,
-  Earth: 365.256,
-  Mars: 686.98,
-  Jupiter: 4332.59,
-  Saturn: 10759.22,
-  Uranus: 30688.5,
-  Neptune: 60182
+  speedButtons.forEach(button => {
 
-};
+    button.classList.toggle(
+      "active",
+      Number(button.dataset.speed) === speed
+    );
 
+  });
 
-/* =========================================================
-   PLANET PHASES
-========================================================= */
+  updateOrbitSpeed();
 
-const startingAngles = {
-
-  Mercury: 20,
-  Venus: 80,
-  Earth: 140,
-  Mars: 210,
-  Jupiter: 275,
-  Saturn: 330,
-  Uranus: 35,
-  Neptune: 110
-
-};
+}
 
 
-/* =========================================================
-   COLOR HELPER
-========================================================= */
+function updateOrbitSpeed() {
 
-function setPlanetVisual(element, name) {
+  const baseTimes = {
 
-  if (!element) return;
+    mercury: 4,
+    venus: 7,
+    earth: 10,
+    mars: 15,
+    jupiter: 24,
+    saturn: 30,
+    uranus: 38,
+    neptune: 48
 
-  element.style.background =
-    planetStyles[name] || "";
+  };
+
+
+  document
+    .querySelectorAll(".orbit")
+    .forEach(orbit => {
+
+      const key =
+        orbit.dataset.orbit;
+
+      const base =
+        baseTimes[key] || 10;
+
+      orbit.style.setProperty(
+        "--orbit-time",
+        `${base / speed}s`
+      );
+
+      orbit.classList.toggle(
+        "paused",
+        isPaused
+      );
+
+    });
+
+
+  const moon =
+    document.querySelector(".moon-orbit");
+
+  if (moon) {
+
+    moon.style.animationDuration =
+      `${2.5 / speed}s`;
+
+    moon.style.animationPlayState =
+      isPaused
+        ? "paused"
+        : "running";
+
+  }
 
 }
 
 
 /* =========================================================
-   OPEN PLANET PANEL
-========================================================= */
+   PAUSE / RESUME
+   ========================================================= */
 
-function openPlanet(name) {
+function togglePause() {
 
-  const data = planets[name];
+  isPaused = !isPaused;
+
+  document
+    .querySelectorAll(".orbit")
+    .forEach(orbit => {
+
+      orbit.classList.toggle(
+        "paused",
+        isPaused
+      );
+
+    });
+
+
+  const moon =
+    document.querySelector(".moon-orbit");
+
+  if (moon) {
+
+    moon.style.animationPlayState =
+      isPaused
+        ? "paused"
+        : "running";
+
+  }
+
+
+  pauseIcon.textContent =
+    isPaused
+      ? "▶"
+      : "Ⅱ";
+
+  pauseText.textContent =
+    isPaused
+      ? "Resume"
+      : "Pause";
+
+
+  simulationText.textContent =
+    isPaused
+      ? "SIMULATION PAUSED"
+      : "SIMULATION RUNNING";
+
+
+  simulationDot.classList.toggle(
+    "paused",
+    isPaused
+  );
+
+}
+
+
+pauseBtn.addEventListener(
+  "click",
+  togglePause
+);
+
+
+/* =========================================================
+   ZOOM
+   ========================================================= */
+
+function updateZoom() {
+
+  space.style.transform =
+    `translate(-50%, -50%) scale(${zoom})`;
+
+  zoomValue.textContent =
+    `${Math.round(zoom * 100)}%`;
+
+}
+
+
+zoomIn.addEventListener(
+  "click",
+  () => {
+
+    zoom =
+      Math.min(
+        1.8,
+        +(zoom + .1).toFixed(1)
+      );
+
+    updateZoom();
+
+  }
+);
+
+
+zoomOut.addEventListener(
+  "click",
+  () => {
+
+    zoom =
+      Math.max(
+        .6,
+        +(zoom - .1).toFixed(1)
+      );
+
+    updateZoom();
+
+  }
+);
+
+
+/* =========================================================
+   FORMAT DISTANCE
+   ========================================================= */
+
+function formatDistance(km) {
+
+  if (km < 1000) {
+
+    return `${Math.round(km).toLocaleString()} km`;
+
+  }
+
+  if (km < 1e6) {
+
+    return `${Math.round(km / 1000).toLocaleString()} thousand km`;
+
+  }
+
+  if (km < 1e9) {
+
+    return `${(km / 1e6).toFixed(1)} million km`;
+
+  }
+
+  return `${(km / 1e9).toFixed(2)} billion km`;
+
+}
+
+
+/* =========================================================
+   EARTH DISTANCE
+   ========================================================= */
+
+/*
+  This is the difference between the planets'
+  average orbital radii.
+
+  It is NOT the live instantaneous distance,
+  because the planets continuously move and their
+  real positions require ephemeris data.
+
+  Therefore the UI explicitly labels it as
+  "average orbital separation".
+*/
+
+function calculateEarthDistance(name) {
+
+  if (name === "Earth") {
+
+    return 0;
+
+  }
+
+
+  const earth =
+    planets.Earth.sunDistance;
+
+  const target =
+    planets[name].sunDistance;
+
+
+  return Math.abs(
+    target - earth
+  );
+
+}
+
+
+/* =========================================================
+   SHOW PLANET
+   ========================================================= */
+
+function showPlanet(name) {
+
+  const data =
+    planets[name];
 
   if (!data) return;
 
-  selectedPlanet = name;
+  selectedPlanet =
+    name;
+
+
+  panelEmpty.classList.add(
+    "hidden"
+  );
+
+  planetInfo.classList.remove(
+    "hidden"
+  );
 
 
   infoName.textContent =
@@ -1254,11 +656,11 @@ function openPlanet(name) {
   infoDiameter.textContent =
     data.diameter;
 
-  infoYear.textContent =
-    data.year;
-
   infoDay.textContent =
     data.day;
+
+  infoYear.textContent =
+    data.year;
 
   infoGravity.textContent =
     data.gravity;
@@ -1266,356 +668,111 @@ function openPlanet(name) {
   infoMoons.textContent =
     data.moons;
 
+  infoTemperature.textContent =
+    data.temperature;
+
+  infoOrbit.textContent =
+    data.orbit;
+
   infoFact.textContent =
     data.fact;
 
 
-  setPlanetVisual(
-    largePlanet,
-    name
-  );
-
-
-  updateDistancePanel();
-
-
-  followBtn.innerHTML =
-    followedPlanet === name
-      ? "<span>◎</span> Following"
-      : "<span>◎</span> Follow";
-
-
-  infoPanel.classList.add(
-    "open"
-  );
-
-  infoPanel.setAttribute(
-    "aria-hidden",
-    "false"
-  );
-
-  panelBackdrop.classList.add(
-    "open"
-  );
-
-}
-
-
-/* =========================================================
-   CLOSE PANEL
-========================================================= */
-
-function closePanelFunction() {
-
-  infoPanel.classList.remove(
-    "open"
-  );
-
-  infoPanel.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
-  panelBackdrop.classList.remove(
-    "open"
-  );
-
-}
-
-
-/* =========================================================
-   DISTANCE CALCULATION
-========================================================= */
-
-/*
-   This calculates a simulated heliocentric position
-   using circularized orbital paths.
-
-   It is intended as an educational visualization,
-   not a precision ephemeris engine.
-*/
-
-function getPlanetPosition(name) {
-
-  const data = planets[name];
-
-  if (!data) return null;
-
-
-  const period =
-    orbitalPeriods[name];
-
-  const angle =
-    (
-      startingAngles[name] +
-      (
-        simulationDays /
-        period
-      ) *
-      360
-    ) % 360;
-
-
-  const radians =
-    angle * Math.PI / 180;
-
-
-  const radius =
-    orbitRadius[name];
-
-
-  return {
-
-    x:
-      radius *
-      Math.cos(radians),
-
-    y:
-      radius *
-      Math.sin(radians)
-
-  };
-
-}
-
-
-/* =========================================================
-   CURRENT EARTH DISTANCE
-========================================================= */
-
-function calculateEarthDistance(name) {
-
-  if (name === "Earth") {
-
-    return 0;
-
-  }
-
-
-  const earth =
-    getPlanetPosition("Earth");
-
-  const target =
-    getPlanetPosition(name);
-
-
-  if (!earth || !target) {
-    return 0;
-  }
-
-
-  /*
-     The normalized radius is mapped to AU
-     using the planet's actual average
-     heliocentric distance.
-
-     This keeps the display educational.
-  */
-
-  const earthAU =
-    planets.Earth.sunDistance / 149.5978707;
-
-  const targetAU =
-    planets[name].sunDistance / 149.5978707;
-
-
-  const earthX =
-    earth.x /
-    orbitRadius.Earth *
-    earthAU;
-
-  const earthY =
-    earth.y /
-    orbitRadius.Earth *
-    earthAU;
-
-  const targetX =
-    target.x /
-    orbitRadius[name] *
-    targetAU;
-
-  const targetY =
-    target.y /
-    orbitRadius[name] *
-    targetAU;
-
-
-  const dx =
-    targetX - earthX;
-
-  const dy =
-    targetY - earthY;
-
-
-  const distanceAU =
-    Math.sqrt(
-      dx * dx +
-      dy * dy
+  sunDistance.textContent =
+    formatDistance(
+      data.sunDistance
     );
 
-
-  return distanceAU * 149.5978707;
-
-}
+  sunDistanceSub.textContent =
+    "Average distance from the Sun";
 
 
-/* =========================================================
-   FORMAT DISTANCE
-========================================================= */
-
-function formatDistanceAU(au) {
-
-  if (au === 0) {
-    return "0 km";
-  }
-
-
-  const km =
-    au * 149.5978707;
-
-
-  if (km >= 1000000000) {
-
-    return (
-      (km / 1000000000)
-        .toFixed(2)
-      + " billion km"
-    );
-
-  }
-
-
-  if (km >= 1000000) {
-
-    return (
-      (km / 1000000)
-        .toFixed(2)
-      + " million km"
-    );
-
-  }
-
-
-  return (
-    Math.round(km)
-    .toLocaleString()
-    + " km"
-  );
-
-}
-
-
-/* =========================================================
-   UPDATE DISTANCE PANEL
-========================================================= */
-
-function updateDistancePanel() {
-
-  if (!selectedPlanet) return;
-
-
-  const distanceAU =
-    calculateEarthDistance(
-      selectedPlanet
-    );
+  const earthKm =
+    calculateEarthDistance(name);
 
 
   earthDistance.textContent =
-    formatDistanceAU(
-      distanceAU
-    );
+    formatDistance(earthKm);
+
+
+  earthDistanceSub.textContent =
+    name === "Earth"
+      ? "You are here"
+      : "Average orbital separation";
+
+
+  largePlanet.className =
+    `large-planet ${data.color}-preview`;
+
+
+  highlightPlanet(name);
+
+
+  planetPanel.scrollIntoView({
+    behavior: "smooth",
+    block: "nearest"
+  });
 
 
   if (
-    selectedPlanet === "Earth"
+    followedPlanet &&
+    followedPlanet !== name
   ) {
 
-    earthDistanceSub.textContent =
-      "You are here";
-
-  } else {
-
-    earthDistanceSub.textContent =
-      "Current simulated distance";
+    stopFollowing();
 
   }
-
-
-  const sunKm =
-    planets[selectedPlanet]
-      .sunDistance;
-
-
-  sunDistance.textContent =
-    sunKm >= 1000
-
-      ? (
-          (
-            sunKm /
-            149.5978707
-          ).toFixed(2)
-          + " AU"
-        )
-
-      : (
-          sunKm.toFixed(1)
-          + " million km"
-        );
 
 }
 
 
 /* =========================================================
-   PLANET CLICK EVENTS
-========================================================= */
+   PLANET HIGHLIGHT
+   ========================================================= */
+
+function highlightPlanet(name) {
+
+  document
+    .querySelectorAll(".planet")
+    .forEach(planet => {
+
+      planet.classList.toggle(
+        "selected",
+        planet.dataset.planet === name
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   PLANET CLICK
+   ========================================================= */
 
 document
   .querySelectorAll(".planet")
-  .forEach(
-    planet => {
+  .forEach(planet => {
 
-      planet.addEventListener(
-        "click",
-        event => {
+    planet.addEventListener(
+      "click",
+      event => {
 
-          event.stopPropagation();
+        event.stopPropagation();
 
-          const name =
-            planet.dataset.planet;
+        showPlanet(
+          planet.dataset.planet
+        );
 
-          openPlanet(name);
+      }
+    );
 
-        }
-      );
-
-
-      planet.addEventListener(
-        "keydown",
-        event => {
-
-          if (
-            event.key === "Enter" ||
-            event.key === " "
-          ) {
-
-            event.preventDefault();
-
-            openPlanet(
-              planet.dataset.planet
-            );
-
-          }
-
-        }
-      );
-
-    }
-  );
+  });
 
 
 /* =========================================================
    SUN
-========================================================= */
+   ========================================================= */
 
 document
   .getElementById("sunObject")
@@ -1623,75 +780,165 @@ document
     "click",
     () => {
 
-      selectedPlanet = "Sun";
+      selectedPlanet =
+        "Sun";
+
+
+      panelEmpty.classList.add(
+        "hidden"
+      );
+
+      planetInfo.classList.remove(
+        "hidden"
+      );
 
 
       infoName.textContent =
         "Sun";
 
       infoDescription.textContent =
-        "The star at the center of our Solar System.";
+        sunData.description;
 
       infoType.textContent =
-        "Star";
+        sunData.type;
 
       infoDiameter.textContent =
-        "1.39 million km";
-
-      infoYear.textContent =
-        "≈ 230 million years";
+        sunData.diameter;
 
       infoDay.textContent =
-        "≈ 25–35 days";
+        sunData.day;
+
+      infoYear.textContent =
+        sunData.year;
 
       infoGravity.textContent =
-        "274 m/s²";
+        sunData.gravity;
 
       infoMoons.textContent =
-        "—";
+        sunData.moons;
+
+      infoTemperature.textContent =
+        sunData.temperature;
+
+      infoOrbit.textContent =
+        sunData.orbit;
 
       infoFact.textContent =
-        "The Sun contains almost all of the mass in the Solar System.";
+        sunData.fact;
 
-
-      largePlanet.style.background =
-        "radial-gradient(circle at 34% 28%, #fff9db, #ffd66f 22%, #ff9a2d 58%, #e74f19)";
-
-
-      earthDistance.textContent =
-        "149.6 million km";
-
-      earthDistanceSub.textContent =
-        "Earth → Sun average distance";
 
       sunDistance.textContent =
         "0 km";
 
+      sunDistanceSub.textContent =
+        "The Sun itself";
 
-      followBtn.innerHTML =
-        "<span>◎</span> Follow";
+
+      earthDistance.textContent =
+        formatDistance(
+          planets.Earth.sunDistance
+        );
+
+      earthDistanceSub.textContent =
+        "Earth → Sun average distance";
 
 
-      infoPanel.classList.add(
-        "open"
-      );
+      largePlanet.className =
+        "large-planet sun-preview";
 
-      infoPanel.setAttribute(
-        "aria-hidden",
-        "false"
-      );
 
-      panelBackdrop.classList.add(
-        "open"
-      );
+      highlightPlanet("");
 
     }
   );
 
 
 /* =========================================================
-   FOLLOW MODE
-========================================================= */
+   MOON
+   ========================================================= */
+
+document
+  .querySelector(".moon")
+  .addEventListener(
+    "click",
+    event => {
+
+      event.stopPropagation();
+
+      selectedPlanet =
+        "Moon";
+
+
+      panelEmpty.classList.add(
+        "hidden"
+      );
+
+      planetInfo.classList.remove(
+        "hidden"
+      );
+
+
+      infoName.textContent =
+        "Moon";
+
+      infoDescription.textContent =
+        "Earth's natural satellite and our closest major celestial neighbour.";
+
+      infoType.textContent =
+        "Natural Satellite";
+
+      infoDiameter.textContent =
+        "3,474 km";
+
+      infoDay.textContent =
+        "≈ 655.7 hours";
+
+      infoYear.textContent =
+        "≈ 27.3 days";
+
+      infoGravity.textContent =
+        "1.62 m/s²";
+
+      infoMoons.textContent =
+        "0";
+
+      infoTemperature.textContent =
+        "≈ -173 to 127°C";
+
+      infoOrbit.textContent =
+        "384,400 km from Earth";
+
+      infoFact.textContent =
+        "The Moon is tidally locked to Earth, so we mostly see the same side.";
+
+
+      sunDistance.textContent =
+        "≈ 149.6 million km";
+
+      sunDistanceSub.textContent =
+        "Approximate distance from Sun";
+
+
+      earthDistance.textContent =
+        "384,400 km";
+
+      earthDistanceSub.textContent =
+        "Average Earth → Moon distance";
+
+
+      largePlanet.className =
+        "large-planet moon-preview";
+
+
+      highlightPlanet("");
+
+    }
+  );
+
+
+/* =========================================================
+   FOLLOW PLANET
+   ========================================================= */
 
 followBtn.addEventListener(
   "click",
@@ -1699,747 +946,88 @@ followBtn.addEventListener(
 
     if (
       !selectedPlanet ||
-      selectedPlanet === "Sun"
+      selectedPlanet === "Sun" ||
+      selectedPlanet === "Moon"
     ) {
-      return;
-    }
-
-
-    if (
-      followedPlanet === selectedPlanet
-    ) {
-
-      followedPlanet =
-        null;
-
-      followIndicator.classList.remove(
-        "active"
-      );
-
-      followBtn.innerHTML =
-        "<span>◎</span> Follow";
-
-      camera.style.transform =
-        "translate(-50%, -50%)";
 
       return;
 
     }
-
 
     followedPlanet =
       selectedPlanet;
 
+    followingName.textContent =
+      followedPlanet;
 
-    followIndicator.classList.add(
-      "active"
+    followIndicator.classList.remove(
+      "hidden"
     );
-
-    followName.textContent =
-      selectedPlanet;
 
     followBtn.innerHTML =
-      "<span>◎</span> Following";
-
-
-    focusPlanet(
-      selectedPlanet
-    );
+      "◎ Following Planet";
 
   }
 );
 
 
-/* =========================================================
-   FOCUS PLANET
-========================================================= */
+function stopFollowing() {
 
-function focusPlanet(name) {
+  followedPlanet =
+    null;
 
-  if (!name) return;
+  followIndicator.classList.add(
+    "hidden"
+  );
 
-
-  const element =
-    document.querySelector(
-      `[data-planet="${name}"]`
-    );
-
-
-  if (!element) return;
-
-
-  const orbit =
-    element.closest(".orbit");
-
-
-  if (!orbit) return;
-
-
-  const rect =
-    orbit.getBoundingClientRect();
-
-
-  const view =
-    document
-      .getElementById("spaceView")
-      .getBoundingClientRect();
-
-
-  const x =
-    rect.left +
-    rect.width / 2 -
-    (
-      view.left +
-      view.width / 2
-    );
-
-  const y =
-    rect.top +
-    rect.height / 2 -
-    (
-      view.top +
-      view.height / 2
-    );
-
-
-  camera.style.transform =
-    `translate(
-      calc(-50% - ${x}px),
-      calc(-50% - ${y}px)
-    )`;
+  followBtn.innerHTML =
+    "◎ Follow Planet";
 
 }
 
 
-/* =========================================================
-   PAUSE
-========================================================= */
-
-pauseBtn.addEventListener(
+stopFollow.addEventListener(
   "click",
-  () => {
-
-    paused =
-      !paused;
-
-
-    orbitElements.forEach(
-      orbit => {
-
-        orbit.classList.toggle(
-          "paused",
-          paused
-        );
-
-      }
-    );
-
-
-    pauseIcon.textContent =
-      paused ? "▶" : "Ⅱ";
-
-    pauseText.textContent =
-      paused ? "Play" : "Pause";
-
-  }
-);
-
-
-/* =========================================================
-   SPEED CONTROL
-========================================================= */
-
-const speedButtons =
-  document.querySelectorAll(
-    "[data-speed]"
-  );
-
-
-const baseOrbitDurations = {
-
-  mercury: 8,
-  venus: 14,
-  earth: 18,
-  mars: 24,
-  jupiter: 34,
-  saturn: 43,
-  uranus: 52,
-  neptune: 60
-
-};
-
-
-function setSimulationSpeed(speed) {
-
-  simulationSpeed =
-    Number(speed);
-
-
-  orbitElements.forEach(
-    orbit => {
-
-      const name =
-        orbit.dataset.orbit;
-
-      const base =
-        baseOrbitDurations[name];
-
-
-      if (!base) return;
-
-
-      orbit.style.animationDuration =
-        `${base / simulationSpeed}s`;
-
-    }
-  );
-
-}
-
-
-speedButtons.forEach(
-  button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        const speed =
-          Number(
-            button.dataset.speed
-          );
-
-
-        setSimulationSpeed(
-          speed
-        );
-
-
-        speedButtons.forEach(
-          item => {
-
-            item.classList.remove(
-              "active"
-            );
-
-          }
-        );
-
-
-        button.classList.add(
-          "active"
-        );
-
-      }
-    );
-
-  }
-);
-
-
-/* =========================================================
-   SIMULATION CLOCK
-========================================================= */
-
-let lastFrame =
-  performance.now();
-
-
-function simulationLoop(now) {
-
-  const delta =
-    now - lastFrame;
-
-
-  lastFrame =
-    now;
-
-
-  if (!paused) {
-
-    /*
-       1x = 1 simulated day every
-       2 real seconds.
-
-       Higher speed multiplies it.
-    */
-
-    const daysPerSecond =
-      0.5 *
-      simulationSpeed;
-
-
-    simulationDays +=
-      (
-        delta / 1000
-      ) *
-      daysPerSecond;
-
-
-    updateSimulationDate();
-
-    updateDistancePanel();
-
-  }
-
-
-  requestAnimationFrame(
-    simulationLoop
-  );
-
-}
-
-
-requestAnimationFrame(
-  simulationLoop
-);
-
-
-/* =========================================================
-   SIMULATION DATE
-========================================================= */
-
-function updateSimulationDate() {
-
-  const day =
-    Math.floor(
-      simulationDays
-    );
-
-
-  const year =
-    Math.floor(
-      (
-        day - 1
-      ) / 365.25
-    ) + 1;
-
-
-  const dayOfYear =
-    Math.floor(
-      (
-        day - 1
-      ) % 365.25
-    ) + 1;
-
-
-  simulationDate.textContent =
-    `Day ${dayOfYear} · Year ${year}`;
-
-}
-
-
-/* =========================================================
-   ZOOM
-========================================================= */
-
-function updateZoom() {
-
-  zoom =
-    Math.min(
-      1.7,
-      Math.max(
-        0.65,
-        zoom
-      )
-    );
-
-
-  document.documentElement.style
-    .setProperty(
-      "--zoom",
-      zoom
-    );
-
-
-  zoomValue.textContent =
-    Math.round(
-      zoom * 100
-    ) + "%";
-
-}
-
-
-zoomIn.addEventListener(
-  "click",
-  () => {
-
-    zoom += .15;
-
-    updateZoom();
-
-  }
-);
-
-
-zoomOut.addEventListener(
-  "click",
-  () => {
-
-    zoom -= .15;
-
-    updateZoom();
-
-  }
-);
-
-
-/* =========================================================
-   MODE SWITCH
-========================================================= */
-
-document
-  .querySelectorAll(".mode-button")
-  .forEach(
-    button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          const mode =
-            button.dataset.mode;
-
-
-          document
-            .querySelectorAll(
-              ".mode-button"
-            )
-            .forEach(
-              item => {
-
-                item.classList.remove(
-                  "active"
-                );
-
-              }
-            );
-
-
-          button.classList.add(
-            "active"
-          );
-
-
-          document.body.classList.toggle(
-            "true-scale",
-            mode === "true"
-          );
-
-        }
-      );
-
-    }
-  );
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-planetSearch.addEventListener(
-  "input",
-  () => {
-
-    const query =
-      planetSearch.value
-        .trim()
-        .toLowerCase();
-
-
-    searchResults.innerHTML = "";
-
-
-    if (!query) {
-
-      searchResults.classList.remove(
-        "open"
-      );
-
-      return;
-
-    }
-
-
-    const matches =
-      Object.keys(planets)
-        .filter(
-          name =>
-            name
-              .toLowerCase()
-              .includes(query)
-        );
-
-
-    if (!matches.length) {
-
-      searchResults.innerHTML =
-        `<div class="search-result">
-          No planet found
-        </div>`;
-
-      searchResults.classList.add(
-        "open"
-      );
-
-      return;
-
-    }
-
-
-    matches.forEach(
-      name => {
-
-        const item =
-          document.createElement(
-            "button"
-          );
-
-
-        item.className =
-          "search-result";
-
-
-        item.innerHTML = `
-          <span
-            class="result-dot"
-            style="background:${planetStyles[name]}"
-          ></span>
-
-          <span>${name}</span>
-        `;
-
-
-        item.addEventListener(
-          "click",
-          () => {
-
-            openPlanet(name);
-
-            searchResults.classList.remove(
-              "open"
-            );
-
-            planetSearch.value =
-              "";
-
-          }
-        );
-
-
-        searchResults.appendChild(
-          item
-        );
-
-      }
-    );
-
-
-    searchResults.classList.add(
-      "open"
-    );
-
-  }
-);
-
-
-/* =========================================================
-   SEARCH KEYBOARD SHORTCUT
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    if (
-      (
-        event.ctrlKey ||
-        event.metaKey
-      ) &&
-      event.key.toLowerCase() === "k"
-    ) {
-
-      event.preventDefault();
-
-      planetSearch.focus();
-
-    }
-
-
-    if (
-      event.key === "Escape"
-    ) {
-
-      searchResults.classList.remove(
-        "open"
-      );
-
-      closePanelFunction();
-
-      closeCompareModal();
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   CLOSE PANEL
-========================================================= */
-
-panelClose.addEventListener(
-  "click",
-  closePanelFunction
-);
-
-panelBackdrop.addEventListener(
-  "click",
-  closePanelFunction
-);
-
-
-/* =========================================================
-   COMPARE
-========================================================= */
-
-compareBtn.addEventListener(
-  "click",
-  () => {
-
-    if (
-      !selectedPlanet ||
-      selectedPlanet === "Sun"
-    ) {
-      return;
-    }
-
-
-    const data =
-      planets[selectedPlanet];
-
-
-    comparePlanetName.textContent =
-      selectedPlanet;
-
-    comparePlanetLabel.textContent =
-      selectedPlanet;
-
-    comparePlanet.style.background =
-      planetStyles[selectedPlanet];
-
-    compareDiameter.textContent =
-      data.diameter;
-
-    compareGravity.textContent =
-      data.gravity;
-
-    compareYear.textContent =
-      data.year;
-
-
-    compareModal.classList.add(
-      "open"
-    );
-
-    compareModal.setAttribute(
-      "aria-hidden",
-      "false"
-    );
-
-  }
-);
-
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
-function closeCompareModal() {
-
-  compareModal.classList.remove(
-    "open"
-  );
-
-  compareModal.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
-}
-
-
-modalClose.addEventListener(
-  "click",
-  closeCompareModal
-);
-
-
-compareModal.addEventListener(
-  "click",
-  event => {
-
-    if (
-      event.target ===
-      compareModal
-    ) {
-
-      closeCompareModal();
-
-    }
-
-  }
+  stopFollowing
 );
 
 
 /* =========================================================
    RESET
-========================================================= */
+   ========================================================= */
 
-resetBtn.addEventListener(
+resetView.addEventListener(
   "click",
   () => {
 
-    paused =
-      false;
+    zoom = 1;
 
-    simulationSpeed =
-      1;
+    updateZoom();
 
-    simulationDays =
-      1;
+    updateSpeed(1);
 
-    zoom =
-      1;
+    isPaused = false;
 
-    followedPlanet =
-      null;
-
-
-    orbitElements.forEach(
-      orbit => {
+    document
+      .querySelectorAll(".orbit")
+      .forEach(orbit => {
 
         orbit.classList.remove(
           "paused"
         );
 
-        orbit.style.animationDuration =
-          "";
-
-      }
-    );
+      });
 
 
-    speedButtons.forEach(
-      button => {
+    const moon =
+      document.querySelector(".moon-orbit");
 
-        button.classList.toggle(
-          "active",
-          button.dataset.speed === "1"
-        );
+    if (moon) {
 
-      }
-    );
+      moon.style.animationPlayState =
+        "running";
+
+    }
 
 
     pauseIcon.textContent =
@@ -2448,78 +1036,118 @@ resetBtn.addEventListener(
     pauseText.textContent =
       "Pause";
 
+    simulationText.textContent =
+      "SIMULATION RUNNING";
 
-    followIndicator.classList.remove(
-      "active"
+    simulationDot.classList.remove(
+      "paused"
     );
 
 
-    camera.style.transform =
-      "translate(-50%, -50%)";
-
-
-    updateZoom();
-
-    updateSimulationDate();
-
-    updateDistancePanel();
+    stopFollowing();
 
   }
 );
 
 
 /* =========================================================
-   FULLSCREEN
-========================================================= */
+   SPEED BUTTONS
+   ========================================================= */
 
-fullscreenBtn.addEventListener(
-  "click",
-  async () => {
+speedButtons.forEach(
+  button => {
 
-    try {
+    button.addEventListener(
+      "click",
+      () => {
 
-      if (
-        !document.fullscreenElement
-      ) {
-
-        await document.documentElement
-          .requestFullscreen();
-
-      } else {
-
-        await document.exitFullscreen();
+        updateSpeed(
+          button.dataset.speed
+        );
 
       }
-
-    } catch (error) {
-
-      console.log(
-        "Fullscreen unavailable"
-      );
-
-    }
+    );
 
   }
 );
 
 
 /* =========================================================
-   CLICK OUTSIDE SEARCH
-========================================================= */
+   SETTINGS
+   ========================================================= */
 
-document.addEventListener(
+function openSettings() {
+
+  settingsOverlay.classList.add(
+    "open"
+  );
+
+  settingsOverlay.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+}
+
+
+function closeSettingsPanel() {
+
+  settingsOverlay.classList.remove(
+    "open"
+  );
+
+  settingsOverlay.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+}
+
+
+settingsBtn.addEventListener(
+  "click",
+  openSettings
+);
+
+
+closeSettings.addEventListener(
+  "click",
+  closeSettingsPanel
+);
+
+
+doneSettings.addEventListener(
+  "click",
+  closeSettingsPanel
+);
+
+
+settingsOverlay.addEventListener(
   "click",
   event => {
 
     if (
-      !event.target.closest(
-        ".search-wrap"
-      )
+      event.target ===
+      settingsOverlay
     ) {
 
-      searchResults.classList.remove(
-        "open"
-      );
+      closeSettingsPanel();
+
+    }
+
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key === "Escape"
+    ) {
+
+      closeSettingsPanel();
 
     }
 
@@ -2528,640 +1156,193 @@ document.addEventListener(
 
 
 /* =========================================================
-   INITIALIZATION
-========================================================= */
-
-updateZoom();
-
-updateSimulationDate();
-
-setSimulationSpeed(1);
-
-
-/* =========================================================
-   INITIAL PLANET
-========================================================= */
-
-setTimeout(
-  () => {
-
-    openPlanet("Earth");
-
-  },
-  350
-);
-/* =========================================================
-   PHASE 3 — ADVANCED UNIVERSE EXPLORER JS
+   SETTINGS — ORBITS
    ========================================================= */
 
-(() => {
-
-  "use strict";
-
-  /* ================= DATA ================= */
-
-  const planetData = {
-
-    Mercury: {
-      type: "Rocky Planet",
-      diameter: "4,879 km",
-      gravity: "3.70 m/s²",
-      temperature: "167°C",
-      moons: "0",
-      day: "1,407.6 hours",
-      year: "87.97 days",
-      sunDistance: "57.9 million km",
-      sunAU: "0.39 AU",
-      description:
-        "The smallest planet and the closest planet to the Sun."
-    },
-
-    Venus: {
-      type: "Rocky Planet",
-      diameter: "12,104 km",
-      gravity: "8.87 m/s²",
-      temperature: "464°C",
-      moons: "0",
-      day: "5,832 hours",
-      year: "224.7 days",
-      sunDistance: "108.2 million km",
-      sunAU: "0.72 AU",
-      description:
-        "A hot, cloudy world with the densest atmosphere of the rocky planets."
-    },
-
-    Earth: {
-      type: "Rocky Planet",
-      diameter: "12,742 km",
-      gravity: "9.81 m/s²",
-      temperature: "15°C",
-      moons: "1",
-      day: "23.93 hours",
-      year: "365.25 days",
-      sunDistance: "149.6 million km",
-      sunAU: "1.00 AU",
-      description:
-        "Our home planet and the only known world with life."
-    },
-
-    Mars: {
-      type: "Rocky Planet",
-      diameter: "6,779 km",
-      gravity: "3.71 m/s²",
-      temperature: "-63°C",
-      moons: "2",
-      day: "24.62 hours",
-      year: "687 days",
-      sunDistance: "227.9 million km",
-      sunAU: "1.52 AU",
-      description:
-        "A cold desert world known for its red surface and ancient valleys."
-    },
-
-    Jupiter: {
-      type: "Gas Giant",
-      diameter: "139,820 km",
-      gravity: "24.79 m/s²",
-      temperature: "-110°C",
-      moons: "95+",
-      day: "9.93 hours",
-      year: "11.86 years",
-      sunDistance: "778.5 million km",
-      sunAU: "5.20 AU",
-      description:
-        "The largest planet in our Solar System."
-    },
-
-    Saturn: {
-      type: "Gas Giant",
-      diameter: "116,460 km",
-      gravity: "10.44 m/s²",
-      temperature: "-140°C",
-      moons: "140+",
-      day: "10.7 hours",
-      year: "29.45 years",
-      sunDistance: "1.43 billion km",
-      sunAU: "9.58 AU",
-      description:
-        "A giant planet famous for its spectacular ring system."
-    },
-
-    Uranus: {
-      type: "Ice Giant",
-      diameter: "50,724 km",
-      gravity: "8.69 m/s²",
-      temperature: "-195°C",
-      moons: "28",
-      day: "17.2 hours",
-      year: "84 years",
-      sunDistance: "2.87 billion km",
-      sunAU: "19.2 AU",
-      description:
-        "An ice giant rotating on its side with a blue-green atmosphere."
-    },
-
-    Neptune: {
-      type: "Ice Giant",
-      diameter: "49,244 km",
-      gravity: "11.15 m/s²",
-      temperature: "-200°C",
-      moons: "16",
-      day: "16.1 hours",
-      year: "164.8 years",
-      sunDistance: "4.50 billion km",
-      sunAU: "30.1 AU",
-      description:
-        "The farthest major planet from the Sun."
-    }
-
-  };
-
-
-  /* ================= ELEMENTS ================= */
-
-  const advancedName =
-    document.getElementById("advancedPlanetName");
-
-  const advancedSunDistance =
-    document.getElementById("advancedSunDistance");
-
-  const advancedSunAU =
-    document.getElementById("advancedSunDistanceAU");
-
-  const advancedEarthDistance =
-    document.getElementById("advancedEarthDistance");
-
-  const advancedEarthAU =
-    document.getElementById("advancedEarthDistanceAU");
-
-  const advancedDiameter =
-    document.getElementById("advancedDiameter");
-
-  const advancedGravity =
-    document.getElementById("advancedGravity");
-
-  const advancedTemperature =
-    document.getElementById("advancedTemperature");
-
-  const advancedMoons =
-    document.getElementById("advancedMoons");
-
-  const advancedDay =
-    document.getElementById("advancedDayLength");
-
-  const advancedYear =
-    document.getElementById("advancedYearLength");
-
-  const objectStatus =
-    document.getElementById("objectStatus");
-
-
-  /* ================= UPDATE DATA ================= */
-
-  function updateAdvancedData(name) {
-
-    if (!planetData[name]) return;
-
-    const data = planetData[name];
-
-    if (advancedName)
-      advancedName.textContent = name;
-
-    if (advancedSunDistance)
-      advancedSunDistance.textContent = data.sunDistance;
-
-    if (advancedSunAU)
-      advancedSunAU.textContent = data.sunAU;
-
-    if (advancedDiameter)
-      advancedDiameter.textContent = data.diameter;
-
-    if (advancedGravity)
-      advancedGravity.textContent = data.gravity;
-
-    if (advancedTemperature)
-      advancedTemperature.textContent = data.temperature;
-
-    if (advancedMoons)
-      advancedMoons.textContent = data.moons;
-
-    if (advancedDay)
-      advancedDay.textContent = data.day;
-
-    if (advancedYear)
-      advancedYear.textContent = data.year;
-
-    /* Earth distance */
-
-    if (advancedEarthDistance && advancedEarthAU) {
-
-      if (name === "Earth") {
-
-        advancedEarthDistance.textContent = "0 km";
-        advancedEarthAU.textContent = "0 AU";
-
-      } else {
-
-        const earthDistance =
-          calculateEarthDistance(name);
-
-        advancedEarthDistance.textContent =
-          earthDistance.km;
-
-        advancedEarthAU.textContent =
-          earthDistance.au;
-
-      }
-
-    }
-
-    if (objectStatus)
-      objectStatus.textContent = "SELECTED";
-
-  }
-
-
-  /* ================= EARTH DISTANCE ================= */
-
-  const orbitalAU = {
-    Mercury: 0.39,
-    Venus: 0.72,
-    Earth: 1,
-    Mars: 1.52,
-    Jupiter: 5.20,
-    Saturn: 9.58,
-    Uranus: 19.2,
-    Neptune: 30.1
-  };
-
-
-  function calculateEarthDistance(name) {
-
-    const difference =
-      Math.abs(orbitalAU[name] - 1);
-
-    const km =
-      difference * 149597870.7;
-
-    return {
-      km: formatDistance(km),
-      au: difference.toFixed(2) + " AU"
-    };
-
-  }
-
-
-  function formatDistance(km) {
-
-    if (km < 1000)
-      return Math.round(km) + " km";
-
-    if (km < 1000000)
-      return Math.round(km / 1000) + " thousand km";
-
-    if (km < 1000000000)
-      return (km / 1000000).toFixed(1) + " million km";
-
-    return (km / 1000000000).toFixed(2) + " billion km";
-
-  }
-
-
-  /* ================= PLANET CLICK DETECTION ================= */
-
-  document.addEventListener("click", event => {
-
-    const planet =
-      event.target.closest("[data-planet]");
-
-    if (!planet) return;
-
-    const name =
-      planet.getAttribute("data-planet");
-
-    if (!planetData[name]) return;
-
-    updateAdvancedData(name);
-
-  });
-
-
-  /* ================= ORBIT TOGGLE ================= */
-
-  const toggleOrbits =
-    document.getElementById("toggleOrbits");
-
-  const settingOrbits =
-    document.getElementById("settingOrbits");
-
-  function setOrbits(enabled) {
+settingOrbits.addEventListener(
+  "change",
+  () => {
 
     document
       .querySelectorAll(".orbit")
       .forEach(orbit => {
 
         orbit.style.borderColor =
-          enabled
+          settingOrbits.checked
             ? ""
             : "transparent";
 
       });
 
-    toggleOrbits?.classList.toggle(
-      "active",
-      enabled
-    );
-
-    if (settingOrbits)
-      settingOrbits.checked = enabled;
-
   }
-
-  toggleOrbits?.addEventListener(
-    "click",
-    () => {
-
-      const enabled =
-        !toggleOrbits.classList.contains("active");
-
-      setOrbits(enabled);
-
-    }
-  );
+);
 
 
-  /* ================= LABEL TOGGLE ================= */
+/* =========================================================
+   SETTINGS — LABELS
+   ========================================================= */
 
-  const toggleLabels =
-    document.getElementById("toggleLabels");
-
-  const settingLabels =
-    document.getElementById("settingLabels");
-
-  function setLabels(enabled) {
+settingLabels.addEventListener(
+  "change",
+  () => {
 
     document
-      .querySelectorAll(".planet-label")
+      .querySelectorAll(".planet-name")
       .forEach(label => {
 
         label.style.display =
-          enabled ? "block" : "none";
+          settingLabels.checked
+            ? ""
+            : "none";
 
       });
 
-    toggleLabels?.classList.toggle(
-      "active",
-      enabled
-    );
+  }
+);
 
-    if (settingLabels)
-      settingLabels.checked = enabled;
+
+/* =========================================================
+   SETTINGS — MOON
+   ========================================================= */
+
+settingMoon.addEventListener(
+  "change",
+  () => {
+
+    const moonOrbit =
+      document.querySelector(
+        ".moon-orbit"
+      );
+
+    if (!moonOrbit) return;
+
+    moonOrbit.style.display =
+      settingMoon.checked
+        ? ""
+        : "none";
 
   }
+);
 
 
-  toggleLabels?.addEventListener(
-    "click",
-    () => {
+/* =========================================================
+   SETTINGS — TRAILS
+   ========================================================= */
 
-      const enabled =
-        !toggleLabels.classList.contains("active");
-
-      setLabels(enabled);
-
-    }
-  );
-
-
-  /* ================= MOON TOGGLE ================= */
-
-  const toggleMoon =
-    document.getElementById("toggleMoon");
-
-  const settingMoon =
-    document.getElementById("settingMoon");
-
-  function setMoon(enabled) {
-
-    document
-      .querySelectorAll(".earth-moon-orbit, .moon")
-      .forEach(item => {
-
-        item.style.display =
-          enabled ? "" : "none";
-
-      });
-
-    toggleMoon?.classList.toggle(
-      "active",
-      enabled
-    );
-
-    if (settingMoon)
-      settingMoon.checked = enabled;
-
-  }
-
-
-  toggleMoon?.addEventListener(
-    "click",
-    () => {
-
-      const enabled =
-        !toggleMoon.classList.contains("active");
-
-      setMoon(enabled);
-
-    }
-  );
-
-
-  /* ================= TRAILS ================= */
-
-  const toggleTrails =
-    document.getElementById("toggleTrails");
-
-  const settingTrails =
-    document.getElementById("settingTrails");
-
-  function setTrails(enabled) {
+settingTrails.addEventListener(
+  "change",
+  () => {
 
     document.body.classList.toggle(
       "trails-enabled",
-      enabled
-    );
-
-    toggleTrails?.classList.toggle(
-      "active",
-      enabled
-    );
-
-    if (settingTrails)
-      settingTrails.checked = enabled;
-
-  }
-
-
-  toggleTrails?.addEventListener(
-    "click",
-    () => {
-
-      const enabled =
-        !toggleTrails.classList.contains("active");
-
-      setTrails(enabled);
-
-    }
-  );
-
-
-  /* ================= SETTINGS MODAL ================= */
-
-  const settingsBtn =
-    document.getElementById("settingsBtn");
-
-  const settingsOverlay =
-    document.getElementById("settingsOverlay");
-
-  const closeSettings =
-    document.getElementById("closeSettings");
-
-  const doneSettings =
-    document.getElementById("doneSettings");
-
-  const restoreSettings =
-    document.getElementById("restoreSettings");
-
-
-  function openSettings() {
-
-    settingsOverlay?.classList.add("open");
-
-    settingsOverlay?.setAttribute(
-      "aria-hidden",
-      "false"
+      settingTrails.checked
     );
 
   }
+);
 
 
-  function closeSettingsPanel() {
+/* =========================================================
+   RESTORE SETTINGS
+   ========================================================= */
 
-    settingsOverlay?.classList.remove("open");
+restoreSettings.addEventListener(
+  "click",
+  () => {
 
-    settingsOverlay?.setAttribute(
-      "aria-hidden",
-      "true"
+    settingOrbits.checked =
+      true;
+
+    settingLabels.checked =
+      true;
+
+    settingMoon.checked =
+      true;
+
+    settingTrails.checked =
+      false;
+
+
+    document
+      .querySelectorAll(".orbit")
+      .forEach(orbit => {
+
+        orbit.style.borderColor =
+          "";
+
+      });
+
+
+    document
+      .querySelectorAll(".planet-name")
+      .forEach(label => {
+
+        label.style.display =
+          "";
+
+      });
+
+
+    const moonOrbit =
+      document.querySelector(
+        ".moon-orbit"
+      );
+
+    if (moonOrbit) {
+
+      moonOrbit.style.display =
+        "";
+
+    }
+
+
+    document.body.classList.remove(
+      "trails-enabled"
     );
 
   }
+);
 
 
-  settingsBtn?.addEventListener(
-    "click",
-    openSettings
-  );
+/* =========================================================
+   KEYBOARD PLANET ACCESS
+   ========================================================= */
 
-  closeSettings?.addEventListener(
-    "click",
-    closeSettingsPanel
-  );
+document
+  .querySelectorAll(".planet")
+  .forEach(planet => {
 
-  doneSettings?.addEventListener(
-    "click",
-    closeSettingsPanel
-  );
+    planet.addEventListener(
+      "keydown",
+      event => {
 
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
 
-  settingsOverlay?.addEventListener(
-    "click",
-    event => {
+          event.preventDefault();
 
-      if (event.target === settingsOverlay)
-        closeSettingsPanel();
+          showPlanet(
+            planet.dataset.planet
+          );
 
-    }
-  );
+        }
 
+      }
+    );
 
-  /* ================= SETTINGS SYNC ================= */
-
-  settingOrbits?.addEventListener(
-    "change",
-    event => {
-
-      setOrbits(event.target.checked);
-
-    }
-  );
+  });
 
 
-  settingLabels?.addEventListener(
-    "change",
-    event => {
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
 
-      setLabels(event.target.checked);
+updateSpeed(1);
 
-    }
-  );
+updateZoom();
 
-
-  settingMoon?.addEventListener(
-    "change",
-    event => {
-
-      setMoon(event.target.checked);
-
-    }
-  );
-
-
-  settingTrails?.addEventListener(
-    "change",
-    event => {
-
-      setTrails(event.target.checked);
-
-    }
-  );
-
-
-  /* ================= RESTORE ================= */
-
-  restoreSettings?.addEventListener(
-    "click",
-    () => {
-
-      setOrbits(true);
-      setLabels(true);
-      setMoon(true);
-      setTrails(false);
-
-    }
-  );
-
-
-  /* ================= ESCAPE ================= */
-
-  document.addEventListener(
-    "keydown",
-    event => {
-
-      if (event.key === "Escape")
-        closeSettingsPanel();
-
-    }
-  );
-
-
-  /* ================= INITIAL ================= */
-
-  setOrbits(true);
-  setLabels(true);
-  setMoon(true);
-  setTrails(false);
-
-  updateAdvancedData("Earth");
-
-
-})();
+console.log(
+  "Universe Explorer initialized successfully."
+);
