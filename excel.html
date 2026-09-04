@@ -88,6 +88,14 @@ footer{
 </div>
 
 <div id="excelContainer"></div>
+
+  <div class="code-box">
+
+    <button onclick="copyCode()">📋 Copy Code</button>
+
+    <pre id="autoHotkeyCode"><code>
+
+
 <h3>
   Add-Type -AssemblyName System.Windows.Forms
 <br>
@@ -101,8 +109,30 @@ while ($true) { <br>
     Start-Sleep -Seconds 5 <br>
 }
 </h3>
+      </code></pre>
+
+  </div>
+  
+  <script>
+function copyCode() {
+    const code = document.getElementById("autoHotkeyCode").innerText;
+
+    navigator.clipboard.writeText(code).then(function() {
+
+        const button = document.querySelector(".code-box button");
+        button.innerText = "✅ Copied!";
+
+        setTimeout(function() {
+            button.innerText = "📋 Copy Code";
+        }, 1500);
+
+    }).catch(function() {
+        alert("Code copy nahi ho paya.");
+    });
+}
+  </script>
 <footer>
-  &copy; 2025 Adeeb Saifi | <a href="feature.html" style="color:#00ff8a; text-decoration:none;">Feature Hub</a>
+  &copy; 2026 Adeeb Saifi | <a href="feature.html" style="color:#00ff8a; text-decoration:none;">Feature Hub</a>
 </footer>
 
 <script>
