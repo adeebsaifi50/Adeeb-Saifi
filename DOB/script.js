@@ -840,3 +840,1713 @@ birthTimeInput.addEventListener(
         }
     }
 );
+
+/* =========================================================
+   UNIVERSE EXPLORER
+   PHASE 2
+========================================================= */
+
+
+/* =========================================================
+   PLANET DATABASE
+========================================================= */
+
+const planets = {
+
+  Mercury: {
+    type: "Rocky planet",
+    diameter: "4,879 km",
+    year: "88 days",
+    day: "58.6 days",
+    gravity: "3.70 m/s²",
+    moons: "0",
+    sunDistance: 57.9,
+    description:
+      "The smallest planet and the closest planet to the Sun.",
+    fact:
+      "Mercury completes one orbit around the Sun in only 88 Earth days."
+  },
+
+  Venus: {
+    type: "Rocky planet",
+    diameter: "12,104 km",
+    year: "224.7 days",
+    day: "243 days",
+    gravity: "8.87 m/s²",
+    moons: "0",
+    sunDistance: 108.2,
+    description:
+      "A rocky world wrapped in a thick atmosphere and intense heat.",
+    fact:
+      "Venus rotates so slowly that one Venusian day is longer than its year."
+  },
+
+  Earth: {
+    type: "Rocky planet",
+    diameter: "12,742 km",
+    year: "365.25 days",
+    day: "23h 56m",
+    gravity: "9.81 m/s²",
+    moons: "1",
+    sunDistance: 149.6,
+    description:
+      "Our home planet and the only world currently known to support life.",
+    fact:
+      "Earth is the only known astronomical body to naturally support life."
+  },
+
+  Mars: {
+    type: "Rocky planet",
+    diameter: "6,779 km",
+    year: "687 days",
+    day: "24h 37m",
+    gravity: "3.71 m/s²",
+    moons: "2",
+    sunDistance: 227.9,
+    description:
+      "The cold, dusty red planet with a thin atmosphere.",
+    fact:
+      "Mars has the largest volcano known in the Solar System: Olympus Mons."
+  },
+
+  Jupiter: {
+    type: "Gas giant",
+    diameter: "139,820 km",
+    year: "11.86 years",
+    day: "9h 56m",
+    gravity: "24.79 m/s²",
+    moons: "95+",
+    sunDistance: 778.5,
+    description:
+      "The largest planet in our Solar System.",
+    fact:
+      "Jupiter is more than twice as massive as all the other planets combined."
+  },
+
+  Saturn: {
+    type: "Gas giant",
+    diameter: "116,460 km",
+    year: "29.45 years",
+    day: "10h 42m",
+    gravity: "10.44 m/s²",
+    moons: "140+",
+    sunDistance: 1432,
+    description:
+      "A gas giant famous for its spectacular ring system.",
+    fact:
+      "Saturn's rings are made mostly of countless pieces of ice and rock."
+  },
+
+  Uranus: {
+    type: "Ice giant",
+    diameter: "50,724 km",
+    year: "84 years",
+    day: "17h 14m",
+    gravity: "8.69 m/s²",
+    moons: "28",
+    sunDistance: 2867,
+    description:
+      "An ice giant with an extreme axial tilt.",
+    fact:
+      "Uranus rotates on its side with an axial tilt of roughly 98 degrees."
+  },
+
+  Neptune: {
+    type: "Ice giant",
+    diameter: "49,244 km",
+    year: "164.8 years",
+    day: "16h 6m",
+    gravity: "11.15 m/s²",
+    moons: "16",
+    sunDistance: 4515,
+    description:
+      "The most distant recognized planet in our Solar System.",
+    fact:
+      "Neptune takes almost 165 Earth years to complete one orbit around the Sun."
+  }
+
+};
+
+
+/* =========================================================
+   VISUAL PLANET COLORS
+========================================================= */
+
+const planetStyles = {
+
+  Mercury:
+    "radial-gradient(circle at 32% 28%, #e1ddd4, #8c857a 48%, #4d4945)",
+
+  Venus:
+    "repeating-linear-gradient(160deg, #e4bd75 0 3px, #b87937 4px 6px, #f0ce8c 7px 9px)",
+
+  Earth:
+    "radial-gradient(circle at 30% 25%, #72e1ff, #277dc4 43%, #174b7d 70%, #0b2038)",
+
+  Mars:
+    "radial-gradient(circle at 30% 28%, #e99a78, #b74730 52%, #67251b)",
+
+  Jupiter:
+    "repeating-linear-gradient(175deg, #c69b70 0 3px, #ead2ad 4px 6px, #9a7456 7px 9px, #d4b28d 10px 13px, #8b6247 14px 17px)",
+
+  Saturn:
+    "repeating-linear-gradient(170deg, #d9c28e 0 3px, #a48b60 4px 6px, #e2cd9a 7px 9px)",
+
+  Uranus:
+    "radial-gradient(circle at 32% 28%, #d3ffff, #77cbd0 48%, #3c8f9c)",
+
+  Neptune:
+    "radial-gradient(circle at 30% 27%, #9dc5ff, #376ec0 48%, #17366f)"
+
+};
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const infoPanel =
+  document.getElementById("infoPanel");
+
+const panelClose =
+  document.getElementById("panelClose");
+
+const panelBackdrop =
+  document.getElementById("panelBackdrop");
+
+const largePlanet =
+  document.getElementById("largePlanet");
+
+const infoName =
+  document.getElementById("infoName");
+
+const infoDescription =
+  document.getElementById("infoDescription");
+
+const infoType =
+  document.getElementById("infoType");
+
+const infoDiameter =
+  document.getElementById("infoDiameter");
+
+const infoYear =
+  document.getElementById("infoYear");
+
+const infoDay =
+  document.getElementById("infoDay");
+
+const infoGravity =
+  document.getElementById("infoGravity");
+
+const infoMoons =
+  document.getElementById("infoMoons");
+
+const infoFact =
+  document.getElementById("infoFact");
+
+const earthDistance =
+  document.getElementById("earthDistance");
+
+const earthDistanceSub =
+  document.getElementById("earthDistanceSub");
+
+const sunDistance =
+  document.getElementById("sunDistance");
+
+const followBtn =
+  document.getElementById("followBtn");
+
+const compareBtn =
+  document.getElementById("compareBtn");
+
+const followIndicator =
+  document.getElementById("followIndicator");
+
+const followName =
+  document.getElementById("followName");
+
+const solarSystem =
+  document.getElementById("solarSystem");
+
+const camera =
+  document.getElementById("camera");
+
+const zoomValue =
+  document.getElementById("zoomValue");
+
+const simulationDate =
+  document.getElementById("simulationDate");
+
+const pauseBtn =
+  document.getElementById("pauseBtn");
+
+const pauseIcon =
+  document.getElementById("pauseIcon");
+
+const pauseText =
+  document.getElementById("pauseText");
+
+const resetBtn =
+  document.getElementById("resetBtn");
+
+const zoomIn =
+  document.getElementById("zoomIn");
+
+const zoomOut =
+  document.getElementById("zoomOut");
+
+const planetSearch =
+  document.getElementById("planetSearch");
+
+const searchResults =
+  document.getElementById("searchResults");
+
+const fullscreenBtn =
+  document.getElementById("fullscreenBtn");
+
+const compareModal =
+  document.getElementById("compareModal");
+
+const modalClose =
+  document.getElementById("modalClose");
+
+const comparePlanet =
+  document.getElementById("comparePlanet");
+
+const comparePlanetName =
+  document.getElementById("comparePlanetName");
+
+const comparePlanetLabel =
+  document.getElementById("comparePlanetLabel");
+
+const compareDiameter =
+  document.getElementById("compareDiameter");
+
+const compareGravity =
+  document.getElementById("compareGravity");
+
+const compareYear =
+  document.getElementById("compareYear");
+
+
+/* =========================================================
+   ORBITS
+========================================================= */
+
+const orbitElements =
+  document.querySelectorAll(".orbit");
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let selectedPlanet = null;
+
+let followedPlanet = null;
+
+let paused = false;
+
+let simulationSpeed = 1;
+
+let simulationDays = 1;
+
+let zoom = 1;
+
+
+/* =========================================================
+   PLANET ORBIT DATA
+========================================================= */
+
+/*
+   These values are normalized orbital radii for
+   the visualization.
+
+   They are NOT physical screen distances.
+*/
+
+const orbitRadius = {
+
+  Mercury: 0.06,
+  Venus: 0.105,
+  Earth: 0.15,
+  Mars: 0.20,
+  Jupiter: 0.265,
+  Saturn: 0.33,
+  Uranus: 0.39,
+  Neptune: 0.45
+
+};
+
+
+/* =========================================================
+   ORBITAL PERIODS
+========================================================= */
+
+const orbitalPeriods = {
+
+  Mercury: 87.969,
+  Venus: 224.701,
+  Earth: 365.256,
+  Mars: 686.98,
+  Jupiter: 4332.59,
+  Saturn: 10759.22,
+  Uranus: 30688.5,
+  Neptune: 60182
+
+};
+
+
+/* =========================================================
+   PLANET PHASES
+========================================================= */
+
+const startingAngles = {
+
+  Mercury: 20,
+  Venus: 80,
+  Earth: 140,
+  Mars: 210,
+  Jupiter: 275,
+  Saturn: 330,
+  Uranus: 35,
+  Neptune: 110
+
+};
+
+
+/* =========================================================
+   COLOR HELPER
+========================================================= */
+
+function setPlanetVisual(element, name) {
+
+  if (!element) return;
+
+  element.style.background =
+    planetStyles[name] || "";
+
+}
+
+
+/* =========================================================
+   OPEN PLANET PANEL
+========================================================= */
+
+function openPlanet(name) {
+
+  const data = planets[name];
+
+  if (!data) return;
+
+  selectedPlanet = name;
+
+
+  infoName.textContent =
+    name;
+
+  infoDescription.textContent =
+    data.description;
+
+  infoType.textContent =
+    data.type;
+
+  infoDiameter.textContent =
+    data.diameter;
+
+  infoYear.textContent =
+    data.year;
+
+  infoDay.textContent =
+    data.day;
+
+  infoGravity.textContent =
+    data.gravity;
+
+  infoMoons.textContent =
+    data.moons;
+
+  infoFact.textContent =
+    data.fact;
+
+
+  setPlanetVisual(
+    largePlanet,
+    name
+  );
+
+
+  updateDistancePanel();
+
+
+  followBtn.innerHTML =
+    followedPlanet === name
+      ? "<span>◎</span> Following"
+      : "<span>◎</span> Follow";
+
+
+  infoPanel.classList.add(
+    "open"
+  );
+
+  infoPanel.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  panelBackdrop.classList.add(
+    "open"
+  );
+
+}
+
+
+/* =========================================================
+   CLOSE PANEL
+========================================================= */
+
+function closePanelFunction() {
+
+  infoPanel.classList.remove(
+    "open"
+  );
+
+  infoPanel.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  panelBackdrop.classList.remove(
+    "open"
+  );
+
+}
+
+
+/* =========================================================
+   DISTANCE CALCULATION
+========================================================= */
+
+/*
+   This calculates a simulated heliocentric position
+   using circularized orbital paths.
+
+   It is intended as an educational visualization,
+   not a precision ephemeris engine.
+*/
+
+function getPlanetPosition(name) {
+
+  const data = planets[name];
+
+  if (!data) return null;
+
+
+  const period =
+    orbitalPeriods[name];
+
+  const angle =
+    (
+      startingAngles[name] +
+      (
+        simulationDays /
+        period
+      ) *
+      360
+    ) % 360;
+
+
+  const radians =
+    angle * Math.PI / 180;
+
+
+  const radius =
+    orbitRadius[name];
+
+
+  return {
+
+    x:
+      radius *
+      Math.cos(radians),
+
+    y:
+      radius *
+      Math.sin(radians)
+
+  };
+
+}
+
+
+/* =========================================================
+   CURRENT EARTH DISTANCE
+========================================================= */
+
+function calculateEarthDistance(name) {
+
+  if (name === "Earth") {
+
+    return 0;
+
+  }
+
+
+  const earth =
+    getPlanetPosition("Earth");
+
+  const target =
+    getPlanetPosition(name);
+
+
+  if (!earth || !target) {
+    return 0;
+  }
+
+
+  /*
+     The normalized radius is mapped to AU
+     using the planet's actual average
+     heliocentric distance.
+
+     This keeps the display educational.
+  */
+
+  const earthAU =
+    planets.Earth.sunDistance / 149.5978707;
+
+  const targetAU =
+    planets[name].sunDistance / 149.5978707;
+
+
+  const earthX =
+    earth.x /
+    orbitRadius.Earth *
+    earthAU;
+
+  const earthY =
+    earth.y /
+    orbitRadius.Earth *
+    earthAU;
+
+  const targetX =
+    target.x /
+    orbitRadius[name] *
+    targetAU;
+
+  const targetY =
+    target.y /
+    orbitRadius[name] *
+    targetAU;
+
+
+  const dx =
+    targetX - earthX;
+
+  const dy =
+    targetY - earthY;
+
+
+  const distanceAU =
+    Math.sqrt(
+      dx * dx +
+      dy * dy
+    );
+
+
+  return distanceAU * 149.5978707;
+
+}
+
+
+/* =========================================================
+   FORMAT DISTANCE
+========================================================= */
+
+function formatDistanceAU(au) {
+
+  if (au === 0) {
+    return "0 km";
+  }
+
+
+  const km =
+    au * 149.5978707;
+
+
+  if (km >= 1000000000) {
+
+    return (
+      (km / 1000000000)
+        .toFixed(2)
+      + " billion km"
+    );
+
+  }
+
+
+  if (km >= 1000000) {
+
+    return (
+      (km / 1000000)
+        .toFixed(2)
+      + " million km"
+    );
+
+  }
+
+
+  return (
+    Math.round(km)
+    .toLocaleString()
+    + " km"
+  );
+
+}
+
+
+/* =========================================================
+   UPDATE DISTANCE PANEL
+========================================================= */
+
+function updateDistancePanel() {
+
+  if (!selectedPlanet) return;
+
+
+  const distanceAU =
+    calculateEarthDistance(
+      selectedPlanet
+    );
+
+
+  earthDistance.textContent =
+    formatDistanceAU(
+      distanceAU
+    );
+
+
+  if (
+    selectedPlanet === "Earth"
+  ) {
+
+    earthDistanceSub.textContent =
+      "You are here";
+
+  } else {
+
+    earthDistanceSub.textContent =
+      "Current simulated distance";
+
+  }
+
+
+  const sunKm =
+    planets[selectedPlanet]
+      .sunDistance;
+
+
+  sunDistance.textContent =
+    sunKm >= 1000
+
+      ? (
+          (
+            sunKm /
+            149.5978707
+          ).toFixed(2)
+          + " AU"
+        )
+
+      : (
+          sunKm.toFixed(1)
+          + " million km"
+        );
+
+}
+
+
+/* =========================================================
+   PLANET CLICK EVENTS
+========================================================= */
+
+document
+  .querySelectorAll(".planet")
+  .forEach(
+    planet => {
+
+      planet.addEventListener(
+        "click",
+        event => {
+
+          event.stopPropagation();
+
+          const name =
+            planet.dataset.planet;
+
+          openPlanet(name);
+
+        }
+      );
+
+
+      planet.addEventListener(
+        "keydown",
+        event => {
+
+          if (
+            event.key === "Enter" ||
+            event.key === " "
+          ) {
+
+            event.preventDefault();
+
+            openPlanet(
+              planet.dataset.planet
+            );
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   SUN
+========================================================= */
+
+document
+  .getElementById("sunObject")
+  .addEventListener(
+    "click",
+    () => {
+
+      selectedPlanet = "Sun";
+
+
+      infoName.textContent =
+        "Sun";
+
+      infoDescription.textContent =
+        "The star at the center of our Solar System.";
+
+      infoType.textContent =
+        "Star";
+
+      infoDiameter.textContent =
+        "1.39 million km";
+
+      infoYear.textContent =
+        "≈ 230 million years";
+
+      infoDay.textContent =
+        "≈ 25–35 days";
+
+      infoGravity.textContent =
+        "274 m/s²";
+
+      infoMoons.textContent =
+        "—";
+
+      infoFact.textContent =
+        "The Sun contains almost all of the mass in the Solar System.";
+
+
+      largePlanet.style.background =
+        "radial-gradient(circle at 34% 28%, #fff9db, #ffd66f 22%, #ff9a2d 58%, #e74f19)";
+
+
+      earthDistance.textContent =
+        "149.6 million km";
+
+      earthDistanceSub.textContent =
+        "Earth → Sun average distance";
+
+      sunDistance.textContent =
+        "0 km";
+
+
+      followBtn.innerHTML =
+        "<span>◎</span> Follow";
+
+
+      infoPanel.classList.add(
+        "open"
+      );
+
+      infoPanel.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      panelBackdrop.classList.add(
+        "open"
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   FOLLOW MODE
+========================================================= */
+
+followBtn.addEventListener(
+  "click",
+  () => {
+
+    if (
+      !selectedPlanet ||
+      selectedPlanet === "Sun"
+    ) {
+      return;
+    }
+
+
+    if (
+      followedPlanet === selectedPlanet
+    ) {
+
+      followedPlanet =
+        null;
+
+      followIndicator.classList.remove(
+        "active"
+      );
+
+      followBtn.innerHTML =
+        "<span>◎</span> Follow";
+
+      camera.style.transform =
+        "translate(-50%, -50%)";
+
+      return;
+
+    }
+
+
+    followedPlanet =
+      selectedPlanet;
+
+
+    followIndicator.classList.add(
+      "active"
+    );
+
+    followName.textContent =
+      selectedPlanet;
+
+    followBtn.innerHTML =
+      "<span>◎</span> Following";
+
+
+    focusPlanet(
+      selectedPlanet
+    );
+
+  }
+);
+
+
+/* =========================================================
+   FOCUS PLANET
+========================================================= */
+
+function focusPlanet(name) {
+
+  if (!name) return;
+
+
+  const element =
+    document.querySelector(
+      `[data-planet="${name}"]`
+    );
+
+
+  if (!element) return;
+
+
+  const orbit =
+    element.closest(".orbit");
+
+
+  if (!orbit) return;
+
+
+  const rect =
+    orbit.getBoundingClientRect();
+
+
+  const view =
+    document
+      .getElementById("spaceView")
+      .getBoundingClientRect();
+
+
+  const x =
+    rect.left +
+    rect.width / 2 -
+    (
+      view.left +
+      view.width / 2
+    );
+
+  const y =
+    rect.top +
+    rect.height / 2 -
+    (
+      view.top +
+      view.height / 2
+    );
+
+
+  camera.style.transform =
+    `translate(
+      calc(-50% - ${x}px),
+      calc(-50% - ${y}px)
+    )`;
+
+}
+
+
+/* =========================================================
+   PAUSE
+========================================================= */
+
+pauseBtn.addEventListener(
+  "click",
+  () => {
+
+    paused =
+      !paused;
+
+
+    orbitElements.forEach(
+      orbit => {
+
+        orbit.classList.toggle(
+          "paused",
+          paused
+        );
+
+      }
+    );
+
+
+    pauseIcon.textContent =
+      paused ? "▶" : "Ⅱ";
+
+    pauseText.textContent =
+      paused ? "Play" : "Pause";
+
+  }
+);
+
+
+/* =========================================================
+   SPEED CONTROL
+========================================================= */
+
+const speedButtons =
+  document.querySelectorAll(
+    "[data-speed]"
+  );
+
+
+const baseOrbitDurations = {
+
+  mercury: 8,
+  venus: 14,
+  earth: 18,
+  mars: 24,
+  jupiter: 34,
+  saturn: 43,
+  uranus: 52,
+  neptune: 60
+
+};
+
+
+function setSimulationSpeed(speed) {
+
+  simulationSpeed =
+    Number(speed);
+
+
+  orbitElements.forEach(
+    orbit => {
+
+      const name =
+        orbit.dataset.orbit;
+
+      const base =
+        baseOrbitDurations[name];
+
+
+      if (!base) return;
+
+
+      orbit.style.animationDuration =
+        `${base / simulationSpeed}s`;
+
+    }
+  );
+
+}
+
+
+speedButtons.forEach(
+  button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        const speed =
+          Number(
+            button.dataset.speed
+          );
+
+
+        setSimulationSpeed(
+          speed
+        );
+
+
+        speedButtons.forEach(
+          item => {
+
+            item.classList.remove(
+              "active"
+            );
+
+          }
+        );
+
+
+        button.classList.add(
+          "active"
+        );
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   SIMULATION CLOCK
+========================================================= */
+
+let lastFrame =
+  performance.now();
+
+
+function simulationLoop(now) {
+
+  const delta =
+    now - lastFrame;
+
+
+  lastFrame =
+    now;
+
+
+  if (!paused) {
+
+    /*
+       1x = 1 simulated day every
+       2 real seconds.
+
+       Higher speed multiplies it.
+    */
+
+    const daysPerSecond =
+      0.5 *
+      simulationSpeed;
+
+
+    simulationDays +=
+      (
+        delta / 1000
+      ) *
+      daysPerSecond;
+
+
+    updateSimulationDate();
+
+    updateDistancePanel();
+
+  }
+
+
+  requestAnimationFrame(
+    simulationLoop
+  );
+
+}
+
+
+requestAnimationFrame(
+  simulationLoop
+);
+
+
+/* =========================================================
+   SIMULATION DATE
+========================================================= */
+
+function updateSimulationDate() {
+
+  const day =
+    Math.floor(
+      simulationDays
+    );
+
+
+  const year =
+    Math.floor(
+      (
+        day - 1
+      ) / 365.25
+    ) + 1;
+
+
+  const dayOfYear =
+    Math.floor(
+      (
+        day - 1
+      ) % 365.25
+    ) + 1;
+
+
+  simulationDate.textContent =
+    `Day ${dayOfYear} · Year ${year}`;
+
+}
+
+
+/* =========================================================
+   ZOOM
+========================================================= */
+
+function updateZoom() {
+
+  zoom =
+    Math.min(
+      1.7,
+      Math.max(
+        0.65,
+        zoom
+      )
+    );
+
+
+  document.documentElement.style
+    .setProperty(
+      "--zoom",
+      zoom
+    );
+
+
+  zoomValue.textContent =
+    Math.round(
+      zoom * 100
+    ) + "%";
+
+}
+
+
+zoomIn.addEventListener(
+  "click",
+  () => {
+
+    zoom += .15;
+
+    updateZoom();
+
+  }
+);
+
+
+zoomOut.addEventListener(
+  "click",
+  () => {
+
+    zoom -= .15;
+
+    updateZoom();
+
+  }
+);
+
+
+/* =========================================================
+   MODE SWITCH
+========================================================= */
+
+document
+  .querySelectorAll(".mode-button")
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const mode =
+            button.dataset.mode;
+
+
+          document
+            .querySelectorAll(
+              ".mode-button"
+            )
+            .forEach(
+              item => {
+
+                item.classList.remove(
+                  "active"
+                );
+
+              }
+            );
+
+
+          button.classList.add(
+            "active"
+          );
+
+
+          document.body.classList.toggle(
+            "true-scale",
+            mode === "true"
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+planetSearch.addEventListener(
+  "input",
+  () => {
+
+    const query =
+      planetSearch.value
+        .trim()
+        .toLowerCase();
+
+
+    searchResults.innerHTML = "";
+
+
+    if (!query) {
+
+      searchResults.classList.remove(
+        "open"
+      );
+
+      return;
+
+    }
+
+
+    const matches =
+      Object.keys(planets)
+        .filter(
+          name =>
+            name
+              .toLowerCase()
+              .includes(query)
+        );
+
+
+    if (!matches.length) {
+
+      searchResults.innerHTML =
+        `<div class="search-result">
+          No planet found
+        </div>`;
+
+      searchResults.classList.add(
+        "open"
+      );
+
+      return;
+
+    }
+
+
+    matches.forEach(
+      name => {
+
+        const item =
+          document.createElement(
+            "button"
+          );
+
+
+        item.className =
+          "search-result";
+
+
+        item.innerHTML = `
+          <span
+            class="result-dot"
+            style="background:${planetStyles[name]}"
+          ></span>
+
+          <span>${name}</span>
+        `;
+
+
+        item.addEventListener(
+          "click",
+          () => {
+
+            openPlanet(name);
+
+            searchResults.classList.remove(
+              "open"
+            );
+
+            planetSearch.value =
+              "";
+
+          }
+        );
+
+
+        searchResults.appendChild(
+          item
+        );
+
+      }
+    );
+
+
+    searchResults.classList.add(
+      "open"
+    );
+
+  }
+);
+
+
+/* =========================================================
+   SEARCH KEYBOARD SHORTCUT
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      (
+        event.ctrlKey ||
+        event.metaKey
+      ) &&
+      event.key.toLowerCase() === "k"
+    ) {
+
+      event.preventDefault();
+
+      planetSearch.focus();
+
+    }
+
+
+    if (
+      event.key === "Escape"
+    ) {
+
+      searchResults.classList.remove(
+        "open"
+      );
+
+      closePanelFunction();
+
+      closeCompareModal();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   CLOSE PANEL
+========================================================= */
+
+panelClose.addEventListener(
+  "click",
+  closePanelFunction
+);
+
+panelBackdrop.addEventListener(
+  "click",
+  closePanelFunction
+);
+
+
+/* =========================================================
+   COMPARE
+========================================================= */
+
+compareBtn.addEventListener(
+  "click",
+  () => {
+
+    if (
+      !selectedPlanet ||
+      selectedPlanet === "Sun"
+    ) {
+      return;
+    }
+
+
+    const data =
+      planets[selectedPlanet];
+
+
+    comparePlanetName.textContent =
+      selectedPlanet;
+
+    comparePlanetLabel.textContent =
+      selectedPlanet;
+
+    comparePlanet.style.background =
+      planetStyles[selectedPlanet];
+
+    compareDiameter.textContent =
+      data.diameter;
+
+    compareGravity.textContent =
+      data.gravity;
+
+    compareYear.textContent =
+      data.year;
+
+
+    compareModal.classList.add(
+      "open"
+    );
+
+    compareModal.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+  }
+);
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeCompareModal() {
+
+  compareModal.classList.remove(
+    "open"
+  );
+
+  compareModal.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+}
+
+
+modalClose.addEventListener(
+  "click",
+  closeCompareModal
+);
+
+
+compareModal.addEventListener(
+  "click",
+  event => {
+
+    if (
+      event.target ===
+      compareModal
+    ) {
+
+      closeCompareModal();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+resetBtn.addEventListener(
+  "click",
+  () => {
+
+    paused =
+      false;
+
+    simulationSpeed =
+      1;
+
+    simulationDays =
+      1;
+
+    zoom =
+      1;
+
+    followedPlanet =
+      null;
+
+
+    orbitElements.forEach(
+      orbit => {
+
+        orbit.classList.remove(
+          "paused"
+        );
+
+        orbit.style.animationDuration =
+          "";
+
+      }
+    );
+
+
+    speedButtons.forEach(
+      button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.speed === "1"
+        );
+
+      }
+    );
+
+
+    pauseIcon.textContent =
+      "Ⅱ";
+
+    pauseText.textContent =
+      "Pause";
+
+
+    followIndicator.classList.remove(
+      "active"
+    );
+
+
+    camera.style.transform =
+      "translate(-50%, -50%)";
+
+
+    updateZoom();
+
+    updateSimulationDate();
+
+    updateDistancePanel();
+
+  }
+);
+
+
+/* =========================================================
+   FULLSCREEN
+========================================================= */
+
+fullscreenBtn.addEventListener(
+  "click",
+  async () => {
+
+    try {
+
+      if (
+        !document.fullscreenElement
+      ) {
+
+        await document.documentElement
+          .requestFullscreen();
+
+      } else {
+
+        await document.exitFullscreen();
+
+      }
+
+    } catch (error) {
+
+      console.log(
+        "Fullscreen unavailable"
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   CLICK OUTSIDE SEARCH
+========================================================= */
+
+document.addEventListener(
+  "click",
+  event => {
+
+    if (
+      !event.target.closest(
+        ".search-wrap"
+      )
+    ) {
+
+      searchResults.classList.remove(
+        "open"
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+updateZoom();
+
+updateSimulationDate();
+
+setSimulationSpeed(1);
+
+
+/* =========================================================
+   INITIAL PLANET
+========================================================= */
+
+setTimeout(
+  () => {
+
+    openPlanet("Earth");
+
+  },
+  350
+);
