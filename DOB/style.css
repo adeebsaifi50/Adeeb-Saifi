@@ -3629,3 +3629,443 @@ body.true-scale .orbit {
     transition-duration: .01ms !important;
   }
 }
+/* =========================================================
+   PHASE 3 — ADVANCED UNIVERSE EXPLORER
+   ========================================================= */
+
+.phase3-panel {
+  width: min(1100px, calc(100% - 32px));
+  margin: 55px auto 35px;
+  padding: 30px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 24px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018)),
+    rgba(7,10,18,.72);
+  box-shadow: 0 25px 80px rgba(0,0,0,.35);
+  backdrop-filter: blur(22px);
+}
+
+.phase3-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.phase3-eyebrow,
+.data-eyebrow {
+  display: block;
+  color: rgba(160,190,255,.75);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.phase3-header h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(24px, 4vw, 34px);
+  letter-spacing: -.8px;
+}
+
+.phase3-header p {
+  margin: 8px 0 0;
+  color: rgba(255,255,255,.55);
+  font-size: 14px;
+}
+
+.settings-btn {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 13px;
+  background: rgba(255,255,255,.045);
+  color: #fff;
+  font-size: 19px;
+  cursor: pointer;
+  transition: .25s ease;
+}
+
+.settings-btn:hover {
+  transform: rotate(25deg);
+  background: rgba(255,255,255,.1);
+}
+
+
+/* ================= VIEW OPTIONS ================= */
+
+.view-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.view-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 15px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 12px;
+  background: rgba(255,255,255,.035);
+  color: rgba(255,255,255,.62);
+  font-size: 12px;
+  cursor: pointer;
+  transition: .22s ease;
+}
+
+.view-option span:first-child {
+  font-size: 15px;
+}
+
+.view-option:hover {
+  border-color: rgba(255,255,255,.2);
+  color: #fff;
+}
+
+.view-option.active {
+  background: rgba(255,255,255,.09);
+  border-color: rgba(255,255,255,.2);
+  color: #fff;
+}
+
+
+/* ================= ADVANCED DATA ================= */
+
+.advanced-data {
+  margin-top: 28px;
+}
+
+.advanced-data-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.advanced-data-header h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 27px;
+}
+
+.object-status {
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(80,220,150,.08);
+  border: 1px solid rgba(80,220,150,.16);
+  color: rgba(130,255,190,.85);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.data-group {
+  margin-top: 22px;
+}
+
+.data-group-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 11px;
+  color: rgba(255,255,255,.48);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.data-card {
+  min-height: 78px;
+  padding: 15px;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 15px;
+  background: rgba(255,255,255,.025);
+  transition: .2s ease;
+}
+
+.data-card:hover {
+  background: rgba(255,255,255,.045);
+  transform: translateY(-2px);
+}
+
+.data-card span {
+  display: block;
+  color: rgba(255,255,255,.38);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.data-card strong {
+  display: block;
+  color: rgba(255,255,255,.92);
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.data-card small {
+  display: block;
+  color: rgba(150,180,255,.65);
+  margin-top: 4px;
+  font-size: 10px;
+}
+
+
+/* ================= SETTINGS OVERLAY ================= */
+
+.settings-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0,0,0,.68);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: .25s ease;
+}
+
+.settings-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.settings-modal {
+  width: min(500px, 100%);
+  padding: 25px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 22px;
+  background:
+    linear-gradient(145deg, rgba(25,30,45,.98), rgba(7,10,18,.98));
+  box-shadow: 0 30px 100px rgba(0,0,0,.55);
+  transform: translateY(15px) scale(.98);
+  transition: .25s ease;
+}
+
+.settings-overlay.open .settings-modal {
+  transform: translateY(0) scale(1);
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.settings-header h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 22px;
+}
+
+.settings-close {
+  width: 35px;
+  height: 35px;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.7);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.settings-list {
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 17px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  cursor: pointer;
+}
+
+.setting-row strong {
+  display: block;
+  color: rgba(255,255,255,.9);
+  font-size: 13px;
+}
+
+.setting-row span {
+  display: block;
+  color: rgba(255,255,255,.38);
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+
+/* ================= TOGGLE ================= */
+
+.setting-row input {
+  appearance: none;
+  width: 43px;
+  height: 24px;
+  flex: 0 0 43px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.08);
+  position: relative;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.setting-row input::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.7);
+  transition: .2s ease;
+}
+
+.setting-row input:checked {
+  background: rgba(110,160,255,.38);
+}
+
+.setting-row input:checked::after {
+  transform: translateX(19px);
+  background: #fff;
+}
+
+
+/* ================= SETTINGS FOOTER ================= */
+
+.settings-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.restore-settings,
+.done-settings {
+  min-height: 40px;
+  padding: 0 15px;
+  border-radius: 11px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.restore-settings {
+  border: 1px solid rgba(255,255,255,.08);
+  background: transparent;
+  color: rgba(255,255,255,.5);
+}
+
+.done-settings {
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.09);
+  color: #fff;
+}
+
+
+/* ================= PLANET LABELS ================= */
+
+.planet-label-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.planet-label {
+  position: absolute;
+  display: none;
+  padding: 4px 8px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 6px;
+  background: rgba(0,0,0,.55);
+  color: rgba(255,255,255,.75);
+  font-size: 9px;
+  letter-spacing: .5px;
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 800px) {
+
+  .phase3-panel {
+    padding: 21px;
+    border-radius: 20px;
+  }
+
+  .data-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 500px) {
+
+  .phase3-panel {
+    width: calc(100% - 20px);
+    margin-top: 35px;
+    padding: 17px;
+  }
+
+  .phase3-header {
+    gap: 10px;
+  }
+
+  .phase3-header p {
+    font-size: 12px;
+  }
+
+  .view-options {
+    gap: 7px;
+  }
+
+  .view-option {
+    flex: 1;
+    justify-content: center;
+    padding: 0 8px;
+  }
+
+  .data-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-footer {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .restore-settings,
+  .done-settings {
+    width: 100%;
+  }
+
+}
