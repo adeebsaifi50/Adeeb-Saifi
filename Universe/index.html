@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description"
+        content="Explore the Solar System interactively and discover the planets, their orbits and real astronomical information.">
+
+  <title>Universe Explorer</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Background -->
+  <div class="stars"></div>
+  <div class="stars stars-two"></div>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+
+    <div class="brand">
+      <div class="brand-icon">✦</div>
+
+      <div>
+        <strong>Universe Explorer</strong>
+        <span>Interactive Space</span>
+      </div>
+    </div>
+
+    <div class="top-status">
+      <span class="status-dot"></span>
+      Solar System
+    </div>
+
+  </header>
+
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- INTRO -->
+    <section class="intro">
+
+      <div class="eyebrow">
+        <span>✦</span>
+        EXPLORE THE UNIVERSE
+      </div>
+
+      <h1>
+        Start with our
+        <span>Solar System.</span>
+      </h1>
+
+      <p>
+        Explore the planets, watch their orbital motion and
+        discover how our cosmic neighbourhood works.
+      </p>
+
+    </section>
+
+
+    <!-- SPACE -->
+    <section class="space-wrapper">
+
+      <div class="space">
+
+        <!-- Sun -->
+        <div
+          class="sun"
+          id="sun"
+          data-name="Sun"
+          tabindex="0"
+        >
+          <div class="sun-glow"></div>
+          <div class="sun-core"></div>
+        </div>
+
+
+        <!-- Mercury -->
+        <div
+          class="orbit orbit-mercury"
+          data-orbit="mercury"
+        >
+          <div
+            class="planet mercury"
+            data-planet="Mercury"
+            tabindex="0"
+          ></div>
+        </div>
+
+
+        <!-- Venus -->
+        <div
+          class="orbit orbit-venus"
+          data-orbit="venus"
+        >
+          <div
+            class="planet venus"
+            data-planet="Venus"
+            tabindex="0"
+          ></div>
+        </div>
+
+
+        <!-- Earth -->
+        <div
+          class="orbit orbit-earth"
+          data-orbit="earth"
+        >
+          <div
+            class="planet earth"
+            data-planet="Earth"
+            tabindex="0"
+          >
+
+            <div class="earth-moon-orbit">
+              <div class="moon"></div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- Mars -->
+        <div
+          class="orbit orbit-mars"
+          data-orbit="mars"
+        >
+          <div
+            class="planet mars"
+            data-planet="Mars"
+            tabindex="0"
+          ></div>
+        </div>
+
+
+        <!-- Jupiter -->
+        <div
+          class="orbit orbit-jupiter"
+          data-orbit="jupiter"
+        >
+          <div
+            class="planet jupiter"
+            data-planet="Jupiter"
+            tabindex="0"
+          ></div>
+        </div>
+
+
+        <!-- Saturn -->
+        <div
+          class="orbit orbit-saturn"
+          data-orbit="saturn"
+        >
+          <div
+            class="planet saturn"
+            data-planet="Saturn"
+            tabindex="0"
+          >
+            <span class="saturn-ring"></span>
+          </div>
+        </div>
+
+
+        <!-- Uranus -->
+        <div
+          class="orbit orbit-uranus"
+          data-orbit="uranus"
+        >
+          <div
+            class="planet uranus"
+            data-planet="Uranus"
+            tabindex="0"
+          ></div>
+        </div>
+
+
+        <!-- Neptune -->
+        <div
+          class="orbit orbit-neptune"
+          data-orbit="neptune"
+        >
+          <div
+            class="planet neptune"
+            data-planet="Neptune"
+            tabindex="0"
+          ></div>
+        </div>
+
+      </div>
+
+
+      <!-- SPACE LABEL -->
+      <div class="space-label">
+        <span class="label-line"></span>
+        <span>THE SOLAR SYSTEM</span>
+        <span class="label-line"></span>
+      </div>
+
+
+      <!-- CONTROLS -->
+      <div class="controls">
+
+        <button id="pauseBtn" class="control-btn">
+          <span id="pauseIcon">Ⅱ</span>
+          <span id="pauseText">Pause</span>
+        </button>
+
+        <div class="speed-control">
+
+          <span>Speed</span>
+
+          <button data-speed="0.5">0.5×</button>
+          <button data-speed="1" class="active">1×</button>
+          <button data-speed="10">10×</button>
+          <button data-speed="100">100×</button>
+          <button data-speed="1000">1K×</button>
+
+        </div>
+
+        <button id="resetView" class="control-btn">
+          ↻ Reset
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- INFO PANEL -->
+    <aside
+      class="info-panel"
+      id="infoPanel"
+      aria-hidden="true"
+    >
+
+      <button
+        class="close-panel"
+        id="closePanel"
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+      <div class="planet-preview" id="planetPreview">
+        <div class="preview-planet"></div>
+      </div>
+
+      <div class="panel-category">
+        PLANET
+      </div>
+
+      <h2 id="planetName">
+        Earth
+      </h2>
+
+      <p
+        class="planet-description"
+        id="planetDescription"
+      >
+        Our home planet.
+      </p>
+
+
+      <div class="quick-stats">
+
+        <div>
+          <span>TYPE</span>
+          <strong id="planetType">—</strong>
+        </div>
+
+        <div>
+          <span>DIAMETER</span>
+          <strong id="planetDiameter">—</strong>
+        </div>
+
+        <div>
+          <span>YEAR</span>
+          <strong id="planetYear">—</strong>
+        </div>
+
+        <div>
+          <span>MOONS</span>
+          <strong id="planetMoons">—</strong>
+        </div>
+
+      </div>
+
+      <button
+        class="follow-btn"
+        id="followBtn"
+      >
+        Follow Planet
+        <span>→</span>
+      </button>
+
+    </aside>
+
+
+    <!-- LEGEND -->
+    <div class="legend">
+
+      <div>
+        <span class="legend-dot rocky"></span>
+        Rocky planets
+      </div>
+
+      <div>
+        <span class="legend-dot gas"></span>
+        Gas / Ice giants
+      </div>
+
+      <div>
+        <span class="legend-orbit"></span>
+        Orbital paths
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <span>Universe Explorer</span>
+
+    <span>
+      Educational visualization
+    </span>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
+      </html>
