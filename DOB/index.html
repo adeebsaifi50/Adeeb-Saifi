@@ -1,836 +1,440 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="description"
-    content="Explore Earth, the Moon, Solar System and Milky Way through an interactive educational universe explorer."
-  >
+    <meta name="description"
+          content="Calculate your exact age, total days, hours, minutes and live seconds. Discover your birth day and next birthday.">
 
-  <title>Universe Explorer/Adeeb Saifi</title>
+    <meta name="theme-color" content="#08090c">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Life Counter — How Long Have You Been Alive?</title>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
-
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- ================= BACKGROUND ================= -->
+    <!-- Background -->
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
 
-  <div class="space-bg">
-    <div class="stars stars-a"></div>
-    <div class="stars stars-b"></div>
-    <div class="stars stars-c"></div>
-    <div class="nebula nebula-a"></div>
-    <div class="nebula nebula-b"></div>
-  </div>
+    <!-- HEADER -->
+    <header class="site-header">
 
+        <a href="#" class="brand">
+            <span class="brand-mark">L</span>
+            <span>Life Counter</span>
+        </a>
 
-  <!-- ================= HEADER ================= -->
-
-  <header class="topbar">
-
-    <div class="brand">
-
-      <div class="brand-mark">
-        ✦
-      </div>
-
-      <div class="brand-text">
-        <strong>Universe Explorer/Adeeb Saifi</strong>
-        <span>INTERACTIVE SPACE</span>
-      </div>
-
-    </div>
-
-    <div class="system-status">
-      <span class="status-dot"></span>
-      Solar System
-    </div>
-
-  </header>
-
-
-  <!-- ================= HERO ================= -->
-
-  <main>
-
-    <section class="hero">
-
-      <div class="eyebrow">
-        <span>✦</span>
-        EXPLORE OUR COSMIC NEIGHBOURHOOD
-      </div>
-
-      <h1>
-        Start with our
-        <span>Solar System.</span>
-      </h1>
-
-      <p>
-        Explore planets, orbital motion and real astronomical
-        information in an interactive educational experience.
-      </p>
-
-    </section>
-
-
-    <!-- ================= COSMIC SCALE ================= -->
-
-    <section class="cosmic-scale">
-
-      <div class="scale-line"></div>
-
-      <div class="scale-node active">
-        <span class="node-icon">◉</span>
-        <small>YOU</small>
-        <strong>Human</strong>
-      </div>
-
-      <div class="scale-node">
-        <span class="node-icon">🌍</span>
-        <small>PLANET</small>
-        <strong>Earth</strong>
-      </div>
-
-      <div class="scale-node">
-        <span class="node-icon">◐</span>
-        <small>SATELLITE</small>
-        <strong>Moon</strong>
-      </div>
-
-      <div class="scale-node active">
-        <span class="node-icon">☉</span>
-        <small>SYSTEM</small>
-        <strong>Solar System</strong>
-      </div>
-
-      <div class="scale-node">
-        <span class="node-icon">✦</span>
-        <small>GALAXY</small>
-        <strong>Milky Way</strong>
-      </div>
-
-      <div class="scale-node">
-        <span class="node-icon">✧</span>
-        <small>BEYOND</small>
-        <strong>Universe</strong>
-      </div>
-
-    </section>
-
-
-    <!-- ================= SPACE VIEW ================= -->
-
-    <section class="space-section">
-
-      <div class="space-toolbar">
-
-        <div>
-          <span class="toolbar-label">CURRENT VIEW</span>
-          <strong id="viewTitle">Solar System</strong>
+        <div class="header-status">
+            <span class="status-dot"></span>
+            Live
         </div>
 
-        <div class="simulation-state">
-          <span id="simulationDot"></span>
-          <span id="simulationText">SIMULATION RUNNING</span>
-        </div>
-
-      </div>
+    </header>
 
 
-      <div
-        class="space-view"
-        id="spaceView"
-      >
+    <main>
 
-        <div
-          class="space"
-          id="space"
-        >
+        <!-- HERO -->
+        <section class="hero">
 
-          <!-- SUN -->
-
-          <button
-            class="sun-object"
-            id="sunObject"
-            aria-label="Sun"
-          >
-            <span class="sun-corona"></span>
-            <span class="sun-surface"></span>
-          </button>
-
-
-          <!-- MERCURY -->
-
-          <div
-            class="orbit orbit-mercury"
-            data-orbit="mercury"
-          >
-            <button
-              class="planet mercury"
-              data-planet="Mercury"
-              aria-label="Mercury"
-            >
-              <span class="planet-name">Mercury</span>
-            </button>
-          </div>
-
-
-          <!-- VENUS -->
-
-          <div
-            class="orbit orbit-venus"
-            data-orbit="venus"
-          >
-            <button
-              class="planet venus"
-              data-planet="Venus"
-              aria-label="Venus"
-            >
-              <span class="planet-name">Venus</span>
-            </button>
-          </div>
-
-
-          <!-- EARTH -->
-
-          <div
-            class="orbit orbit-earth"
-            data-orbit="earth"
-          >
-
-            <button
-              class="planet earth"
-              data-planet="Earth"
-              aria-label="Earth"
-            >
-              <span class="planet-name">Earth</span>
-            </button>
-
-            <div class="moon-orbit">
-
-              <button
-                class="moon"
-                aria-label="Moon"
-              ></button>
-
+            <div class="hero-badge">
+                <span>✦</span>
+                YOUR LIFE IN NUMBERS
             </div>
 
-          </div>
-
-
-          <!-- MARS -->
-
-          <div
-            class="orbit orbit-mars"
-            data-orbit="mars"
-          >
-            <button
-              class="planet mars"
-              data-planet="Mars"
-              aria-label="Mars"
-            >
-              <span class="planet-name">Mars</span>
-            </button>
-          </div>
-
-
-          <!-- JUPITER -->
-
-          <div
-            class="orbit orbit-jupiter"
-            data-orbit="jupiter"
-          >
-            <button
-              class="planet jupiter"
-              data-planet="Jupiter"
-              aria-label="Jupiter"
-            >
-              <span class="planet-name">Jupiter</span>
-            </button>
-          </div>
-
-
-          <!-- SATURN -->
-
-          <div
-            class="orbit orbit-saturn"
-            data-orbit="saturn"
-          >
-
-            <button
-              class="planet saturn"
-              data-planet="Saturn"
-              aria-label="Saturn"
-            >
-              <span class="planet-name">Saturn</span>
-              <span class="saturn-ring"></span>
-            </button>
-
-          </div>
-
-
-          <!-- URANUS -->
-
-          <div
-            class="orbit orbit-uranus"
-            data-orbit="uranus"
-          >
-            <button
-              class="planet uranus"
-              data-planet="Uranus"
-              aria-label="Uranus"
-            >
-              <span class="planet-name">Uranus</span>
-            </button>
-          </div>
-
-
-          <!-- NEPTUNE -->
-
-          <div
-            class="orbit orbit-neptune"
-            data-orbit="neptune"
-          >
-            <button
-              class="planet neptune"
-              data-planet="Neptune"
-              aria-label="Neptune"
-            >
-              <span class="planet-name">Neptune</span>
-            </button>
-          </div>
-
-        </div>
-
-
-        <!-- ZOOM -->
-
-        <div class="zoom-controls">
-
-          <button id="zoomOut" aria-label="Zoom out">
-            −
-          </button>
-
-          <span id="zoomValue">100%</span>
-
-          <button id="zoomIn" aria-label="Zoom in">
-            +
-          </button>
-
-        </div>
-
-
-        <!-- FOLLOW -->
-
-        <div
-          class="follow-indicator hidden"
-          id="followIndicator"
-        >
-          <span>◎</span>
-          Following
-          <strong id="followingName">Earth</strong>
-
-          <button id="stopFollow">×</button>
-        </div>
-
-
-        <!-- VIEW LABEL -->
-
-        <div class="view-label">
-          <span></span>
-          THE SOLAR SYSTEM
-          <span></span>
-        </div>
-
-      </div>
-
-
-      <!-- ================= CONTROLS ================= -->
-
-      <div class="simulation-controls">
-
-        <button
-          class="control-button"
-          id="pauseBtn"
-        >
-          <span id="pauseIcon">Ⅱ</span>
-          <span id="pauseText">Pause</span>
-        </button>
-
-
-        <div class="speed-control">
-
-          <span class="speed-title">SPEED</span>
-
-          <button data-speed="0.5">
-            0.5×
-          </button>
-
-          <button
-            class="active"
-            data-speed="1"
-          >
-            1×
-          </button>
-
-          <button data-speed="10">
-            10×
-          </button>
-
-          <button data-speed="100">
-            100×
-          </button>
-
-          <button data-speed="1000">
-            1K×
-          </button>
-
-        </div>
-
-
-        <button
-          class="control-button"
-          id="resetView"
-        >
-          ↻ Reset
-        </button>
-
-
-        <button
-          class="control-button"
-          id="settingsBtn"
-        >
-          ⚙ Settings
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= INFORMATION PANEL ================= -->
-
-    <section
-      class="planet-panel"
-      id="planetPanel"
-    >
-
-      <div class="panel-empty" id="panelEmpty">
-
-        <div class="empty-icon">
-          ◌
-        </div>
-
-        <span>SELECT AN OBJECT</span>
-
-        <p>
-          Tap any planet to explore its astronomical information.
-        </p>
-
-      </div>
-
-
-      <div
-        class="planet-info hidden"
-        id="planetInfo"
-      >
-
-        <div class="planet-info-top">
-
-          <div>
-
-            <span class="info-eyebrow">
-              SELECTED OBJECT
-            </span>
-
-            <h2 id="infoName">
-              Earth
-            </h2>
-
-            <p id="infoDescription">
-              Our home planet and the only known world with life.
+            <h1>
+                How long have<br>
+                <span>you been alive?</span>
+            </h1>
+
+            <p class="hero-text">
+                Enter your date of birth and discover your life
+                in years, days, hours, minutes and live seconds.
             </p>
 
-          </div>
-
-          <div
-            class="large-planet earth-preview"
-            id="largePlanet"
-          ></div>
-
-        </div>
+        </section>
 
 
-        <div class="distance-cards">
+        <!-- INPUT CARD -->
+        <section class="input-section">
 
-          <div class="distance-card">
+            <div class="input-card">
 
-            <span>DISTANCE FROM SUN</span>
+                <div class="input-heading">
 
-            <strong id="sunDistance">
-              149.6 million km
-            </strong>
+                    <div>
+                        <span class="small-label">STEP 01</span>
+                        <h2>Enter your birth details</h2>
+                    </div>
 
-            <small id="sunDistanceSub">
-              Average orbital distance
-            </small>
+                    <span class="calendar-icon">⌁</span>
 
-          </div>
-
-
-          <div class="distance-card">
-
-            <span>DISTANCE FROM EARTH</span>
-
-            <strong id="earthDistance">
-              0 km
-            </strong>
-
-            <small id="earthDistanceSub">
-              You are here
-            </small>
-
-          </div>
-
-        </div>
+                </div>
 
 
-        <div class="stats-grid">
+                <div class="input-grid">
 
-          <div>
-            <span>TYPE</span>
-            <strong id="infoType">Rocky Planet</strong>
-          </div>
+                    <div class="field">
 
-          <div>
-            <span>DIAMETER</span>
-            <strong id="infoDiameter">12,742 km</strong>
-          </div>
+                        <label for="birthDate">
+                            Date of Birth
+                        </label>
 
-          <div>
-            <span>DAY</span>
-            <strong id="infoDay">23.93 hours</strong>
-          </div>
+                        <input
+                            type="date"
+                            id="birthDate"
+                            max=""
+                        >
 
-          <div>
-            <span>YEAR</span>
-            <strong id="infoYear">365.25 days</strong>
-          </div>
-
-          <div>
-            <span>GRAVITY</span>
-            <strong id="infoGravity">9.81 m/s²</strong>
-          </div>
-
-          <div>
-            <span>MOONS</span>
-            <strong id="infoMoons">1</strong>
-          </div>
-
-          <div>
-            <span>TEMPERATURE</span>
-            <strong id="infoTemperature">15°C</strong>
-          </div>
-
-          <div>
-            <span>ORBIT</span>
-            <strong id="infoOrbit">1 AU</strong>
-          </div>
-
-        </div>
+                    </div>
 
 
-        <div class="fact-box">
+                    <div class="field">
 
-          <span>SPACE FACT</span>
+                        <label for="birthTime">
+                            Birth Time
+                            <span>(optional)</span>
+                        </label>
 
-          <p id="infoFact">
-            Earth is the third planet from the Sun.
-          </p>
+                        <input
+                            type="time"
+                            id="birthTime"
+                        >
 
-        </div>
+                    </div>
+
+                </div>
 
 
-        <button
-          class="follow-button"
-          id="followBtn"
+                <button
+                    class="calculate-button"
+                    id="calculateButton"
+                    type="button"
+                >
+
+                    <span class="button-text">
+                        Calculate My Life
+                    </span>
+
+                    <span class="button-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <p class="privacy-note">
+                    Your information is processed locally in your browser.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- CALCULATING -->
+        <section
+            class="loading-section"
+            id="loadingSection"
         >
-          ◎ Follow Planet
-        </button>
 
-      </div>
+            <div class="loading-card">
 
-    </section>
+                <div class="loader-ring"></div>
 
+                <h2 id="loadingTitle">
+                    Calculating your life...
+                </h2>
 
-    <!-- ================= LEGEND ================= -->
+                <p id="loadingText">
+                    Preparing your numbers
+                </p>
 
-    <section class="legend">
+                <div class="loading-progress">
 
-      <div>
-        <i class="rocky-dot"></i>
-        Rocky planets
-      </div>
+                    <div
+                        class="loading-progress-bar"
+                        id="progressBar"
+                    ></div>
 
-      <div>
-        <i class="gas-dot"></i>
-        Gas / Ice giants
-      </div>
+                </div>
 
-      <div>
-        <i class="orbit-dot"></i>
-        Orbital paths
-      </div>
+            </div>
 
-    </section>
+        </section>
 
 
-    <!-- ================= EDUCATIONAL NOTE ================= -->
+        <!-- RESULTS -->
+        <section
+            class="results-section"
+            id="resultsSection"
+        >
 
-    <section class="education-note">
+            <div class="results-header">
 
-      <div class="note-icon">
-        ✦
-      </div>
+                <div>
 
-      <div>
+                    <span class="small-label">
+                        YOUR RESULTS
+                    </span>
 
-        <strong>
-          A note about scale
-        </strong>
+                    <h2>Your Life So Far</h2>
+
+                </div>
+
+                <button
+                    class="reset-button"
+                    id="resetButton"
+                >
+                    ↻ New Calculation
+                </button>
+
+            </div>
+
+
+            <!-- EXACT AGE -->
+            <div class="age-card">
+
+                <div class="age-label">
+                    YOUR CURRENT AGE
+                </div>
+
+                <div
+                    class="exact-age"
+                    id="exactAge"
+                >
+                    0 Years • 0 Months • 0 Days
+                </div>
+
+            </div>
+
+
+            <!-- STAT GRID -->
+            <div class="stats-grid">
+
+                <!-- DAYS -->
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ◷
+                    </div>
+
+                    <div class="stat-value" id="daysValue">
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        DAYS ALIVE
+                    </div>
+
+                </div>
+
+
+                <!-- HOURS -->
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ◴
+                    </div>
+
+                    <div class="stat-value" id="hoursValue">
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        HOURS ALIVE
+                    </div>
+
+                </div>
+
+
+                <!-- MINUTES -->
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ◵
+                    </div>
+
+                    <div class="stat-value" id="minutesValue">
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        MINUTES ALIVE
+                    </div>
+
+                </div>
+
+
+                <!-- SECONDS -->
+                <div class="stat-card seconds-card">
+
+                    <div class="live-label">
+                        <span class="live-dot"></span>
+                        LIVE
+                    </div>
+
+                    <div class="stat-icon">
+                        ⚡
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="secondsValue"
+                    >
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        SECONDS ALIVE
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DETAILS -->
+            <div class="details-grid">
+
+                <!-- BIRTH DAY -->
+                <div class="detail-card">
+
+                    <span class="detail-label">
+                        YOU WERE BORN ON
+                    </span>
+
+                    <div
+                        class="detail-main"
+                        id="birthDay"
+                    >
+                        —
+                    </div>
+
+                    <div
+                        class="detail-sub"
+                        id="birthDateDisplay"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <!-- NEXT BIRTHDAY -->
+                <div class="detail-card birthday-card">
+
+                    <span class="detail-label">
+                        NEXT BIRTHDAY
+                    </span>
+
+                    <div
+                        class="detail-main"
+                        id="nextBirthday"
+                    >
+                        —
+                    </div>
+
+                    <div
+                        class="detail-sub"
+                        id="nextBirthdayDate"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- COUNTDOWN -->
+            <div class="countdown-card">
+
+                <div class="countdown-heading">
+
+                    <div>
+
+                        <span class="detail-label">
+                            COUNTDOWN
+                        </span>
+
+                        <h3>
+                            Time until your next birthday
+                        </h3>
+
+                    </div>
+
+                    <div class="birthday-symbol">
+                        ✦
+                    </div>
+
+                </div>
+
+
+                <div class="countdown-grid">
+
+                    <div class="countdown-unit">
+                        <strong id="countDays">0</strong>
+                        <span>Days</span>
+                    </div>
+
+                    <div class="countdown-divider">:</div>
+
+                    <div class="countdown-unit">
+                        <strong id="countHours">00</strong>
+                        <span>Hours</span>
+                    </div>
+
+                    <div class="countdown-divider">:</div>
+
+                    <div class="countdown-unit">
+                        <strong id="countMinutes">00</strong>
+                        <span>Minutes</span>
+                    </div>
+
+                    <div class="countdown-divider">:</div>
+
+                    <div class="countdown-unit">
+                        <strong id="countSeconds">00</strong>
+                        <span>Seconds</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTNOTE -->
+            <p class="calculation-note">
+                Calculations update automatically using your local time.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
 
         <p>
-          Planet sizes and orbital distances in this visualization
-          are intentionally adjusted so that every world remains
-          visible and interactive. The astronomical values shown
-          in the information panel are based on real average values.
+            © 2026 Life Counter
         </p>
 
-      </div>
+        <span>
+            Built for curiosity.
+        </span>
 
-    </section>
+    </footer>
 
 
-    <!-- ================= SETTINGS MODAL ================= -->
-
-    <div
-      class="settings-overlay"
-      id="settingsOverlay"
-      aria-hidden="true"
-    >
-
-      <div class="settings-modal">
-
-        <div class="settings-header">
-
-          <div>
-            <span>EXPERIENCE</span>
-            <h2>Explorer Settings</h2>
-          </div>
-
-          <button
-            id="closeSettings"
-            class="modal-close"
-          >
-            ×
-          </button>
-
-        </div>
-
-
-        <div class="setting-row">
-
-          <div>
-            <strong>Orbital paths</strong>
-            <span>Show planetary orbit lines</span>
-          </div>
-
-          <label class="switch">
-            <input
-              type="checkbox"
-              id="settingOrbits"
-              checked
-            >
-            <span></span>
-          </label>
-
-        </div>
-
-
-        <div class="setting-row">
-
-          <div>
-            <strong>Planet labels</strong>
-            <span>Display planet names</span>
-          </div>
-
-          <label class="switch">
-            <input
-              type="checkbox"
-              id="settingLabels"
-              checked
-            >
-            <span></span>
-          </label>
-
-        </div>
-
-
-        <div class="setting-row">
-
-          <div>
-            <strong>Moon orbit</strong>
-            <span>Show Earth's Moon movement</span>
-          </div>
-
-          <label class="switch">
-            <input
-              type="checkbox"
-              id="settingMoon"
-              checked
-            >
-            <span></span>
-          </label>
-
-        </div>
-
-
-        <div class="setting-row">
-
-          <div>
-            <strong>Motion trails</strong>
-            <span>Add subtle orbital trails</span>
-          </div>
-
-          <label class="switch">
-            <input
-              type="checkbox"
-              id="settingTrails"
-            >
-            <span></span>
-          </label>
-
-        </div>
-
-
-        <div class="modal-actions">
-
-          <button id="restoreSettings">
-            Restore defaults
-          </button>
-
-          <button id="doneSettings">
-            Done
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- ================= MILKY WAY ================= -->
-
-    <section class="beyond-section">
-
-      <div class="section-eyebrow">
-        BEYOND THE SOLAR SYSTEM
-      </div>
-
-      <h2>
-        Our Solar System is only
-        <span>one small part.</span>
-      </h2>
-
-      <p>
-        The Sun and everything gravitationally bound to it travel
-        together through the Milky Way galaxy.
-      </p>
-
-
-      <div class="galaxy-card">
-
-        <div class="galaxy-visual">
-
-          <div class="galaxy-core"></div>
-
-          <div class="galaxy-arm arm-one"></div>
-          <div class="galaxy-arm arm-two"></div>
-          <div class="galaxy-arm arm-three"></div>
-          <div class="galaxy-arm arm-four"></div>
-
-          <div class="galaxy-sun"></div>
-
-        </div>
-
-
-        <div class="galaxy-content">
-
-          <span>GALAXY</span>
-
-          <h3>Milky Way</h3>
-
-          <p>
-            The Solar System orbits the centre of the Milky Way.
-            One trip around the galaxy takes roughly
-            <strong>230 million years</strong>.
-          </p>
-
-          <div class="galaxy-stats">
-
-            <div>
-              <small>TYPE</small>
-              <strong>Barred Spiral</strong>
-            </div>
-
-            <div>
-              <small>AGE</small>
-              <strong>~13.6 billion years</strong>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- ================= FOOTER ================= -->
-
-  <footer>
-
-    <span>
-      Universe Explorer
-    </span>
-
-    <span>
-      Educational visualization
-    </span>
-
-  </footer>
-
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>
