@@ -335,3 +335,53 @@ window.addEventListener("load", () => {
   document.body.classList.add("loaded");
 
 });
+/* =========================
+   WEBSITE GLOBAL SEARCH
+========================= */
+
+const searchInput = document.getElementById("siteSearch");
+const searchResults = document.getElementById("searchResults");
+
+if (searchInput && searchResults && typeof sitePages !== "undefined") {
+
+  searchInput.addEventListener("input", function () {
+
+    const query = this.value.trim().toLowerCase();
+
+    if (!query) {
+      searchResults.innerHTML = "";
+      return;
+    }
+
+    const results = sitePages.filter(page =>
+      page.name.toLowerCase().includes(query) ||
+      page.description.toLowerCase().includes(query)
+    );
+
+    if (results.length === 0) {
+
+      searchResults.innerHTML = `
+        <div class="no-results">
+          <div>🔍</div>
+          <strong>No results found</strong>
+          <span>Try another search</span>
+        </div>
+      `;
+
+      return;
+    }
+
+    searchResults.innerHTML = results.map(page => `
+      <a href="${page.url}">
+        <i>${page.icon}</i>
+
+        <span>
+          <strong>${page.name}</strong>
+          <small>${page.description}</small>
+        </span>
+      </a>
+    `).join("");
+
+  });
+
+}
