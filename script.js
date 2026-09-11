@@ -56,6 +56,8 @@ const searchBtn = document.getElementById("searchBtn");
 const searchOverlay = document.getElementById("searchOverlay");
 const closeSearch = document.getElementById("closeSearch");
 const searchInput = document.getElementById("siteSearch");
+const searchResults = document.getElementById("searchResults");
+
 
 function openSearch() {
 
@@ -69,6 +71,7 @@ function openSearch() {
 
 }
 
+
 function closeSearchBox() {
 
   searchOverlay.classList.remove("open");
@@ -77,43 +80,119 @@ function closeSearchBox() {
 
   searchInput.value = "";
 
-  filterSearch("");
+  renderSearchResults("");
 
 }
+
 
 searchBtn.addEventListener("click", openSearch);
 
 closeSearch.addEventListener("click", closeSearchBox);
 
 
-/* Search filtering */
+/* ================= GLOBAL SEARCH ================= */
 
-const searchItems = document.querySelectorAll(".search-results a");
-
-function filterSearch(value) {
+function renderSearchResults(value) {
 
   const query = value.toLowerCase().trim();
 
-  searchItems.forEach(item => {
 
-    const text = item.textContent.toLowerCase();
+  /* Empty search */
 
-    if (text.includes(query)) {
-      item.style.display = "flex";
-    } else {
-      item.style.display = "none";
-    }
+  if (!query) {
 
-  });
+    searchResults.innerHTML = `
+      
+      <div class="search-hint">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span>Search my pages, tools and features</span>
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  /* Find pages */
+
+  const results = sitePages.filter(page =>
+
+    page.name.toLowerCase().includes(query) ||
+
+    page.description.toLowerCase().includes(query)
+
+  );
+
+
+  /* No result */
+
+  if (results.length === 0) {
+
+    searchResults.innerHTML = `
+
+      <div class="no-results">
+
+        <div>🔍</div>
+
+        <strong>No results found</strong>
+
+        <span>Try searching something else</span>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  /* Show results */
+
+  searchResults.innerHTML = results.map(page => `
+
+    <a href="${page.url}">
+
+      <i>${page.icon}</i>
+
+      <span>
+
+        <strong>${page.name}</strong>
+
+        <small>${page.description}</small>
+
+      </span>
+
+      <b>→</b>
+
+    </a>
+
+  `).join("");
 
 }
 
+
+/* Search typing */
+
 searchInput.addEventListener("input", () => {
 
-  filterSearch(searchInput.value);
+  renderSearchResults(searchInput.value);
 
 });
 
+
+/* ================= SEARCH BACKDROP ================= */
+
+searchOverlay.addEventListener("click", event => {
+
+  if (event.target === searchOverlay) {
+
+    closeSearchBox();
+
+  }
+
+});
 
 /* ================= THEME ================= */
 
@@ -335,53 +414,3 @@ window.addEventListener("load", () => {
   document.body.classList.add("loaded");
 
 });
-/* =========================
-   WEBSITE GLOBAL SEARCH
-========================= */
-
-const searchInput = document.getElementById("siteSearch");
-const searchResults = document.getElementById("searchResults");
-
-if (searchInput && searchResults && typeof sitePages !== "undefined") {
-
-  searchInput.addEventListener("input", function () {
-
-    const query = this.value.trim().toLowerCase();
-
-    if (!query) {
-      searchResults.innerHTML = "";
-      return;
-    }
-
-    const results = sitePages.filter(page =>
-      page.name.toLowerCase().includes(query) ||
-      page.description.toLowerCase().includes(query)
-    );
-
-    if (results.length === 0) {
-
-      searchResults.innerHTML = `
-        <div class="no-results">
-          <div>🔍</div>
-          <strong>No results found</strong>
-          <span>Try another search</span>
-        </div>
-      `;
-
-      return;
-    }
-
-    searchResults.innerHTML = results.map(page => `
-      <a href="${page.url}">
-        <i>${page.icon}</i>
-
-        <span>
-          <strong>${page.name}</strong>
-          <small>${page.description}</small>
-        </span>
-      </a>
-    `).join("");
-
-  });
-
-}
