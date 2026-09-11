@@ -335,3 +335,54 @@ window.addEventListener("load", () => {
   document.body.classList.add("loaded");
 
 });
+const searchInput = document.getElementById("siteSearch");
+const searchResults = document.getElementById("searchResults");
+
+searchInput.addEventListener("input", function () {
+
+  const query = this.value.trim().toLowerCase();
+
+  if (!query) {
+    searchResults.innerHTML = "";
+    searchResults.classList.remove("show");
+    return;
+  }
+
+  const results = sitePages.filter(page =>
+    page.name.toLowerCase().includes(query) ||
+    page.description.toLowerCase().includes(query)
+  );
+
+  if (results.length === 0) {
+
+    searchResults.innerHTML = `
+      <div class="no-results">
+        <div>🔍</div>
+        <strong>No results found</strong>
+        <span>Try another search</span>
+      </div>
+    `;
+
+  } else {
+
+    searchResults.innerHTML = results.map(page => `
+      <a href="${page.url}" class="search-result">
+
+        <div class="result-icon">
+          ${page.icon}
+        </div>
+
+        <div class="result-info">
+          <strong>${page.name}</strong>
+          <span>${page.description}</span>
+        </div>
+
+        <div class="result-arrow">→</div>
+
+      </a>
+    `).join("");
+
+  }
+
+  searchResults.classList.add("show");
+});
