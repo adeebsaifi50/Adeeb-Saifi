@@ -394,18 +394,6 @@ scrollTop.addEventListener("click", () => {
 });
 
 
-/* ================= SEARCH OVERLAY BACKDROP ================= */
-
-searchOverlay.addEventListener("click", event => {
-
-  if (event.target === searchOverlay) {
-
-    closeSearchBox();
-
-  }
-
-});
-
 
 /* ================= PAGE LOAD ================= */
 
