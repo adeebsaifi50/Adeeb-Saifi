@@ -1485,4 +1485,337 @@ footer {
 }
 
 .footer-socials {
-  display: fl
+  display: flex;
+  gap: 8px;
+}
+
+.footer-socials a {
+  width: 36px;
+  height: 36px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid var(--line);
+
+  border-radius: 10px;
+
+  color: #7d8796;
+
+  transition: var(--transition);
+}
+
+.footer-socials a:hover {
+  color: white;
+  background: rgba(255,255,255,.06);
+}
+
+.footer-bottom {
+  margin-top: 35px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid var(--line);
+
+  display: flex;
+
+  justify-content: space-between;
+
+  color: #596273;
+
+  font-size: 10px;
+}
+
+
+/* =====================================================
+   SCROLL TOP
+===================================================== */
+
+#scrollTop {
+  position: fixed;
+
+  right: 25px;
+  bottom: 25px;
+
+  width: 43px;
+  height: 43px;
+
+  border-radius: 13px;
+
+  border: 1px solid var(--line);
+
+  background: #111720;
+
+  color: white;
+
+  cursor: pointer;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(10px);
+
+  transition: var(--transition);
+
+  z-index: 90;
+}
+
+#scrollTop.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+
+/* =====================================================
+   REVEAL
+===================================================== */
+
+.reveal {
+  opacity: 0;
+
+  transform: translateY(25px);
+
+  transition:
+    opacity .8s ease,
+    transform .8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =====================================================
+   LIGHT MODE
+===================================================== */
+
+body.light {
+  --bg: #f7f9fc;
+  --bg-soft: #ffffff;
+
+  --text: #111827;
+  --muted: #64748b;
+
+  --card: rgba(15,23,42,.035);
+  --card-hover: rgba(15,23,42,.065);
+
+  --line: rgba(15,23,42,.10);
+}
+
+body.light .navbar {
+  background: rgba(247,249,252,.82);
+}
+
+body.light .navbar.scrolled {
+  background: rgba(247,249,252,.95);
+}
+
+body.light .desktop-nav a {
+  color: #64748b;
+}
+
+body.light .desktop-nav a:hover,
+body.light .desktop-nav a.active {
+  color: #111827;
+}
+
+body.light .hero h2 {
+  color: #374151;
+}
+
+body.light .hero-text,
+body.light .section-heading > p,
+body.light .project-card p,
+body.light .journey-card p,
+body.light .about-content > p,
+body.light .contact-card p {
+  color: #64748b;
+}
+
+body.light .mobile-menu,
+body.light .search-box {
+  background: #ffffff;
+  color: #111827;
+}
+
+body.light .search-input input {
+  color: #111827;
+}
+
+body.light .profile-card,
+body.light .floating-card {
+  background: rgba(255,255,255,.8);
+}
+
+body.light .project-card,
+body.light .journey-card,
+body.light .about-section,
+body.light .contact-card {
+  background: rgba(255,255,255,.7);
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .menu-btn {
+    display: grid;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+
+    padding-top: 80px;
+  }
+
+  .hero-text {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-buttons,
+  .social-apps {
+    justify-content: center;
+  }
+
+  .hero-visual {
+    min-height: 480px;
+  }
+
+  .quick-links {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .journey-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-section {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .stats div:nth-child(2) {
+    border-right: none;
+  }
+
+  .stats div {
+    margin-bottom: 15px;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .navbar {
+    padding: 0 18px;
+  }
+
+  .hero {
+    padding: 65px 20px 80px;
+  }
+
+  .hero h1 {
+    font-size: 65px;
+    letter-spacing: -3px;
+  }
+
+  .hero h2 {
+    font-size: 15px;
+  }
+
+  .hero h2 b {
+    display: none;
+  }
+
+  .hero-visual {
+    min-height: 430px;
+  }
+
+  .profile-card {
+    width: 250px;
+  }
+
+  .ring-1 {
+    width: 340px;
+    height: 340px;
+  }
+
+  .ring-2 {
+    width: 410px;
+    height: 410px;
+  }
+
+  .floating-one {
+    left: -2px;
+  }
+
+  .floating-two {
+    right: -2px;
+  }
+
+  .quick-links,
+  .section,
+  .contact-section {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .stats {
+    margin-left: 18px;
+    margin-right: 18px;
+    padding: 15px 5px;
+  }
+
+  .stats strong {
+    font-size: 25px;
+  }
+
+  .section-heading h2,
+  .about-content h2,
+  .contact-card h2 {
+    font-size: 36px;
+  }
+
+  .about-section {
+    margin-left: 18px;
+    margin-right: 18px;
+
+    padding: 40px 25px;
+  }
+
+  .contact-card {
+    padding: 55px 20px;
+  }
+
+  .footer-top,
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+}
