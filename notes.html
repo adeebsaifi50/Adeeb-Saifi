@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Secret Notes | Adeeb Saifi</title>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -16,12 +18,14 @@ body {
   padding:30px 20px;
   min-height:100vh;
 }
+
 h1{
   text-align:center;
   margin-bottom:20px;
   font-size:2em;
   text-shadow:0 0 10px #00ff8a;
 }
+
 textarea{
   width:350px;
   max-width:90%;
@@ -35,6 +39,7 @@ textarea{
   background:#1e1e1e;
   color:#00ff8a;
 }
+
 .button-group{
   display:flex;
   flex-wrap:wrap;
@@ -42,7 +47,9 @@ textarea{
   justify-content:center;
   margin-bottom:20px;
 }
-button,input[type=file]{
+
+button,
+input[type=file]{
   padding:10px 20px;
   border-radius:10px;
   border:none;
@@ -52,11 +59,14 @@ button,input[type=file]{
   cursor:pointer;
   transition:all 0.3s ease;
 }
-button:hover,input[type=file]:hover{
+
+button:hover,
+input[type=file]:hover{
   background:#00d278;
   transform:scale(1.05);
   box-shadow:0 0 10px #00ff8a;
 }
+
 footer{
   text-align:center;
   padding:15px;
@@ -65,46 +75,86 @@ footer{
   margin-top:auto;
   width:100%;
 }
+
 @media(max-width:500px){
-  h1{font-size:1.8em;}
-  textarea,button,input[type=file]{width:90%;}
+  h1{
+    font-size:1.8em;
+  }
+
+  textarea,
+  button,
+  input[type=file]{
+    width:90%;
+  }
 }
-</style>
-</head>
-<body>
 
-<h1>📝 Secret Notes</h1>
 
-<textarea id="notesArea" placeholder="Type your secret notes here..."></textarea>
+/* ============================= */
+/* PowerShell Code Box */
+/* ============================= */
 
-<div class="button-group">
-  <button id="downloadBtn"><i class="fas fa-download"></i> Download</button>
-  <input type="file" id="uploadNote" accept=".txt">
-  <button id="clearBtn"><i class="fas fa-trash"></i> Clear</button>
-  <button onclick="window.location.href='feature.html'"><i class="fas fa-arrow-left"></i> Back to Feature Hub</button>
-</div>
-  
-<style>
 .code-box {
     position: relative;
     background: #111;
     border-radius: 12px;
     padding: 50px 15px 15px;
     margin: 20px 0;
+    width: 100%;
+    box-sizing: border-box;
     overflow: hidden;
 }
 
-.code-box button {
+
+/* Top controls */
+.code-controls {
     position: absolute;
-    top: 12px;
+    top: 10px;
     right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+/* Seconds label */
+.seconds-label {
+    color: #00ff8a;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+/* Seconds input */
+#secondsInput {
+    width: 55px;
+    height: 30px;
+    padding: 4px 7px;
+    border: none;
+    border-radius: 6px;
+    background: #222;
+    color: #00ff8a;
+    text-align: center;
+    font-weight: bold;
+    outline: none;
+    box-sizing: border-box;
+}
+
+
+/* Copy button */
+.code-controls button {
+    position: static;
     padding: 8px 14px;
     border: none;
     border-radius: 7px;
     cursor: pointer;
     font-size: 14px;
+    background: #00ff8a;
+    color: #021;
+    font-weight: bold;
 }
 
+
+/* Code */
 .code-box pre {
     margin: 0;
     color: #fff;
@@ -118,16 +168,87 @@ footer{
 .code-box code {
     font-family: inherit;
 }
-</style>
 
+
+/* Mobile */
+@media(max-width:500px){
+
+    .code-controls {
+        right: 8px;
+        gap: 5px;
+    }
+
+    .seconds-label {
+        font-size: 11px;
+    }
+
+    #secondsInput {
+        width: 48px;
+        height: 28px;
+        font-size: 12px;
+    }
+
+    .code-controls button {
+        padding: 7px 9px;
+        font-size: 12px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<h1>📝 Secret Notes</h1>
+
+<textarea id="notesArea" placeholder="Type your secret notes here..."></textarea>
+
+<div class="button-group">
+
+  <button id="downloadBtn">
+    <i class="fas fa-download"></i> Download
+  </button>
+
+  <input type="file" id="uploadNote" accept=".txt">
+
+  <button id="clearBtn">
+    <i class="fas fa-trash"></i> Clear
+  </button>
+
+  <button onclick="window.location.href='feature.html'">
+    <i class="fas fa-arrow-left"></i> Back to Feature Hub
+  </button>
+
+</div>
+
+
+<!-- ============================= -->
+<!-- PowerShell Code -->
+<!-- ============================= -->
 
 <div class="code-box">
 
-    <button onclick="copyCode()">📋 Copy Code</button>
+    <div class="code-controls">
 
-    <pre id="powerShellCode"><code>
+        <span class="seconds-label">Seconds:</span>
 
-      Add-Type @"
+        <input
+            type="number"
+            id="secondsInput"
+            value="5"
+            min="1"
+            step="1"
+            title="Enter seconds and press Enter"
+        >
+
+        <button onclick="copyCode()" id="copyButton">
+            📋 Copy Code
+        </button>
+
+    </div>
+
+
+    <pre id="powerShellCode"><code>Add-Type @"
 using System;
 using System.Runtime.InteropServices;
 
@@ -234,11 +355,9 @@ try {
             # Space
             [System.Windows.Forms.SendKeys]::SendWait(" ")
 
-            # Next run after 5 seconds
+            # Next run after selected seconds
             $nextWork = [DateTime]::Now.AddSeconds(5)
         }
-
-        Start-Sleep -Milliseconds 5
     }
 }
 finally {
@@ -249,59 +368,158 @@ finally {
 
 }</code></pre>
 
+</div>
+
+
 <script>
+
+/* ========================================= */
+/* Seconds Change */
+/* ========================================= */
+
+const secondsInput = document.getElementById("secondsInput");
+const powerShellCode = document.getElementById("powerShellCode");
+const copyButton = document.getElementById("copyButton");
+
+
+function updateSeconds() {
+
+    let seconds = parseInt(secondsInput.value);
+
+    /* Invalid value */
+    if (isNaN(seconds) || seconds < 1) {
+        seconds = 5;
+        secondsInput.value = 5;
+    }
+
+    /*
+       Find the PowerShell AddSeconds value
+       and replace it with selected seconds.
+    */
+
+    powerShellCode.innerText =
+        powerShellCode.innerText.replace(
+            /\$nextWork = \[DateTime\]::Now\.AddSeconds\(\d+\)/,
+            "$nextWork = [DateTime]::Now.AddSeconds(" + seconds + ")"
+        );
+}
+
+
+/* Press Enter after entering seconds */
+secondsInput.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+
+        event.preventDefault();
+
+        updateSeconds();
+
+        secondsInput.blur();
+    }
+
+});
+
+
+/* ========================================= */
+/* Copy Code */
+/* ========================================= */
+
 function copyCode() {
-    const code = document.getElementById("powerShellCode").innerText;
+
+    const code = powerShellCode.innerText;
 
     navigator.clipboard.writeText(code).then(function() {
 
-        const button = document.querySelector(".code-box button");
-        button.innerText = "✅ Copied!";
+        copyButton.innerText = "✅ Copied!";
 
         setTimeout(function() {
-            button.innerText = "📋 Copy Code";
+            copyButton.innerText = "📋 Copy Code";
         }, 1500);
 
     }).catch(function() {
+
         alert("Code copy nahi ho paya.");
+
     });
+
 }
+
+
+/* ========================================= */
+/* Download note */
+/* ========================================= */
+
+document.getElementById('downloadBtn').addEventListener('click', function(){
+
+    const text = document.getElementById('notesArea').value;
+
+    const blob = new Blob([text], {
+        type: "text/plain"
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+
+    a.href = url;
+    a.download = 'note.txt';
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+});
+
+
+/* ========================================= */
+/* Upload note */
+/* ========================================= */
+
+document.getElementById('uploadNote').addEventListener('change', function(e){
+
+    const file = e.target.files[0];
+
+    if(!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(evt){
+
+        document.getElementById('notesArea').value =
+            evt.target.result;
+
+    }
+
+    reader.readAsText(file);
+
+});
+
+
+/* ========================================= */
+/* Clear textarea */
+/* ========================================= */
+
+document.getElementById('clearBtn').addEventListener('click', function(){
+
+    document.getElementById('notesArea').value = '';
+
+});
+
 </script>
 
 
 <footer>
-  &copy; 2025 Adeeb Saifi | <a href="feature.html" style="color:#00ff8a; text-decoration:none;">Back to Feature Hub</a>
+
+  &copy; 2026 Adeeb Saifi |
+
+  <a
+    href="feature.html"
+    style="color:#00ff8a; text-decoration:none;"
+  >
+    Back to Feature Hub
+  </a>
+
 </footer>
-
-<script>
-// Download note
-document.getElementById('downloadBtn').addEventListener('click', function(){
-  const text = document.getElementById('notesArea').value;
-  const blob = new Blob([text], { type: "text/plain" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'note.txt';
-  a.click();
-  URL.revokeObjectURL(url);
-});
-
-// Upload note
-document.getElementById('uploadNote').addEventListener('change', function(e){
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = function(evt){
-    document.getElementById('notesArea').value = evt.target.result;
-  }
-  reader.readAsText(file);
-});
-
-// Clear textarea
-document.getElementById('clearBtn').addEventListener('click', function(){
-  document.getElementById('notesArea').value='';
-});
-</script>
 
 </body>
   </html>
